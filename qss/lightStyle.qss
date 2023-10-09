@@ -1,32 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>916</width>
-    <height>750</height>
-   </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>Ubuntu</family>
-    <pointsize>11</pointsize>
-   </font>
-  </property>
-  <property name="windowTitle">
-   <string>SigView</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">/* ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------
 
     WARNING! File created programmatically. All changes made in this file will be lost!
 
     Created by the qtsass compiler v0.3.0
 
-    The definitions are in the &quot;qdarkstyle.qss._styles.scss&quot; module
+    The definitions are in the "qdarkstyle.qss._styles.scss" module
 
 --------------------------------------------------------------------------- */
 /* Dark Style - QDarkStyleSheet ------------------------------------------ */
@@ -109,14 +87,14 @@ QMainWindow::separator:horizontal {
   width: 5px;
   margin-top: 2px;
   margin-bottom: 2px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_separator_vertical.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_separator_vertical.png");
 }
 
 QMainWindow::separator:vertical {
   height: 5px;
   margin-left: 2px;
   margin-right: 2px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_separator_horizontal.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_separator_horizontal.png");
 }
 
 /* QToolTip ---------------------------------------------------------------
@@ -195,41 +173,41 @@ QCheckBox::indicator {
 }
 
 QCheckBox::indicator:unchecked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked.png");
 }
 
 QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_focus.png");
 }
 
 QCheckBox::indicator:unchecked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_disabled.png");
 }
 
 QCheckBox::indicator:checked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked.png");
 }
 
 QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_focus.png");
 }
 
 QCheckBox::indicator:checked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_disabled.png");
 }
 
 QCheckBox::indicator:indeterminate {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate.png");
 }
 
 QCheckBox::indicator:indeterminate:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate_disabled.png");
 }
 
 QCheckBox::indicator:indeterminate:focus, QCheckBox::indicator:indeterminate:hover, QCheckBox::indicator:indeterminate:pressed {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate_focus.png");
 }
 
 /* QGroupBox --------------------------------------------------------------
@@ -265,30 +243,30 @@ QGroupBox::indicator {
 
 QGroupBox::indicator:unchecked {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked.png");
 }
 
 QGroupBox::indicator:unchecked:hover, QGroupBox::indicator:unchecked:focus, QGroupBox::indicator:unchecked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_focus.png");
 }
 
 QGroupBox::indicator:unchecked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_disabled.png");
 }
 
 QGroupBox::indicator:checked {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked.png");
 }
 
 QGroupBox::indicator:checked:hover, QGroupBox::indicator:checked:focus, QGroupBox::indicator:checked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_focus.png");
 }
 
 QGroupBox::indicator:checked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_disabled.png");
 }
 
 /* QRadioButton -----------------------------------------------------------
@@ -335,34 +313,34 @@ QRadioButton::indicator {
 }
 
 QRadioButton::indicator:unchecked {
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked.png");
 }
 
 QRadioButton::indicator:unchecked:hover, QRadioButton::indicator:unchecked:focus, QRadioButton::indicator:unchecked:pressed {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked_focus.png");
 }
 
 QRadioButton::indicator:unchecked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked_disabled.png");
 }
 
 QRadioButton::indicator:checked {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked.png");
 }
 
 QRadioButton::indicator:checked:hover, QRadioButton::indicator:checked:focus, QRadioButton::indicator:checked:pressed {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked_focus.png");
 }
 
 QRadioButton::indicator:checked:disabled {
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked_disabled.png");
 }
 
 /* QMenuBar ---------------------------------------------------------------
@@ -453,78 +431,78 @@ QMenu::indicator {
 }
 
 QMenu::indicator:non-exclusive:unchecked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked.png");
 }
 
 QMenu::indicator:non-exclusive:unchecked:hover, QMenu::indicator:non-exclusive:unchecked:focus, QMenu::indicator:non-exclusive:unchecked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_focus.png");
 }
 
 QMenu::indicator:non-exclusive:unchecked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_disabled.png");
 }
 
 QMenu::indicator:non-exclusive:checked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked.png");
 }
 
 QMenu::indicator:non-exclusive:checked:hover, QMenu::indicator:non-exclusive:checked:focus, QMenu::indicator:non-exclusive:checked:pressed {
   border: none;
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_focus.png");
 }
 
 QMenu::indicator:non-exclusive:checked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_disabled.png");
 }
 
 QMenu::indicator:non-exclusive:indeterminate {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate.png");
 }
 
 QMenu::indicator:non-exclusive:indeterminate:disabled {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate_disabled.png");
 }
 
 QMenu::indicator:non-exclusive:indeterminate:focus, QMenu::indicator:non-exclusive:indeterminate:hover, QMenu::indicator:non-exclusive:indeterminate:pressed {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate_focus.png");
 }
 
 QMenu::indicator:exclusive:unchecked {
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked.png");
 }
 
 QMenu::indicator:exclusive:unchecked:hover, QMenu::indicator:exclusive:unchecked:focus, QMenu::indicator:exclusive:unchecked:pressed {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked_focus.png");
 }
 
 QMenu::indicator:exclusive:unchecked:disabled {
-  image: url(&quot;:/qss_icons/light/rc/radio_unchecked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_unchecked_disabled.png");
 }
 
 QMenu::indicator:exclusive:checked {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked.png");
 }
 
 QMenu::indicator:exclusive:checked:hover, QMenu::indicator:exclusive:checked:focus, QMenu::indicator:exclusive:checked:pressed {
   border: none;
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked_focus.png");
 }
 
 QMenu::indicator:exclusive:checked:disabled {
   outline: none;
-  image: url(&quot;:/qss_icons/light/rc/radio_checked_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/radio_checked_disabled.png");
 }
 
 QMenu::right-arrow {
   margin: 5px;
   padding-left: 12px;
-  image: url(&quot;:/qss_icons/light/rc/arrow_right.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_right.png");
   height: 12px;
   width: 12px;
 }
@@ -630,7 +608,7 @@ QScrollBar::handle:vertical:focus {
 
 QScrollBar::add-line:horizontal {
   margin: 0px 0px 0px 0px;
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_right_disabled.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_right_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: right;
@@ -638,7 +616,7 @@ QScrollBar::add-line:horizontal {
 }
 
 QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_right.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_right.png");
   height: 12px;
   width: 12px;
   subcontrol-position: right;
@@ -647,7 +625,7 @@ QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
 
 QScrollBar::add-line:vertical {
   margin: 3px 0px 3px 0px;
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_down_disabled.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_down_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: bottom;
@@ -655,7 +633,7 @@ QScrollBar::add-line:vertical {
 }
 
 QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_down.png");
   height: 12px;
   width: 12px;
   subcontrol-position: bottom;
@@ -664,7 +642,7 @@ QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
 
 QScrollBar::sub-line:horizontal {
   margin: 0px 3px 0px 3px;
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_left_disabled.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_left_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: left;
@@ -672,7 +650,7 @@ QScrollBar::sub-line:horizontal {
 }
 
 QScrollBar::sub-line:horizontal:hover, QScrollBar::sub-line:horizontal:on {
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_left.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_left.png");
   height: 12px;
   width: 12px;
   subcontrol-position: left;
@@ -681,7 +659,7 @@ QScrollBar::sub-line:horizontal:hover, QScrollBar::sub-line:horizontal:on {
 
 QScrollBar::sub-line:vertical {
   margin: 3px 0px 3px 0px;
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_up_disabled.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_up_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: top;
@@ -689,7 +667,7 @@ QScrollBar::sub-line:vertical {
 }
 
 QScrollBar::sub-line:vertical:hover, QScrollBar::sub-line:vertical:on {
-  border-image: url(&quot;:/qss_icons/light/rc/arrow_up.png&quot;);
+  border-image: url(":/qss_icons/light/rc/arrow_up.png");
   height: 12px;
   width: 12px;
   subcontrol-position: top;
@@ -761,7 +739,7 @@ QSizeGrip {
   background: transparent;
   width: 12px;
   height: 12px;
-  image: url(&quot;:/qss_icons/light/rc/window_grip.png&quot;);
+  image: url(":/qss_icons/light/rc/window_grip.png");
 }
 
 /* QStackedWidget ---------------------------------------------------------
@@ -793,29 +771,29 @@ QToolBar:disabled {
 
 QToolBar::handle:horizontal {
   width: 16px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_move_horizontal.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_move_horizontal.png");
 }
 
 QToolBar::handle:vertical {
   height: 16px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_move_vertical.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_move_vertical.png");
 }
 
 QToolBar::separator:horizontal {
   width: 16px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_separator_horizontal.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_separator_horizontal.png");
 }
 
 QToolBar::separator:vertical {
   height: 16px;
-  image: url(&quot;:/qss_icons/light/rc/toolbar_separator_vertical.png&quot;);
+  image: url(":/qss_icons/light/rc/toolbar_separator_vertical.png");
 }
 
 QToolButton#qt_toolbar_ext_button {
   background: #C9CDD0;
   border: 0px;
   color: #19232D;
-  image: url(&quot;:/qss_icons/light/rc/arrow_right.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_right.png");
 }
 
 /* QAbstractSpinBox -------------------------------------------------------
@@ -849,13 +827,13 @@ QAbstractSpinBox:up-button {
 }
 
 QAbstractSpinBox::up-arrow, QAbstractSpinBox::up-arrow:disabled, QAbstractSpinBox::up-arrow:off {
-  image: url(&quot;:/qss_icons/light/rc/arrow_up_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_up_disabled.png");
   height: 8px;
   width: 8px;
 }
 
 QAbstractSpinBox::up-arrow:hover {
-  image: url(&quot;:/qss_icons/light/rc/arrow_up.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_up.png");
 }
 
 QAbstractSpinBox:down-button {
@@ -872,13 +850,13 @@ QAbstractSpinBox:down-button {
 }
 
 QAbstractSpinBox::down-arrow, QAbstractSpinBox::down-arrow:disabled, QAbstractSpinBox::down-arrow:off {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down_disabled.png");
   height: 8px;
   width: 8px;
 }
 
 QAbstractSpinBox::down-arrow:hover {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
 }
 
 QAbstractSpinBox:hover {
@@ -1155,27 +1133,27 @@ QToolButton:selected {
   color: #19232D;
 }
 
-QToolButton[popupMode=&quot;0&quot;] {
+QToolButton[popupMode="0"] {
   /* Only for DelayedPopup */
   padding-right: 2px;
 }
 
-QToolButton[popupMode=&quot;1&quot;] {
+QToolButton[popupMode="1"] {
   /* Only for MenuButtonPopup */
   padding-right: 20px;
 }
 
-QToolButton[popupMode=&quot;1&quot;]::menu-button {
+QToolButton[popupMode="1"]::menu-button {
   border: none;
 }
 
-QToolButton[popupMode=&quot;1&quot;]::menu-button:hover {
+QToolButton[popupMode="1"]::menu-button:hover {
   border: none;
   border-left: 1px solid #C9CDD0;
   border-radius: 0;
 }
 
-QToolButton[popupMode=&quot;2&quot;] {
+QToolButton[popupMode="2"] {
   /* Only for InstantPopup */
   padding-right: 2px;
 }
@@ -1197,7 +1175,7 @@ QToolButton::menu-button:checked:hover {
 }
 
 QToolButton::menu-indicator {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
   height: 8px;
   width: 8px;
   top: 0;
@@ -1207,13 +1185,13 @@ QToolButton::menu-indicator {
 }
 
 QToolButton::menu-arrow {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
   height: 8px;
   width: 8px;
 }
 
 QToolButton::menu-arrow:hover {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down_focus.png");
 }
 
 /* QCommandLinkButton -----------------------------------------------------
@@ -1311,11 +1289,11 @@ QComboBox::indicator:alternate {
 
 QComboBox::item {
   /* Remove to fix #282, #285 and MR #288*/
-  /*&amp;:checked {
+  /*&:checked {
             font-weight: bold;
         }
 
-        &amp;:selected {
+        &:selected {
             border: 0px solid transparent;
         }
         */
@@ -1333,13 +1311,13 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down_disabled.png");
   height: 8px;
   width: 8px;
 }
 
 QComboBox::down-arrow:on, QComboBox::down-arrow:hover, QComboBox::down-arrow:focus {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
 }
 
 /* QSlider ----------------------------------------------------------------
@@ -1515,15 +1493,15 @@ QTabBar::close-button, QDockWidget QTabBar::close-button {
   border: 0;
   margin: 0;
   padding: 4px;
-  image: url(&quot;:/qss_icons/light/rc/window_close.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close.png");
 }
 
 QTabBar::close-button:hover, QDockWidget QTabBar::close-button:hover {
-  image: url(&quot;:/qss_icons/light/rc/window_close_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close_focus.png");
 }
 
 QTabBar::close-button:pressed, QDockWidget QTabBar::close-button:pressed {
-  image: url(&quot;:/qss_icons/light/rc/window_close_pressed.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close_pressed.png");
 }
 
 QTabBar::tab, QDockWidget QTabBar::tab {
@@ -1721,19 +1699,19 @@ QTabBar QToolButton:pressed:hover, QDockWidget QTabBar QToolButton:pressed:hover
 }
 
 QTabBar QToolButton::left-arrow:enabled, QDockWidget QTabBar QToolButton::left-arrow:enabled {
-  image: url(&quot;:/qss_icons/light/rc/arrow_left.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_left.png");
 }
 
 QTabBar QToolButton::left-arrow:disabled, QDockWidget QTabBar QToolButton::left-arrow:disabled {
-  image: url(&quot;:/qss_icons/light/rc/arrow_left_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_left_disabled.png");
 }
 
 QTabBar QToolButton::right-arrow:enabled, QDockWidget QTabBar QToolButton::right-arrow:enabled {
-  image: url(&quot;:/qss_icons/light/rc/arrow_right.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_right.png");
 }
 
 QTabBar QToolButton::right-arrow:disabled, QDockWidget QTabBar QToolButton::right-arrow:disabled {
-  image: url(&quot;:/qss_icons/light/rc/arrow_right_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_right_disabled.png");
 }
 
 /* QDockWiget -------------------------------------------------------------
@@ -1744,8 +1722,8 @@ QDockWidget {
   background-color: #FAFAFA;
   border: 1px solid #C9CDD0;
   border-radius: 4px;
-  titlebar-close-icon: url(&quot;:/qss_icons/light/rc/transparent.png&quot;);
-  titlebar-normal-icon: url(&quot;:/qss_icons/light/rc/transparent.png&quot;);
+  titlebar-close-icon: url(":/qss_icons/light/rc/transparent.png");
+  titlebar-normal-icon: url(":/qss_icons/light/rc/transparent.png");
 }
 
 QDockWidget::title {
@@ -1764,15 +1742,15 @@ QDockWidget::close-button {
   border: 0;
   margin: 0;
   padding: 0;
-  image: url(&quot;:/qss_icons/light/rc/window_close.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close.png");
 }
 
 QDockWidget::close-button:hover {
-  image: url(&quot;:/qss_icons/light/rc/window_close_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close_focus.png");
 }
 
 QDockWidget::close-button:pressed {
-  image: url(&quot;:/qss_icons/light/rc/window_close_pressed.png&quot;);
+  image: url(":/qss_icons/light/rc/window_close_pressed.png");
 }
 
 QDockWidget::float-button {
@@ -1783,15 +1761,15 @@ QDockWidget::float-button {
   border: 0;
   margin: 0;
   padding: 0;
-  image: url(&quot;:/qss_icons/light/rc/window_undock.png&quot;);
+  image: url(":/qss_icons/light/rc/window_undock.png");
 }
 
 QDockWidget::float-button:hover {
-  image: url(&quot;:/qss_icons/light/rc/window_undock_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/window_undock_focus.png");
 }
 
 QDockWidget::float-button:pressed {
-  image: url(&quot;:/qss_icons/light/rc/window_undock_pressed.png&quot;);
+  image: url(":/qss_icons/light/rc/window_undock_pressed.png");
 }
 
 /* QTreeView QListView QTableView -----------------------------------------
@@ -1802,44 +1780,44 @@ https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
 
 --------------------------------------------------------------------------- */
 QTreeView:branch:selected, QTreeView:branch:hover {
-  background: url(&quot;:/qss_icons/light/rc/transparent.png&quot;);
+  background: url(":/qss_icons/light/rc/transparent.png");
 }
 
 QTreeView:branch:has-siblings:!adjoins-item {
-  border-image: url(&quot;:/qss_icons/light/rc/branch_line.png&quot;) 0;
+  border-image: url(":/qss_icons/light/rc/branch_line.png") 0;
 }
 
 QTreeView:branch:has-siblings:adjoins-item {
-  border-image: url(&quot;:/qss_icons/light/rc/branch_more.png&quot;) 0;
+  border-image: url(":/qss_icons/light/rc/branch_more.png") 0;
 }
 
 QTreeView:branch:!has-children:!has-siblings:adjoins-item {
-  border-image: url(&quot;:/qss_icons/light/rc/branch_end.png&quot;) 0;
+  border-image: url(":/qss_icons/light/rc/branch_end.png") 0;
 }
 
 QTreeView:branch:has-children:!has-siblings:closed, QTreeView:branch:closed:has-children:has-siblings {
   border-image: none;
-  image: url(&quot;:/qss_icons/light/rc/branch_closed.png&quot;);
+  image: url(":/qss_icons/light/rc/branch_closed.png");
 }
 
 QTreeView:branch:open:has-children:!has-siblings, QTreeView:branch:open:has-children:has-siblings {
   border-image: none;
-  image: url(&quot;:/qss_icons/light/rc/branch_open.png&quot;);
+  image: url(":/qss_icons/light/rc/branch_open.png");
 }
 
 QTreeView:branch:has-children:!has-siblings:closed:hover, QTreeView:branch:closed:has-children:has-siblings:hover {
-  image: url(&quot;:/qss_icons/light/rc/branch_closed_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/branch_closed_focus.png");
 }
 
 QTreeView:branch:open:has-children:!has-siblings:hover, QTreeView:branch:open:has-children:has-siblings:hover {
-  image: url(&quot;:/qss_icons/light/rc/branch_open_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/branch_open_focus.png");
 }
 
 QTreeView::indicator:checked,
 QListView::indicator:checked,
 QTableView::indicator:checked,
 QColumnView::indicator:checked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked.png");
 }
 
 QTreeView::indicator:checked:hover, QTreeView::indicator:checked:focus, QTreeView::indicator:checked:pressed,
@@ -1852,14 +1830,14 @@ QTableView::indicator:checked:pressed,
 QColumnView::indicator:checked:hover,
 QColumnView::indicator:checked:focus,
 QColumnView::indicator:checked:pressed {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_checked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_checked_focus.png");
 }
 
 QTreeView::indicator:unchecked,
 QListView::indicator:unchecked,
 QTableView::indicator:unchecked,
 QColumnView::indicator:unchecked {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked.png");
 }
 
 QTreeView::indicator:unchecked:hover, QTreeView::indicator:unchecked:focus, QTreeView::indicator:unchecked:pressed,
@@ -1872,14 +1850,14 @@ QTableView::indicator:unchecked:pressed,
 QColumnView::indicator:unchecked:hover,
 QColumnView::indicator:unchecked:focus,
 QColumnView::indicator:unchecked:pressed {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_unchecked_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_unchecked_focus.png");
 }
 
 QTreeView::indicator:indeterminate,
 QListView::indicator:indeterminate,
 QTableView::indicator:indeterminate,
 QColumnView::indicator:indeterminate {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate.png");
 }
 
 QTreeView::indicator:indeterminate:hover, QTreeView::indicator:indeterminate:focus, QTreeView::indicator:indeterminate:pressed,
@@ -1892,7 +1870,7 @@ QTableView::indicator:indeterminate:pressed,
 QColumnView::indicator:indeterminate:hover,
 QColumnView::indicator:indeterminate:focus,
 QColumnView::indicator:indeterminate:pressed {
-  image: url(&quot;:/qss_icons/light/rc/checkbox_indeterminate_focus.png&quot;);
+  image: url(":/qss_icons/light/rc/checkbox_indeterminate_focus.png");
 }
 
 QTreeView,
@@ -2033,7 +2011,7 @@ QHeaderView::down-arrow {
   width: 12px;
   padding-left: 2px;
   padding-right: 2px;
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
 }
 
 QHeaderView::up-arrow {
@@ -2043,7 +2021,7 @@ QHeaderView::up-arrow {
   width: 12px;
   padding-left: 2px;
   padding-right: 2px;
-  image: url(&quot;:/qss_icons/light/rc/arrow_up.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_up.png");
 }
 
 /* QToolBox --------------------------------------------------------------
@@ -2121,18 +2099,18 @@ https://stackoverflow.com/questions/14581498/qt-stylesheet-for-hline-vline-color
   /* HLine */
 }
 
-.QFrame[frameShape=&quot;0&quot;] {
+.QFrame[frameShape="0"] {
   border-radius: 4px;
   border: 1px transparent #C9CDD0;
 }
 
-.QFrame[frameShape=&quot;4&quot;] {
+.QFrame[frameShape="4"] {
   max-height: 2px;
   border: none;
   background-color: #C9CDD0;
 }
 
-.QFrame[frameShape=&quot;5&quot;] {
+.QFrame[frameShape="5"] {
   max-width: 2px;
   border: none;
   background-color: #C9CDD0;
@@ -2164,12 +2142,12 @@ QSplitter::handle:hover {
 
 QSplitter::handle:horizontal {
   width: 5px;
-  image: url(&quot;:/qss_icons/light/rc/line_vertical.png&quot;);
+  image: url(":/qss_icons/light/rc/line_vertical.png");
 }
 
 QSplitter::handle:vertical {
   height: 5px;
-  image: url(&quot;:/qss_icons/light/rc/line_horizontal.png&quot;);
+  image: url(":/qss_icons/light/rc/line_horizontal.png");
 }
 
 /* QDateEdit, QDateTimeEdit -----------------------------------------------
@@ -2201,13 +2179,13 @@ QDateEdit::drop-down, QDateTimeEdit::drop-down {
 }
 
 QDateEdit::down-arrow, QDateTimeEdit::down-arrow {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down_disabled.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down_disabled.png");
   height: 8px;
   width: 8px;
 }
 
 QDateEdit::down-arrow:on, QDateEdit::down-arrow:hover, QDateEdit::down-arrow:focus, QDateTimeEdit::down-arrow:on, QDateTimeEdit::down-arrow:hover, QDateTimeEdit::down-arrow:focus {
-  image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  image: url(":/qss_icons/light/rc/arrow_down.png");
 }
 
 QDateEdit QAbstractItemView, QDateTimeEdit QAbstractItemView {
@@ -2237,430 +2215,3 @@ PlotWidget {
   /* Fix cut labels in plots #134 */
   padding: 0px;
 }
-</string>
-  </property>
-  <property name="tabShape">
-   <enum>QTabWidget::Rounded</enum>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_7">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="20,1">
-      <item>
-       <widget class="QLabel" name="mainTitle">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Ubuntu</family>
-          <pointsize>20</pointsize>
-          <bold>false</bold>
-          <strikeout>false</strikeout>
-          <kerning>true</kerning>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="inputMethodHints">
-         <set>Qt::ImhNone</set>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
-        <property name="text">
-         <string>Project 1</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>false</bool>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="lightDarkModePushButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>D/L</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="4,0">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QGraphicsView" name="graphicsView_1"/>
-        </item>
-        <item>
-         <widget class="QScrollBar" name="horizontalScrollBar_1">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <widget class="QGraphicsView" name="graphicsView_2"/>
-        </item>
-        <item>
-         <widget class="QScrollBar" name="horizontalScrollBar_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="1">
-       <widget class="QScrollArea" name="scrollArea_2">
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>274</width>
-           <height>306</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,4,2,1">
-          <item>
-           <widget class="QLabel" name="graphTitle_2">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Ubuntu</family>
-              <pointsize>14</pointsize>
-              <bold>false</bold>
-              <strikeout>false</strikeout>
-              <kerning>true</kerning>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhNone</set>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <property name="text">
-             <string>Graph 1</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableOfSignals_2">
-            <row>
-             <property name="text">
-              <string>1</string>
-             </property>
-            </row>
-            <column>
-             <property name="text">
-              <string>Show/Hide</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Label</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Color</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Move</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QPushButton" name="addPushButton_2">
-                <property name="text">
-                 <string>Add</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="clearPushButton_2">
-                <property name="text">
-                 <string>Clear</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="exportPushButton_2">
-              <property name="text">
-               <string>Export</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="speedLabel_2">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-              <property name="buddy">
-               <cstring>speedDoubleSpinBox_2</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDoubleSpinBox" name="speedDoubleSpinBox_2"/>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QScrollArea" name="scrollArea_1">
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>274</width>
-           <height>306</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,4,2,1">
-          <item>
-           <widget class="QLabel" name="graphTitle">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Ubuntu</family>
-              <pointsize>14</pointsize>
-              <bold>false</bold>
-              <strikeout>false</strikeout>
-              <kerning>true</kerning>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhNone</set>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <property name="text">
-             <string>Graph 1</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableOfSignals_1">
-            <row>
-             <property name="text">
-              <string>1</string>
-             </property>
-            </row>
-            <column>
-             <property name="text">
-              <string>Show/Hide</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Label</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Color</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Move</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QPushButton" name="addPushButton_1">
-                <property name="text">
-                 <string>Add</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="clearPushButton_1">
-                <property name="text">
-                 <string>Clear</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="exportPushButton_1">
-              <property name="text">
-               <string>Export</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="speedLabel_1">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-              <property name="buddy">
-               <cstring>speedDoubleSpinBox_1</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDoubleSpinBox" name="speedDoubleSpinBox_1"/>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <action name="actionNew">
-   <property name="text">
-    <string>New</string>
-   </property>
-  </action>
-  <action name="actionOpe">
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </action>
-  <action name="actiona">
-   <property name="text">
-    <string>a</string>
-   </property>
-  </action>
-  <action name="actiond">
-   <property name="text">
-    <string>d</string>
-   </property>
-  </action>
-  <action name="actionPDF_pdf">
-   <property name="text">
-    <string>PDF (.pdf)</string>
-   </property>
-  </action>
-  <action name="actionExit">
-   <property name="text">
-    <string>Settings</string>
-   </property>
-  </action>
-  <action name="actionExit_2">
-   <property name="text">
-    <string>Exit</string>
-   </property>
-  </action>
- </widget>
- <resources>
-  <include location="res.qrc"/>
- </resources>
- <connections/>
-</ui>
