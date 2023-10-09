@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/diskette.png</file>
+    <file>icons/export.png</file>
+    <file>icons/home.png</file>
+    <file>icons/new-document.png</file>
+    <file>icons/disketteF.png</file>
+    <file>icons/exportF.png</file>
+    <file>icons/homeF.png</file>
+    <file>icons/new-documentF.png</file>
+    <file>icons/open-folderF.png</file>
+    <file>icons/open-folder.png</file>
+  </qresource>
+</RCC>
