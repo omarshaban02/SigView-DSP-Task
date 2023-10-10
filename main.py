@@ -11,20 +11,13 @@ import urllib.request
 import os
 from os import path
 
-
-
 ui, _ = loadUiType('main.ui')
 
 
-class showHideComboBoxes(QComboBox):
-    def _init__(self, parent):
+class showHideCheckBoxes(QCheckBox):
+    def __int__(self, parent):
         super().__init__(parent)
-        self.addItems(['Blue', 'Red', 'Green'])
-        self.currentIndexChanged.connect(self.getComboValue)
-
-    def getComboValue(self):
-        print(self.currentText())
-        # return self.currentText()
+        QCheckBox.__init__(self)
 
 
 class MainApp(QMainWindow, ui):
@@ -32,28 +25,52 @@ class MainApp(QMainWindow, ui):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
+        self.resize(1200, 900)
 
         lightDarkModeButton = self.lightDarkModePushButton
         lightDarkModeButton.setCheckable(True)
         lightDarkModeButton.clicked.connect(self.toggleDarkLightMode)
 
 
-        showHideComboBox = showHideComboBoxes(self)
 
-        tableOfSignals_1 = self.tableOfSignals_1
-        for row_num in range(tableOfSignals_1.rowCount()):
-            tableOfSignals_1.setCellWidget(0, row_num, showHideComboBox)
+        self.listWidget1 = self.tableOfSignals_1
+        self.listWidget2 = self.tableOfSignals_2
+
+        self.listWidget1.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.listWidget2.setContextMenuPolicy(Qt.CustomContextMenu)
+
+        self.listWidget1.customContextMenuRequested.connect(lambda pos: self.showContextMenu(pos, self.listWidget1))
+        self.listWidget2.customContextMenuRequested.connect(lambda pos: self.showContextMenu(pos, self.listWidget2))
+
+    def showContextMenu(self, pos, list_widget):
+        item = list_widget.itemAt(pos)
+
+        if item:
+            context_menu = QMenu()
+            delete_action = QAction("Delete", self)
+            delete_action.triggered.connect(lambda: self.deleteItem(item, list_widget))
+
+            context_menu.addAction(delete_action)
+
+            context_menu.exec_(list_widget.mapToGlobal(pos))
+
+    def deleteItem(self, item, list_widget):
+        row = list_widget.row(item)
+        list_widget.takeItem(row)
+
+        # showHideCheckBox = showHideCheckBoxes(tableOfSignals1)
+        # tableOfSignals1.setCellWidget(0, 1, showHideCheckBox)
+        # for row_num in range(tableOfSignals_1.rowCount()):
+        #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
 
     def toggleDarkLightMode(self, checked):
         # print("Done")
         if checked:
             self.setStyleSheet(Path('qss/darkStyle.qss').read_text())
-            #icon
+            # icon
         else:
             self.setStyleSheet(Path('qss/lightStyle.qss').read_text())
-            #icon
-
-
+            # icon
 
 
 def main():

@@ -1,5 +1,63 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/brightness.png</file>
+    <file>icons/broom.png</file>
+    <file>icons/clean.png</file>
+    <file>icons/diskette.png</file>
+    <file>icons/disketteF.png</file>
+    <file>icons/export.png</file>
+    <file>icons/exportF.png</file>
+    <file>icons/fast-backward.png</file>
+    <file>icons/home.png</file>
+    <file>icons/homeF.png</file>
+    <file>icons/magnifying-glass.png</file>
+    <file>icons/new-document.png</file>
+    <file>icons/new-documentF.png</file>
+    <file>icons/night-mode (1).png</file>
+    <file>icons/night-mode.png</file>
+    <file>icons/open-folder.png</file>
+    <file>icons/open-folderF.png</file>
+    <file>icons/pause.png</file>
+    <file>icons/play.png</file>
+    <file>icons/play-button.png</file>
+    <file>icons/reloading (1).png</file>
+    <file>icons/reloading.png</file>
+    <file>icons/rewind (1).png</file>
+    <file>icons/rewind.png</file>
+    <file>icons/rewind-button.png</file>
+    <file>icons/stop.png</file>
+    <file>icons/stop-button.png</file>
+    <file>icons/sun.png</file>
+    <file>icons/video-pause-button.png</file>
+    <file>icons/zoom-in (1).png</file>
+    <file>icons/rewind.png</file>
+    <file>icons/rewind-button.png</file>
+    <file>icons/stop.png</file>
+    <file>icons/stop-button.png</file>
+    <file>icons/brightness.png</file>
+    <file>icons/broom.png</file>
+    <file>icons/clean.png</file>
+    <file>icons/diskette.png</file>
+    <file>icons/disketteF.png</file>
+    <file>icons/export.png</file>
+    <file>icons/exportF.png</file>
+    <file>icons/home.png</file>
+    <file>icons/homeF.png</file>
+    <file>icons/magnifying-glass.png</file>
+    <file>icons/new-document.png</file>
+    <file>icons/new-documentF.png</file>
+    <file>icons/night-mode (1).png</file>
+    <file>icons/night-mode.png</file>
+    <file>icons/open-folder.png</file>
+    <file>icons/open-folderF.png</file>
+    <file>icons/pause.png</file>
+    <file>icons/play.png</file>
+    <file>icons/play-button.png</file>
+    <file>icons/reloading (1).png</file>
+    <file>icons/reloading.png</file>
+    <file>icons/sun.png</file>
+    <file>icons/video-pause-button.png</file>
+    <file>icons/zoom-in (1).png</file>
     <file>icons/diskette.png</file>
     <file>icons/export.png</file>
     <file>icons/home.png</file>
