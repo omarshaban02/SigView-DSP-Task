@@ -21,15 +21,15 @@ class showHideCheckBoxes(QCheckBox):
 
 
 class MainApp(QMainWindow, ui):
+    light_mode = True
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.resize(1200, 900)
 
-        lightDarkModeButton = self.lightDarkModePushButton
-        lightDarkModeButton.setCheckable(True)
-        lightDarkModeButton.clicked.connect(self.toggleDarkLightMode)
+
+        self.light_dark_mode_btn.clicked.connect(self.toggleDarkLightMode)
 
 
 
@@ -41,6 +41,8 @@ class MainApp(QMainWindow, ui):
 
         self.listWidget1.customContextMenuRequested.connect(lambda pos: self.showContextMenu(pos, self.listWidget1))
         self.listWidget2.customContextMenuRequested.connect(lambda pos: self.showContextMenu(pos, self.listWidget2))
+
+        self.toggle_button.clicked.connect(self.slider)
 
     def showContextMenu(self, pos, list_widget):
         item = list_widget.itemAt(pos)
@@ -63,14 +65,37 @@ class MainApp(QMainWindow, ui):
         # for row_num in range(tableOfSignals_1.rowCount()):
         #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
 
-    def toggleDarkLightMode(self, checked):
-        # print("Done")
-        if checked:
+    def toggleDarkLightMode(self):
+
+        if self.light_mode:
             self.setStyleSheet(Path('qss/darkStyle.qss').read_text())
-            # icon
+            self.light_dark_mode_btn.setIcon(QIcon('icons/night-mode (1).png'))
+            self.light_mode = False
         else:
             self.setStyleSheet(Path('qss/lightStyle.qss').read_text())
-            # icon
+            self.light_dark_mode_btn.setIcon(QIcon('icons/sun.png'))
+            self.light_mode = True
+
+
+    def slider(self):
+        width = self.left_side_bar.width()
+        if width == 0:
+            newWidth = 50
+        else:
+            newWidth = 0
+
+
+
+
+        self.animation = QPropertyAnimation(self.left_side_bar, b"minimumWidth")
+        self.animation.setDuration(40)
+        self.animation.setStartValue(width)
+        self.animation.setEndValue(newWidth)
+        self.animation.setEasingCurve(QEasingCurve.InOutQuart)
+        self.animation.start()
+
+        # You may need to update the layout to see the change
+        self.left_side_bar.update()
 
 
 def main():
