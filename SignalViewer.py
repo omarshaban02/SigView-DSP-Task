@@ -23,7 +23,7 @@ class Signal(object):
         self._color = color
         self._title = None
         self._on_click_event_handler = lambda e: None
-        self.plot_data_item.setCurveClickable(state=True, width=6)
+        # self.plot_data_item.setCurveClickable(state=True, width=6)
 
     @property
     def on_click_event_handler(self):

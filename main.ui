@@ -337,7 +337,6 @@ QPushButton:pressed {
           <font>
            <family>Ubuntu</family>
            <pointsize>20</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
            <kerning>true</kerning>
@@ -1100,7 +1099,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1144,7 +1142,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1207,7 +1204,6 @@ background-color: rgba(255, 255, 255, 0);
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1263,7 +1259,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1319,7 +1314,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1427,7 +1421,7 @@ QPushButton:pressed {
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
              <item>
@@ -1438,7 +1432,7 @@ QPushButton:pressed {
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
             </widget>
@@ -1451,7 +1445,6 @@ QPushButton:pressed {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1475,8 +1468,7 @@ QPushButton:pressed {
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">
-</string>
+                <string notr="true"/>
                </property>
                <property name="suffix">
                 <string> millisec</string>
@@ -1502,7 +1494,6 @@ QPushButton:pressed {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1562,7 +1553,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1621,7 +1611,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1671,7 +1660,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>

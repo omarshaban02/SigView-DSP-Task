@@ -1,6 +1,13 @@
+PATH = 'signals/mitbih_train.csv'
+
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from SignalViewer import SignalViewerLogic
+from PyQt5.QtCore import QTimer
+
+import pyqtgraph as pg
+
 import sys
 from pathlib import Path
 from res_rc import *  # Import the resource module
@@ -13,23 +20,37 @@ from os import path
 
 ui, _ = loadUiType('main.ui')
 
-
 class ShowHideCheckBoxes(QCheckBox):
     def __int__(self, parent):
         super().__init__(parent)
         QCheckBox.__init__(self)
-
 
 class MainApp(QMainWindow, ui):
     _light_mode = True
     _play_pause_state1 = True
     _play_pause_state2 = True
     _play_pause_state3 = True
+
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.resize(1200, 900)
+
+        self.plot_widget1 = pg.PlotWidget(self.graphics_view1)
+        self.graphics_view_layout1 = QHBoxLayout(self.graphics_view1)
+        self.graphics_view_layout1.addWidget(self.plot_widget1)
+        self.graphics_view1.setLayout(self.graphics_view_layout1)
+        self.plot_widget1.setObjectName("plot_widget1")
+
+        self.plot_widget2 = pg.PlotWidget(self.graphics_view2)
+        self.graphics_view_layout2 = QHBoxLayout(self.graphics_view2)
+        self.graphics_view_layout2.addWidget(self.plot_widget2)
+        self.graphics_view2.setLayout(self.graphics_view_layout2)
+        self.plot_widget2.setObjectName("plot_widget2")
+
+        self.sv = SignalViewerLogic(self.plot_widget1)
+        self.sv.load_dataset(PATH, 1)
 
         self.light_dark_mode_btn.clicked.connect(self.toggle_dark_light_mode)
 
