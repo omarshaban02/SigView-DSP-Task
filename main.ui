@@ -1511,7 +1511,6 @@ ParameterTree &gt; .QWidget {
           <font>
            <family>Ubuntu</family>
            <pointsize>20</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
            <kerning>true</kerning>
@@ -1585,7 +1584,7 @@ ParameterTree &gt; .QWidget {
           <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>0</number>
+          <number>20</number>
          </property>
          <property name="topMargin">
           <number>0</number>
@@ -1620,7 +1619,7 @@ ParameterTree &gt; .QWidget {
             <property name="spacing">
              <number>0</number>
             </property>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QPushButton" name="zoomPOutushButton_3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -1647,7 +1646,7 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QPushButton" name="zoomInPushButton_3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -1674,34 +1673,7 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QPushButton" name="rewindPushButton_3">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">
-background-color: rgba(255,255,255,0);</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/rewind.png</normaloff>:/icons/icons/rewind.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>30</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
+            <item row="2" column="0">
              <widget class="QPushButton" name="stopPushButton_3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -1728,7 +1700,7 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
+            <item row="1" column="0">
              <widget class="QPushButton" name="playPausePushButton_3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
@@ -1759,6 +1731,33 @@ background-color: rgba(255,255,255,0);
               </property>
              </widget>
             </item>
+            <item row="0" column="0">
+             <widget class="QPushButton" name="rewindPushButton_3">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+background-color: rgba(255,255,255,0);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons/icons/rewind.png</normaloff>:/icons/icons/rewind.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -1782,6 +1781,9 @@ background-color: rgba(255,255,255,0);
              <height>50</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border: 0px</string>
+           </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -1799,7 +1801,7 @@ background-color: rgba(255,255,255,0);
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>10</number>
             </property>
             <property name="spacing">
              <number>0</number>
@@ -1807,7 +1809,7 @@ background-color: rgba(255,255,255,0);
             <item row="0" column="0">
              <widget class="QPushButton" name="light_dark_mode_btn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1820,13 +1822,13 @@ background-color: rgba(255,255,255,0);
               </property>
               <property name="maximumSize">
                <size>
-                <width>34</width>
-                <height>34</height>
+                <width>100</width>
+                <height>100</height>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">
-background-color: rgba(255,255,255,0);</string>
+               <string notr="true">background-color: rgba(255,255,255,0);
+border: 0px;</string>
               </property>
               <property name="text">
                <string/>
@@ -2286,7 +2288,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
              <item>
@@ -2297,7 +2299,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
             </widget>
@@ -2310,7 +2312,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2354,7 +2355,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2559,7 +2559,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
              <item>
@@ -2570,7 +2570,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
               </property>
              </item>
             </widget>
@@ -2583,7 +2583,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2627,7 +2626,6 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>

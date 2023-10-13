@@ -21,6 +21,9 @@ class showHideCheckBoxes(QCheckBox):
 
 
 class MainApp(QMainWindow, ui):
+
+
+
     light_mode = True
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
@@ -28,10 +31,14 @@ class MainApp(QMainWindow, ui):
         self.setupUi(self)
         self.resize(1200, 900)
 
+        # self.graphicsView = Plotwidget(self.centralwidget)
+        # self.graphicsView.setGeometry(QtCore.Qrect(60, 40, 681, 281))
+        # self.graphicsView.setObjectName("graphicsview")
+        # self.graphicsView_2 = Plotwidget(self.centralwidget)
+        # self.graphicsView_2.setGeometry(QtCore.Qrect(60, 40, 681, 281))
+        # self.graphicsView_2.setObjectName("graphicsview_2")
 
         self.light_dark_mode_btn.clicked.connect(self.toggleDarkLightMode)
-
-
 
         self.listWidget1 = self.tableOfSignals_1
         self.listWidget2 = self.tableOfSignals_2
