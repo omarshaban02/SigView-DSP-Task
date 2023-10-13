@@ -774,7 +774,7 @@ background-color: rgba(255,255,255,0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoom_in_btn2">
+              <widget class="QPushButton" name="reset_view_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -797,7 +797,7 @@ background-color: rgba(255,255,255,0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoom_out_btn2">
+              <widget class="QPushButton" name="clear_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -952,7 +952,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoom_in_btn1">
+              <widget class="QPushButton" name="reset_view_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -975,7 +975,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoom_out_btn1">
+              <widget class="QPushButton" name="clear_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -1039,7 +1039,7 @@ background-color: rgba(255, 255, 255, 0);
             <number>10</number>
            </property>
            <item>
-            <widget class="QListWidget" name="table_of_signals2">
+            <widget class="QListWidget" name="signals_list2">
              <property name="dragEnabled">
               <bool>true</bool>
              </property>
@@ -1067,28 +1067,6 @@ background-color: rgba(255, 255, 255, 0);
              <property name="sortingEnabled">
               <bool>true</bool>
              </property>
-             <item>
-              <property name="text">
-               <string>New Item2</string>
-              </property>
-              <property name="checkState">
-               <enum>Checked</enum>
-              </property>
-              <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>New Item4</string>
-              </property>
-              <property name="checkState">
-               <enum>Checked</enum>
-              </property>
-              <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-              </property>
-             </item>
             </widget>
            </item>
            <item>
@@ -1182,7 +1160,7 @@ background-color: rgba(255, 255, 255, 0);
               <number>15</number>
              </property>
              <item>
-              <widget class="QPushButton" name="add_btn2">
+              <widget class="QPushButton" name="plot_btn2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -1232,7 +1210,7 @@ QPushButton:pressed {
 </string>
                </property>
                <property name="text">
-                <string>Add</string>
+                <string>Plot</string>
                </property>
               </widget>
              </item>
@@ -1292,7 +1270,7 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="clear_btn2">
+              <widget class="QPushButton" name="open_btn2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -1342,7 +1320,7 @@ QPushButton:pressed {
 </string>
                </property>
                <property name="text">
-                <string>Clear</string>
+                <string>Open</string>
                </property>
               </widget>
              </item>
@@ -1391,7 +1369,7 @@ QPushButton:pressed {
             <number>10</number>
            </property>
            <item>
-            <widget class="QListWidget" name="table_of_signals1">
+            <widget class="QListWidget" name="signals_list1">
              <property name="styleSheet">
               <string notr="true">QCheckBox:hover, QCheckBox:checked { color: white }</string>
              </property>
@@ -1413,28 +1391,6 @@ QPushButton:pressed {
              <property name="movement">
               <enum>QListView::Snap</enum>
              </property>
-             <item>
-              <property name="text">
-               <string>New Item</string>
-              </property>
-              <property name="checkState">
-               <enum>Checked</enum>
-              </property>
-              <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>New Item8</string>
-              </property>
-              <property name="checkState">
-               <enum>Checked</enum>
-              </property>
-              <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
-              </property>
-             </item>
             </widget>
            </item>
            <item>
@@ -1537,7 +1493,7 @@ QPushButton:pressed {
               <number>15</number>
              </property>
              <item>
-              <widget class="QPushButton" name="add_btn1">
+              <widget class="QPushButton" name="plot_btn1">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -1581,7 +1537,7 @@ QPushButton:pressed {
 </string>
                </property>
                <property name="text">
-                <string>Add</string>
+                <string>Plot</string>
                </property>
                <property name="flat">
                 <bool>false</bool>
@@ -1644,7 +1600,7 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="clear_btn1">
+              <widget class="QPushButton" name="open_btn1">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -1688,7 +1644,7 @@ QPushButton:pressed {
 </string>
                </property>
                <property name="text">
-                <string>Clear</string>
+                <string>Open</string>
                </property>
               </widget>
              </item>

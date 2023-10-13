@@ -3,10 +3,12 @@ PATH = 'signals/mitbih_train.csv'
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from SignalViewer import SignalViewerLogic
+from SignalViewer import SignalViewerLogic, Signal
 from PyQt5.QtCore import QTimer
 
 import pyqtgraph as pg
+
+import pandas as pd
 
 import sys
 from pathlib import Path
@@ -31,6 +33,15 @@ class MainApp(QMainWindow, ui):
     _play_pause_state2 = True
     _play_pause_state3 = True
 
+    def delete_item(self, item, list_widget):
+        row = list_widget.row(item)
+        list_widget.takeItem(row)
+
+        # showHideCheckBox = showHideCheckBoxes(tableOfSignals1)
+        # tableOfSignals1.setCellWidget(0, 1, showHideCheckBox)
+        # for row_num in range(tableOfSignals_1.rowCount()):
+        #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
+
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
@@ -50,12 +61,13 @@ class MainApp(QMainWindow, ui):
         self.plot_widget2.setObjectName("plot_widget2")
 
         self.sv = SignalViewerLogic(self.plot_widget1)
+        self.sv2 = SignalViewerLogic(self.plot_widget2)
         self.sv.load_dataset(PATH, 1)
 
         self.light_dark_mode_btn.clicked.connect(self.toggle_dark_light_mode)
 
-        self.list_widget1 = self.table_of_signals1
-        self.list_widget2 = self.table_of_signals2
+        self.list_widget1 = self.signals_list1
+        self.list_widget2 = self.signals_list2
 
         self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -66,14 +78,26 @@ class MainApp(QMainWindow, ui):
         # self.toggle_button.clicked.connect(self.slider)
         self.toggle_radioButton.clicked.connect(self.slider)
 
+        # 1st graphics_view
+        # self.sv.load_dataset(PATH, 1)
+        self.plot_btn1.clicked.connect(self.add_signal_to_graph1)
+
+        # 2nd graphics_view
+        # self.sv2.load_dataset(PATH, 1)
+        self.plot_btn2.clicked.connect(self.add_signal_to_graph2)
 
         self.play_pause_btn1.clicked.connect(self.toggle_play_pause_icon1)
         self.play_pause_btn2.clicked.connect(self.toggle_play_pause_icon2)
         self.play_pause_btn3.clicked.connect(self.toggle_play_pause_icon3)
 
+        self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
+        self.open_btn2.clicked.connect(lambda list_widget: self.openCSV2(self.list_widget2))
+
+
+
+
     def show_context_menu(self, pos, list_widget):
         item = list_widget.itemAt(pos)
-
         if item:
             context_menu = QMenu()
             delete_action = QAction("Delete", self)
@@ -82,15 +106,6 @@ class MainApp(QMainWindow, ui):
             context_menu.addAction(delete_action)
 
             context_menu.exec_(list_widget.mapToGlobal(pos))
-
-    def delete_item(self, item, list_widget):
-        row = list_widget.row(item)
-        list_widget.takeItem(row)
-
-        # showHideCheckBox = showHideCheckBoxes(tableOfSignals1)
-        # tableOfSignals1.setCellWidget(0, 1, showHideCheckBox)
-        # for row_num in range(tableOfSignals_1.rowCount()):
-        #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
 
     def toggle_dark_light_mode(self):
 
@@ -102,8 +117,6 @@ class MainApp(QMainWindow, ui):
             self.setStyleSheet(Path('qss/lightStyle.qss').read_text())
             self.light_dark_mode_btn.setIcon(QIcon('icons/sun.png'))
             self._light_mode = True
-
-
 
     def slider(self):
         if self.toggle_radioButton.isChecked():
@@ -143,28 +156,140 @@ class MainApp(QMainWindow, ui):
 
     def toggle_play_pause_icon1(self):
         if self._play_pause_state1:
+            self.sv.play()
             self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
             self._play_pause_state1 = False
         else:
+            self.sv.pause()
             self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
             self._play_pause_state1 = True
 
     def toggle_play_pause_icon2(self):
         if self._play_pause_state2:
+            self.sv2.play()
             self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
             self._play_pause_state2 = False
         else:
+            self.sv2.pause()
             self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
             self._play_pause_state2 = True
 
     def toggle_play_pause_icon3(self):
         if self._play_pause_state3:
+            self.sv1.play()
+            self.sv2.play()
             self.play_pause_btn3.setIcon(QIcon('icons/pause.png'))
             self._play_pause_state3 = False
         else:
+            self.sv1.pause()
+            self.sv2.pause()
             self.play_pause_btn3.setIcon(QIcon('icons/play-button.png'))
             self._play_pause_state3 = True
 
+    def add_signal_to_graph1(self):
+        checked_items_indices = self.list_signals_to_plot1()
+        for i in checked_items_indices:
+            if self.sv.signals[i] not in self.sv.plotted_signals:
+                self.sv.add_signal(i, self.sv.signals[i].title)
+                self.sv.plotted_signals.append(self.sv.signals[i])
+        self._play_pause_state1 = False
+        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+
+    def add_signal_to_graph2(self):
+        checked_items_indices = self.list_signals_to_plot2()
+        for i in checked_items_indices:
+            if self.sv2.signals[i] not in self.sv2.plotted_signals:
+                self.sv2.add_signal(i, self.sv2.signals[i].title)
+                self.sv2.plotted_signals.append(self.sv2.signals[i])
+        self._play_pause_state2 = False
+        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+
+    def openCSV1(self, plot_widget):
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
+
+        self.sv.load_dataset(file_name, 5)
+
+        if file_name:
+            # Process the selected CSV file
+            self.processCSV1(file_name)
+
+    def openCSV2(self, plot_widget):
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
+
+        self.sv2.load_dataset(file_name, 5)
+
+        if file_name:
+            # Process the selected CSV file
+            self.processCSV2(file_name)
+
+    def processCSV1(self, file_name):
+        # Here, you can implement your logic to process the CSV file
+        # For example, you can read the file and display its contents
+        with open(file_name, 'r') as file:
+            # data = file.read()
+            df = pd.read_csv(file_name).head(5)
+            data_list = df.values.tolist()
+            for i, row in enumerate(data_list):
+                sig = Signal(row, f"{i} - Signal A")
+                self.sv.signals.append(sig)
+                list_item = QListWidgetItem(f"{i} - Signal A")
+                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled |
+                                   Qt.ItemIsUserCheckable)
+                list_item.setCheckState(Qt.Checked)
+                self.list_widget1.addItem(list_item)
+
+    def processCSV2(self, file_name):
+        # Here, you can implement your logic to process the CSV file
+        # For example, you can read the file and display its contents
+        with open(file_name, 'r') as file:
+            # data = file.read()
+            df = pd.read_csv(file_name).head(5)
+            data_list = df.values.tolist()
+            for i, row in enumerate(data_list):
+                sig = Signal(row, f"{i} - Signal B")
+                self.sv2.signals.append(sig)
+                list_item = QListWidgetItem(f"{i} - Signal B")
+                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled |
+                                   Qt.ItemIsUserCheckable)
+                list_item.setCheckState(Qt.Checked)
+                self.list_widget2.addItem(list_item)
+
+
+    def list_signals_to_plot1(self):
+        checked_items_indices = []
+        for i in range(self.list_widget1.count()):
+            item = self.list_widget1.item(i)
+            if item.checkState() == Qt.Checked:
+                checked_items_indices.append(self.list_widget1.row(item))
+        return checked_items_indices
+
+    def list_signals_to_plot2(self):
+        checked_items_indices = []
+        for i in range(self.list_widget2.count()):
+            item = self.list_widget2.item(i)
+            if item.checkState() == Qt.Checked:
+                checked_items_indices.append(self.list_widget2.row(item))
+        return checked_items_indices
+
+    def clear_graph(self, graph):
+        pass
+
+    def reset_view(self, graph):
+        pass
+
+    def change_speed(self, graph, new_speed):
+        pass
+
+    def change_color(self, graph, new_color):
+        pass
+
+    def toggle_show_hide_signal(self, signal):
+        pass
+
+    def restart(self, graph):
+        pass
 
 
 def main():
