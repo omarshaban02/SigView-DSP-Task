@@ -20,1341 +20,115 @@
    <string>SigView</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* QWidget ----------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QWidget {
-    background: {{ background|color }};
-    color: {{ foreground|color }};
-    selection-color: {{ foreground|color }};
-    selection-background-color: {{ primary|color(state=&quot;selection.background&quot;) }};
-}
-QWidget:disabled {
-    color: {{ foreground|color(state=&quot;disabled&quot;) }};
-    selection-background-color: {{ foreground|color(state=&quot;disabledSelectionBackground&quot;) }};
-    selection-color: {{ foreground|color(state=&quot;disabled&quot;) }};
-}
-QWidget:focus {
-    outline: none;
-}
-/* Top level widget -------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QCheckBox:!window,
-QRadioButton:!window,
-QPushButton:!window,
-QLabel:!window,
-QLCDNumber:!window {
-    background: transparent;
+   <string notr="true">QScrollBar:horizontal {
+  height: 16px;
+  margin: 2px 16px 2px 16px;
+  border: 1px solid #C9CDD0;
+  border-radius: 4px;
+  background-color: #FAFAFA;
 }
 
-QMdiSubWindow &gt; QCheckBox:!window,
-QMdiSubWindow &gt; QRadioButton:!window,
-QMdiSubWindow &gt; QPushButton:!window,
-QMdiSubWindow &gt; QLabel:!window,
-QMdiSubWindow &gt; QLCDNumber:!window {
-    background: {{ background|color }};
-}
 
-/* QMainWindow ------------------------------------------------------------
-
-This adjusts the splitter in the dock widget, not QSplitter
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmainwindow
-
---------------------------------------------------------------------------- */
-QMainWindow::separator {
-    width: 4px;
-    height: 4px;
-    background: {{ border|color }};
-}
-QMainWindow::separator:hover,
-QMainWindow::separator:pressed {
-    background: {{ primary|color }};
-}
-
-/* QToolTip ---------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtooltip
-
---------------------------------------------------------------------------- */
-QToolTip {
-    background: {{ background|color(state=&quot;popup&quot;) }};
-    color: {{ foreground|color }};
-}
-
-/* QSizeGrip --------------------------------------------------------------
-
-There is no size grip in modern apps. So we hide size grip.
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qsizegrip
-
---------------------------------------------------------------------------- */
-QSizeGrip {
-    width: 0;
-    height: 0;
-    image: none;
-}
-
-/* QStatusBar -------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qstatusbar
-
---------------------------------------------------------------------------- */
-QStatusBar {
-    background: {{ statusBar.background|color }};
-}
-QStatusBar::item {
-    /* Remove white border line on Windows */
-    border: none;
-}
-
-QStatusBar QWidget {
-    background: transparent;
-    padding: 3px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-/*
-`QStatusBar QWidget` selector also override QSizeGrip rule.
-The QSizeGrip should be hidden on this qss, but the padding is set by `QStatusBar QWidget`.
-Remove padding of QSizeGrip after `QStatusBar QWidget` sets `padding: 3px`.
-*/
-QStatusBar &gt; .QSizeGrip {
-    padding: 0;
-}
-QStatusBar QWidget:hover {
-    background: {{ statusBarItem.hoverBackground|color }};
-}
-QStatusBar QWidget:pressed,
-QStatusBar QWidget:checked {
-    background: {{ statusBarItem.activeBackground|color }};
-}
-
-/* QCheckBox QRadioButton QGroupBox ---------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcheckbox
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qradiobutton
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qgroupbox
-
---------------------------------------------------------------------------- */
-QCheckBox,
-QRadioButton {
-    border-top: 2px solid transparent;
-    border-bottom: 2px solid transparent;
-}
-QCheckBox:hover,
-QRadioButton:hover {
-    border-bottom: 2px solid {{ primary|color }};
-}
-
-QGroupBox {
-    font-weight: bold;
-    margin-top: 8px;
-    padding: 2px 1px 1px 1px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-    border: 1px solid {{ border|color }};
-}
-QGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top left;
-    left: 7px;
-    margin: 0 2px 0 3px;
-}
-QGroupBox:flat {
-    border-color: transparent;
-}
-
-/* QMenuBar ---------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenubar
-
---------------------------------------------------------------------------- */
-QMenuBar {
-    padding: 2px;
-    border-bottom: 1px solid {{ border|color }};
-    background: {{ background|color }};
-}
-QMenuBar::item {
-    background: transparent;
-    padding: 4px;
-}
-QMenuBar::item:selected {
-    padding: 4px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-    background: {{ menubar.selectionBackground|color }};
-}
-QMenuBar::item:pressed {
-    padding: 4px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-/* QToolBar ---------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbar
-
---------------------------------------------------------------------------- */
-QToolBar {
-    padding: 1px;
-    font-weight: bold;
-    spacing: 2px;
-    margin: 1px;
-    background: {{ toolbar.background|color }};
-    /* QToolBar must override `border-style` to set the style. */
-    border-style: none;
-}
-QToolBar::handle:horizontal {
-    width: 20px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;drag_indicator&quot;) }};
-}
-QToolBar::handle:vertical {
-    height: 20px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;drag_indicator&quot;, rotate=90) }};
-}
-QToolBar::handle:horizontal:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;drag_indicator&quot;) }};
-}
-QToolBar::handle:vertical:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;drag_indicator&quot;, rotate=90) }};
-}
-QToolBar::separator {
-    background: {{ border|color }};
-}
-QToolBar::separator:horizontal {
-    width: 2px;
-    margin: 0 6px;
-}
-QToolBar::separator:vertical {
-    height: 2px;
-    margin: 6px 0;
-}
-
-QToolBar &gt; QToolButton {
-    background: transparent;
-    padding: 3px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QToolBar &gt; QToolButton:hover,
-QToolBar &gt; QToolButton::menu-button:hover {
-    background: {{ toolbar.hoverBackground|color }};
-}
-QToolBar &gt; QToolButton::menu-button {
-    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QToolBar &gt; QToolButton:pressed,
-QToolBar &gt; QToolButton::menu-button:pressed:enabled,
-QToolBar &gt; QToolButton:checked:enabled {
-    background: {{ toolbar.activeBackground|color }};
-}
-
-QToolBar &gt; QWidget {
-    background: transparent;
-}
-
-/* QMenu ------------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
-
---------------------------------------------------------------------------- */
-QMenu {
-    background: {{ background|color(state=&quot;popup&quot;) }};
-    padding: 8px 0;
-    {{ corner-shape|corner(size=4)|env(value=&quot;border-radius: ${}px;&quot;, version=&quot;&lt;6.0.0&quot;, os=&quot;Darwin&quot;) }}
-    {{ corner-shape|corner(size=4)|env(value=&quot;border-radius: ${}px;&quot;, version=&quot;&gt;=6.4.1&quot;, os=&quot;Darwin&quot;) }}
-}
-QMenu::separator {
-    margin: 4px 0;
-    height: 1px;
-    background: {{ border|color }};
-}
-QMenu::item {
-    padding: 4px 19px;
-}
-QMenu::item:selected {
-    background: {{ popupItem.selectionBackground|color }};
-}
-QMenu::icon {
-    padding-left: 10px;
-    width: 14px;
-    height: 14px;
-}
-QMenu::right-arrow {
-    margin: 2px;
-    padding-left: 12px;
-    height: 20px;
-    width: 20px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-QMenu::right-arrow:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-
-/* QScrollBar -------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
-
---------------------------------------------------------------------------- */
-QScrollBar {
-    background: {{ scrollbar.background|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-    {{ |env(value=&quot;background: transparent&quot;, os=&quot;Darwin&quot;)}}
-}
-QScrollBar:horizontal {
-    height: 14px;
-    {{ |env(value=&quot;height: 7px;&quot;, os=&quot;Darwin&quot;) }}
-}
-QScrollBar:vertical {
-    width: 14px;
-    {{ |env(value=&quot;width: 7px;&quot;, os=&quot;Darwin&quot;) }}
-}
-QScrollBar::handle {
-    background: {{ scrollbarSlider.background|color }};
-    border-radius: {{ corner-shape|corner(size=3) }}px;
-}
-QScrollBar::handle:hover {
-    background: {{ scrollbarSlider.hoverBackground|color }};
-}
-QScrollBar::handle:pressed {
-    background: {{ scrollbarSlider.activeBackground|color }};
-}
-QScrollBar::handle:disabled {
-    background: {{ scrollbarSlider.disabledBackground|color }};
-}
 QScrollBar::handle:horizontal {
-    min-width: 8px;
-    margin: 4px 14px;
-    {{ |env(value=&quot;margin: 0;&quot;, os=&quot;Darwin&quot;) }}
+  background-color: #4169E1;
+  border: 1px solid #C9CDD0;
+  border-radius: 4px;
+  min-width: 8px;
 }
+
 QScrollBar::handle:horizontal:hover {
-    margin: 2px 14px;
-    {{ |env(value=&quot;margin: 0;&quot;, os=&quot;Darwin&quot;) }}
-}
-QScrollBar::handle:vertical {
-    min-height: 8px;
-    margin: 14px 4px;
-    {{ |env(value=&quot;margin: 0;&quot;, os=&quot;Darwin&quot;) }}
-}
-QScrollBar::handle:vertical:hover {
-    margin: 14px 2px;
-    {{ |env(value=&quot;margin: 0;&quot;, os=&quot;Darwin&quot;) }}
-}
-/*
-Hide QScrollBar background.
-The `sub-page` and `add-page` are not colored by default on most OS, but are colored on Windows.
-*/
-QScrollBar::sub-page,
-QScrollBar::add-page {
-    background: transparent;
-}
-QScrollBar::sub-line,
-QScrollBar::add-line {
-    background: transparent;
-    {{ |env(value=&quot;width: 0; height: 0&quot;, os=&quot;Darwin&quot;) }}
-}
-QScrollBar::up-arrow:enabled {
-    image: {{ scrollbarSlider.background|color|url(id=&quot;arrow_drop_up&quot;) }};
-}
-QScrollBar::right-arrow:enabled {
-    image: {{ scrollbarSlider.background|color|url(id=&quot;arrow_drop_up&quot;, rotate=90) }};
-}
-QScrollBar::down-arrow:enabled {
-    image: {{ scrollbarSlider.background|color|url(id=&quot;arrow_drop_up&quot;, rotate=180) }};
-}
-QScrollBar::left-arrow:enabled {
-    image: {{ scrollbarSlider.background|color|url(id=&quot;arrow_drop_up&quot;, rotate=270) }};
-}
-QScrollBar::up-arrow:hover {
-    image: {{ scrollbarSlider.activeBackground|color|url(id=&quot;arrow_drop_up&quot;) }};
-}
-QScrollBar::right-arrow:hover {
-    image: {{ scrollbarSlider.activeBackground|color|url(id=&quot;arrow_drop_up&quot;, rotate=90) }};
-}
-QScrollBar::down-arrow:hover {
-    image: {{ scrollbarSlider.activeBackground|color|url(id=&quot;arrow_drop_up&quot;, rotate=180) }};
-}
-QScrollBar::left-arrow:hover {
-    image: {{ scrollbarSlider.activeBackground|color|url(id=&quot;arrow_drop_up&quot;, rotate=270) }};
+  background-color: rgba(65, 105, 225,80%);
+  border:#4169E1;
+  border-radius: 4px;
+  min-width: 8px;
 }
 
-/* QProgressBar -----------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qprogressbar
-
---------------------------------------------------------------------------- */
-QProgressBar {
-    text-align: center;
-    border: 1px solid {{ border|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QProgressBar::chunk {
-    background: {{ primary|color(state=&quot;progressBar.background&quot;) }};
-    border-radius: {{ corner-shape|corner(size=3) }}px;
-}
-QProgressBar::chunk:disabled {
-    background: {{ foreground|color(state=&quot;progressBar.disabledBackground&quot;) }};
+QScrollBar::handle:horizontal:focus {
+  border: 1px solid red;
 }
 
-/* QPushButton ------------------------------------------------------------
 
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutton
 
---------------------------------------------------------------------------- */
-QPushButton {
-    color: {{ primary|color }};
-    border: 1px solid {{ border|color }};
-    padding: 4px 8px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
+QScrollBar::add-line:horizontal {
+  margin: 0px 0px 0px 0px;
+  border-image: url(&quot;:/qss_icons/light/rc/arrow_right_disabled.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: right;
+  subcontrol-origin: margin;
 }
-QPushButton:flat,
-QPushButton:default {
-    border: none;
-    padding: 5px 9px;
+
+QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
+  border-image: url(&quot;:/qss_icons/light/rc/arrow_right.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: right;
+  subcontrol-origin: margin;
 }
-QPushButton:default {
-    color: {{ background|color }};
-    background: {{ primary|color }};
+
+
+
+QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
+  border-image: url(&quot;:/qss_icons/light/rc/arrow_down.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
 }
-QPushButton:hover {
-    background: {{ primary|color(state=&quot;button.hoverBackground&quot;) }};
+
+QScrollBar::sub-line:horizontal {
+  margin: 0px 3px 0px 3px;
+  border-image: url(&quot;:/qss_icons/light/rc/arrow_left_disabled.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal:hover, QScrollBar::sub-line:horizontal:on {
+  border-image: url(&quot;/qss_icons/light/rc/arrow_left.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+  background: none;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+  background: none;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+  background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+  background: none;
+}
+
+/*----------------------------------------------------------------------------------------*/
+QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #4169E1;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
 }
 QPushButton:pressed {
-    background: {{ primary|color(state=&quot;button.activeBackground&quot;) }};
+	margin:1px 2px;
+	font-size: 15px;
 }
-QPushButton:checked:enabled {
-    background: {{ primary|color(state=&quot;button.activeBackground&quot;) }};
-}
-QPushButton:default:hover {
-    background: {{ primary|color(state=&quot;defaultButton.hoverBackground&quot;) }};
-}
-QPushButton:default:pressed,
-QPushButton:default:checked {
-    background: {{ primary|color(state=&quot;defaultButton.activeBackground&quot;) }};
-}
-QPushButton:default:disabled,
-QPushButton:default:checked:disabled {
-    background: {{ foreground|color(state=&quot;defaultButton.disabledBackground&quot;) }};
-}
-
-/* QDialogButtonBox -------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QDialogButtonBox {
-    dialogbuttonbox-buttons-have-icons: 0;
-}
-
-QDialogButtonBox QPushButton {
-    min-width: 65px;
-}
-
-/* QToolButton ------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbutton
-
---------------------------------------------------------------------------- */
-QToolButton {
-    background: transparent;
-    padding: 5px;
-    spacing: 2px;
-    border-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QToolButton:hover,
-QToolButton::menu-button:hover {
-    background: {{ primary|color(state=&quot;button.hoverBackground&quot;) }};
-}
-QToolButton:pressed,
-QToolButton:checked:pressed,
-QToolButton::menu-button:pressed:enabled {
-    background: {{ primary|color(state=&quot;button.activeBackground&quot;) }};
-}
-QToolButton:selected:enabled,
-QToolButton:checked:enabled {
-    background: {{ primary|color(state=&quot;button.activeBackground&quot;) }};
-}
-QToolButton::menu-indicator {
-    height: 18px;
-    width: 18px;
-    top: 6px;
-    left: 3px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QToolButton::menu-indicator:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QToolButton::menu-arrow {
-    /* Remove default arrow icon on Qt5 */
-    image: unset;
-}
-QToolButton::menu-button {
-    subcontrol-origin: margin;
-    width: 17px;
-    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QToolButton::menu-button:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-
-/* MenuButtonPopup */
-QToolButton[
-{{ |env(value=&quot;popupMode=MenuButtonPopup&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;popupMode=\\&quot;1\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;popupMode=MenuButtonPopup&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    padding-right: 1px;
-    margin-right: 18px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-/* QComboBox --------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
-
---------------------------------------------------------------------------- */
-QComboBox {
-    min-height: 1.5em;
-    padding: 0 8px 0 4px;
-    background: {{ input.background|color }};
-    border: 1px solid {{ border|color(state=&quot;input&quot;) }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QComboBox:focus,
-QComboBox:open {
-    border-color: {{ primary|color }};
-}
-QComboBox::drop-down {
-    margin: 2px 2px 2px -6px;
-    border-radius: {{ corner-shape|corner(size=4) }};  /* This remove default style. */
-}
-QComboBox::drop-down:editable:hover {
-    background: {{ inputButton.hoverBackground|color }};
-}
-QComboBox::down-arrow {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QComboBox::down-arrow:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QComboBox::down-arrow:editable:open {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;) }};
-}
-QComboBox::down-arrow:editable:open:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;) }};
-}
-/* Setting background color of selected item when editable is false. */
-QComboBox::item:selected {
-    border: none;  /* This remove the border of indicator. */
-    background: {{ primary|color(state=&quot;list.selectionBackground&quot;) }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-
-/* QAbstractItemView in QComboBox is NoFrame. Override default settings and show border. */
-QComboBox QListView[
-{{ |env(value=&quot;frameShape=\\&quot;0\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;)}}
-{{ |env(value=&quot;frameShape=NoFrame&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    margin: 0;
-    padding: 4px;
-    background: {{ background|color(state=&quot;popup&quot;) }};
-    {{ primary|color(state=&quot;list.selectionBackground&quot;)|env(value=&quot;selection-background-color: ${};&quot;, version=&quot;&lt;6.0.0&quot;) }}
-    border-radius: 0;
-    {{ corner-shape|corner(size=4)|env(value=&quot;border-radius: ${}px;&quot;, version=&quot;&lt;6.0.0&quot;, os=&quot;Darwin&quot;) }}
-    {{ corner-shape|corner(size=4)|env(value=&quot;border-radius: ${}px;&quot;, version=&quot;&gt;=6.4.1&quot;, os=&quot;Darwin&quot;) }}
-}
-QComboBox QListView::item {
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-
-
-/* QSlider ----------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qslider
-
---------------------------------------------------------------------------- */
-QSlider {
-    padding: 2px 0;
-}
-QSlider::groove {
-    border-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QSlider::groove:horizontal {
-    height: 4px;
-}
-QSlider::groove:vertical {
-    width: 4px;
-}
-/* Horizontal slider active line is `::sub-page`. */
-/* Vertical slider active line is `::add-page`. */
-QSlider::sub-page:horizontal,
-QSlider::add-page:vertical,
-QSlider::handle {
-    background: {{ primary|color }};
-}
-QSlider::sub-page:horizontal:disabled,
-QSlider::add-page:vertical:disabled,
-QSlider::handle:disabled {
-    background: {{ foreground|color(state=&quot;slider.disabledBackground&quot;) }};
-}
-QSlider::add-page:horizontal,
-QSlider::sub-page:vertical {
-    background: {{ foreground|color(state=&quot;sliderTrack.inactiveBackground&quot;) }};
-}
-QSlider::handle:hover,
-QSlider::handle:pressed {
-    background: {{ primary|color(state=&quot;sliderHandle.activeBackground&quot;) }};
-}
-QSlider::handle:horizontal {
-    width: 16px;
-    height: 8px;
-    margin: -6px 0;
-    border-radius: 8px;
-}
-QSlider::handle:vertical {
-    width: 8px;
-    height: 16px;
-    margin: 0 -6px;
-    border-radius: 8px;
-}
-
-/* QTabWidget QTabBar -----------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtabwidget-and-qtabbar
-
---------------------------------------------------------------------------- */
-QTabWidget::pane {
-    border: 1px solid {{ border|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QTabBar {
-    /*
-    Not filling background color when drawBase property is true. So need to set drawBase to false.
-    Default QTabBar is no need following declaration, but QMdiArea is need.
-    */
-    qproperty-drawBase: 0;
-}
-QTabBar::close-button {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;close&quot;) }};
-}
-QTabBar::close-button:hover {
-    background: {{ tabCloseButton.hoverBackground|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QTabBar::close-button:!selected {
-    image: {{ foreground|color(state=&quot;icon.unfocused&quot;)|url(id=&quot;close&quot;) }};
-}
-QTabBar::close-button:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;close&quot;) }};
-}
-QTabBar::tab {
-    padding: 3px;
-    border-style: solid;
-}
-QTabBar::tab:hover,
-QTabBar::tab:selected:hover:enabled {
-    background: {{ tab.hoverBackground|color }};
-}
-QTabBar::tab:selected:enabled {
-    color: {{ primary|color }};
-    background: {{ tab.activeBackground|color }};
-    border-color: {{ primary|color }};
-}
-QTabBar::tab:selected:disabled,
-QTabBar::tab:only-one:selected:enabled {
-    border-color: {{ border|color }};
-}
-QTabBar::tab:top {
-    border-bottom-width: 2px;
-    margin: 3px 6px 0 0;
-    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
-    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QTabBar::tab:bottom {
-    border-top-width: 2px;
-    margin: 0 6px 3px 0;
-    border-bottom-left-radius: {{ corner-shape|corner(size=2) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QTabBar::tab:left {
-    border-right-width: 2px;
-    margin: 0 0 6px 3px;
-    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
-    border-bottom-left-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QTabBar::tab:right {
-    border-left-width: 2px;
-    margin-bottom: 6px;
-    margin: 0 3px 6px 0;
-    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QTabBar::tab:top:first,
-QTabBar::tab:top:only-one,
-QTabBar::tab:bottom:first,
-QTabBar::tab:bottom:only-one {
-    margin-left: 2px;
-}
-QTabBar::tab:top:last,
-QTabBar::tab:top:only-one,
-QTabBar::tab:bottom:last,
-QTabBar::tab:bottom:only-one {
-    margin-right: 2px;
-}
-QTabBar::tab:left:first,
-QTabBar::tab:left:only-one,
-QTabBar::tab:right:first,
-QTabBar::tab:right:only-one {
-    margin-top: 2px;
-}
-QTabBar::tab:left:last,
-QTabBar::tab:left:only-one,
-QTabBar::tab:right:last,
-QTabBar::tab:right:only-one {
-    margin-bottom: 2px;
-}
-
-/* QDockWidget -------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QDockWidget {
-    border: 1px solid {{ border|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QDockWidget::title {
-  /* Better size for title bar */
-    padding: 3px;
-    spacing: 4px;
-    background: {{ background|color(state=&quot;title&quot;) }};
-}
-/*
-`QDockWidget::close-button` and `QDockWidget::float-button` is not QToolButton.
-We need to set the button style again.
-*/
-QDockWidget::close-button,
-QDockWidget::float-button {
-    border-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QDockWidget::close-button:hover,
-QDockWidget::float-button:hover {
-    background: {{ primary|color(state=&quot;button.hoverBackground&quot;) }};
-}
-QDockWidget::close-button:pressed,
-QDockWidget::float-button:pressed {
-    background: {{ primary|color(state=&quot;button.activeBackground&quot;) }};
-}
-
-/* QFrame -----------------------------------------------------------------
-
-https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qframe
-
---------------------------------------------------------------------------- */
-QFrame {
-    border: 1px solid {{ border|color }};
-    padding: 1px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-.QFrame {
-    padding: 0;
-}
-/* NoFrame */
-QFrame[
-{{ |env(value=&quot;frameShape=NoFrame&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;frameShape=\\&quot;0\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;frameShape=NoFrame&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    border-color: transparent;
-    padding: 0;
-}
-.QFrame[
-{{ |env(value=&quot;frameShape=NoFrame&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;frameShape=\\&quot;0\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;frameShape=NoFrame&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    border: none;
-}
-/* Panel */
-QFrame[
-{{ |env(value=&quot;frameShape=Panel&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;frameShape=\\&quot;2\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;frameShape=Panel&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    border-color: {{ background|color(state=&quot;panel&quot;) }};
-    background: {{ background|color(state=&quot;panel&quot;) }};
-}
-/* HLine */
-QFrame[
-{{ |env(value=&quot;frameShape=HLine&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;frameShape=\\&quot;4\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;frameShape=HLine&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    max-height: 2px;
-    border: none;
-    background: {{ border|color }};
-}
-/* VLine */
-QFrame[
-{{ |env(value=&quot;frameShape=VLine&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PySide2&quot;) }}
-{{ |env(value=&quot;frameShape=\\&quot;5\\&quot;&quot;, version=&quot;&lt;6.0.0&quot;, qt=&quot;PyQt5&quot;) }}
-{{ |env(value=&quot;frameShape=VLine&quot;, version=&quot;&gt;=6.0.0&quot;) }}
-] {
-    max-width: 2px;
-    border: none;
-    background: {{ border|color }};
-}
-/* QLCDNumber -------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QLCDNumber {
-    min-width: 2em;
-    margin: 2px;
-}
-
-/* QToolBox ---------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbox
-
---------------------------------------------------------------------------- */
-QToolBox::tab {
-    background: {{ background|color(state=&quot;title&quot;) }};
-    border-bottom: 2px solid {{ border|color }};
-    border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
-    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QToolBox::tab:selected:enabled {
-    border-bottom-color: {{ primary|color }};
-}
-
-/* QSplitter --------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qsplitter
-
---------------------------------------------------------------------------- */
-QSplitter::handle {
-    background: {{ border|color }};
-    margin: 1px 3px;
-}
-QSplitter::handle:hover {
-    background: {{ primary|color }};
-}
-QSplitter::handle:horizontal {
-    width: 5px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;horizontal_rule&quot;, rotate=90) }};
-}
-QSplitter::handle:horizontal:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;horizontal_rule&quot;, rotate=90) }};
-}
-QSplitter::handle:vertical {
-    height: 5px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;horizontal_rule&quot;) }};
-}
-QSplitter::handle:vertical:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;horizontal_rule&quot;) }};
-}
-
-/*
-QSplitterHandle is the QSplitter handle class.
-[QSplitter::handle:hover] is enabled by the following settings.
-Warning: This setting is not mentioned in the documentation.
-*/
-QSplitterHandle::item:hover {}
-
-/* QAbstractScrollArea ----------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qabstractscrollarea
-
---------------------------------------------------------------------------- */
-QAbstractScrollArea {
-    margin: 1px;
-}
-QAbstractScrollArea::corner {
-    background: transparent;
-}
-
-/* Fix a bug where widgets in scroll area would hide the scroll area border. */
-QAbstractScrollArea &gt; .QWidget {
-    background: transparent;
-}
-QAbstractScrollArea &gt; .QWidget &gt; .QWidget {
-    background: transparent;
-}
-
-/* QMdiArea QMdiSubWindow ----------------------------------------------------
-
---------------------------------------------------------------------------- */
-QMdiArea {
-    qproperty-background: {{ background|color(state=&quot;panel&quot;) }};
-    border-radius: 0;
-}
-
-QMdiSubWindow {
-    background: {{ background|color }};
-    border: 1px solid;
-    padding: 0 3px;
-}
-QMdiSubWindow &gt; QWidget {
-    border: 1px solid {{ border|color }};
-}
-
-/* QTextEdit QPlainTextEdit------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-specific-widgets
-
---------------------------------------------------------------------------- */
-QTextEdit, QPlainTextEdit {
-    background: {{ background|color(state=&quot;textarea&quot;) }};
-}
-QTextEdit:focus,
-QTextEdit:selected,
-QPlainTextEdit:focus,
-QPlainTextEdit:selected {
-    border: 1px solid {{ primary|color }};
-    selection-background-color: {{ primary|color(state=&quot;textarea.selectionBackground&quot;) }};
-}
-
-/* In version +5.15, [!active] state is disabled. */
-/* In version -5.15, [!focus] state is disabled. */
-QTextEdit:!focus,
-QPlainTextEdit:!focus {
-    {{ textarea.inactiveSelectionBackground|color|env(value=&quot;selection-background-color: ${}&quot;, version=&quot;&gt;=5.15.0&quot;) }}
-}
-QTextEdit:!active,
-QPlainTextEdit:!active {
-    {{ textarea.inactiveSelectionBackground|color|env(value=&quot;selection-background-color: ${}&quot;, version=&quot;&lt;5.15.0&quot;) }}
-}
-
-/* QAbstractItemView ------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
-
---------------------------------------------------------------------------- */
-/* Control QAbstractItemView selection and alternate colors with Pseudo-States instead of properties. */
-QAbstractItemView {
-    padding: 0;
-    alternate-background-color: transparent;
-    selection-background-color: transparent;
-}
-QAbstractItemView:disabled {
-    selection-background-color: transparent;
-}
-QAbstractItemView::item:alternate,
-QAbstractItemView::branch:alternate {
-    background: {{ list.alternateBackground|color }};
-}
-QAbstractItemView::item:selected,
-QAbstractItemView::branch:selected {
-    background: {{ primary|color(state=&quot;list.selectionBackground&quot;) }};
-}
-QAbstractItemView::item:selected:!active,
-QAbstractItemView::branch:selected:!active {
-    background: {{ primary|color(state=&quot;list.inactiveSelectionBackground&quot;) }};
-}
-
-QAbstractItemView QLineEdit,
-QAbstractItemView QAbstractSpinBox,
-QAbstractItemView QAbstractButton {
-    padding: 0;
-    margin: 1px;
-}
-
-/* QListView QTreeView ---------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlistview
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtreeview
-
---------------------------------------------------------------------------- */
-QListView {
-    padding: 1px
-}
-QListView,
-QTreeView {
-    background: {{ background|color(state=&quot;list&quot;) }};
-}
-QListView::item:!selected:hover,
-QTreeView::item:!selected:hover,
-QTreeView::branch:!selected:hover {
-    background: {{ list.hoverBackground|color }};
-}
-QTreeView::branch:!selected:hover,
-QTreeView::branch:alternate,
-QTreeView::branch:selected,
-QTreeView::branch:selected:!active {
-    {{ |env(value=&quot;background: transparent;&quot;, version=&quot;&gt;=6.4.1&quot;) }}
-}
-QTreeView::branch {
-    border-image: {{ tree.inactiveIndentGuidesStroke|color|url(id=&quot;vertical_line&quot;) }} 0;
-}
-QTreeView::branch:active {
-    border-image: {{ tree.indentGuidesStroke|color(state=&quot;icon&quot;)|url(id=&quot;vertical_line&quot;) }} 0;
-}
-QTreeView::branch:has-siblings:adjoins-item,
-QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-    border-image: unset;
-}
-QTreeView::branch:has-children:!has-siblings:closed,
-QTreeView::branch:closed:has-children:has-siblings {
-    border-image: unset;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-QTreeView::branch:has-children:!has-siblings:closed:disabled,
-QTreeView::branch:closed:has-children:has-siblings:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-QTreeView::branch:open:has-children:!has-siblings,
-QTreeView::branch:open:has-children:has-siblings  {
-    border-image: unset;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QTreeView::branch:open:has-children:!has-siblings:disabled,
-QTreeView::branch:open:has-children:has-siblings:disabled  {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QTreeView &gt; QHeaderView {
-    background: {{ background|color(state=&quot;list&quot;) }};
-}
-QTreeView &gt; QHeaderView::section {
-    background: {{ treeSectionHeader.background|color }};
-}
-
-/*
-Following arrow settings are for QColumnView.
-QColumnView::left-arrow and QColumnView::right-arrow are not working.
-*/
-QListView::left-arrow {
-    margin: -2px;
-    image: {{ foreground|color(state=&quot;icon.unfocused&quot;)|url(id=&quot;chevron_right&quot;, rotate=180) }};
-}
-QListView::right-arrow {
-    margin: -2px;
-    image: {{ foreground|color(state=&quot;icon.unfocused&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-QListView::left-arrow:selected:enabled {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;chevron_right&quot;, rotate=180) }};
-}
-QListView::right-arrow:selected:enabled {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-QListView::left-arrow:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;chevron_right&quot;, rotate=180) }};
-}
-QListView::right-arrow:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;chevron_right&quot;) }};
-}
-
-/* QColumnView ------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QColumnView {
-    background: {{ background|color(state=&quot;list&quot;) }}
-}
-QColumnViewGrip {
-    margin: -4px;
-    background: {{ background|color(state=&quot;list&quot;) }};
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;drag_handle&quot;, rotate=90) }}
-}
-QColumnViewGrip:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;drag_handle&quot;, rotate=90) }}
-}
-
-/* QTableView -------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
-
---------------------------------------------------------------------------- */
-QTableView {
-    gridline-color: {{ tableSectionHeader.background|color }};
-    background: {{ background|color(state=&quot;table&quot;) }};
-    {{ primary|color(state=&quot;table.selectionBackground&quot;)|env(value=&quot;selection-background-color: ${};&quot;, version=&quot;&gt;=6.4.1&quot;) }}
-    {{ table.alternateBackground|color|env(value=&quot;alternate-background-color: ${};&quot;, version=&quot;&gt;=6.4.1&quot;) }}
-}
-QTableView:!active {
-    {{ primary|color(state=&quot;table.inactiveSelectionBackground&quot;)|env(value=&quot;selection-background-color: ${};&quot;, version=&quot;&lt;6.4.1&quot;) }}
-}
-QTableView::item:alternate {
-    {{ table.alternateBackground|color|env(value=&quot;background: ${};&quot;, version=&quot;&lt;6.4.1&quot;) }}
-}
-QTableView::item:selected {
-    {{ primary|color(state=&quot;table.selectionBackground&quot;)|env(value=&quot;background: ${};&quot;, version=&quot;&lt;6.4.1&quot;) }}
-}
-
-QTableView QTableCornerButton::section {
-    margin: 0 1px 1px 0;
-    background: {{ tableSectionHeader.background|color }};
-    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
-}
-QTableView QTableCornerButton::section:pressed {
-    background: {{ primary|color(state=&quot;table.selectionBackground&quot;) }};
-}
-
-QTableView &gt; QHeaderView {
-    background: {{ background|color(state=&quot;table&quot;) }};
-    border-radius:  {{ corner-shape|corner(size=3) }};
-}
-QTableView &gt; QHeaderView::section {
-    background: {{ tableSectionHeader.background|color }}
-}
-
-/* QHeaderView ------------------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qheaderview
-
---------------------------------------------------------------------------- */
-QHeaderView {
-    margin: 0; /* Override QAbstractScrollArea rule. */
-    border: none; /* Override QFrame rule. */
-}
-QHeaderView::section {
-    border: none; /* This hide default grid. */
-    background: {{ treeSectionHeader.background|color }};
-    /* Apply left padding to no padding header section. */
-    padding-left: 4px;
-}
-QHeaderView::section:horizontal {
-    margin-right: 1px; /* This make grid of section. */
-}
-QHeaderView::section:vertical {
-    margin-bottom: 1px; /* This make section grid. */
-}
-QHeaderView::section:on:enabled,
-QHeaderView::section:on:pressed {
-    color: {{ primary|color }};
-}
-QHeaderView::section:last,
-QHeaderView::section:only-one {
-    margin: 0;
-}
-QHeaderView::down-arrow:horizontal {
-    margin-left: -19px;
-    subcontrol-position: center right;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QHeaderView::down-arrow:horizontal:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;, rotate=180) }};
-}
-QHeaderView::up-arrow:horizontal {
-    margin-left: -19px;
-    subcontrol-position: center right;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;expand_less&quot;) }};
-}
-QHeaderView::up-arrow:horizontal:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;expand_less&quot;) }};
-}
-/*
-Longer text in the vertical QHeaderView section makes the section space too large.
-This is because a transparent arrow appears on the vertical QHeaderView.
-Remove the vertical QHeaderView arrow, and remove the section space.
-*/
-QHeaderView::down-arrow:vertical,
-QHeaderView::up-arrow:vertical {
-    width: 0;
-    height: 0;
-}
-
-/* QCalendarWidget --------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QCalendarWidget &gt; .QWidget {
-    background: {{ background|color(state=&quot;table&quot;) }};
-    border-bottom: 1px solid {{ border|color }};
-    border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
-    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QCalendarWidget &gt; .QWidget &gt; QWidget {
-    padding: 1px;
-}
-QCalendarWidget .QWidget &gt; QToolButton {
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QCalendarWidget &gt; QTableView {
-    margin: 0;
-    border: none;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    alternate-background-color: {{ table.alternateBackground|color }};
-    {{ corner-shape|corner(size=4)|env(value=&quot;border-radius: ${}px;&quot;, version=&quot;&lt;6.0.0&quot;, os=&quot;Darwin&quot;) }}
-    /* Fix 207 */
-    {{ primary|color(state=&quot;table.selectionBackground&quot;)|env(value=&quot;selection-background-color: ${};&quot;, version=&quot;&lt;6.0.0&quot;) }}
-}
-
-/* QAbstractSpinBox QLineEdit----------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlineedit
-
---------------------------------------------------------------------------- */
-QLineEdit,
-QAbstractSpinBox {
-    padding: 3px 4px;
-    /* Adjust the min-height of QLineEdit to the height of the characters. */
-    min-height: 1em;
-    border: 1px solid {{ border|color(state=&quot;input&quot;) }};
-    background: {{ input.background|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QLineEdit:focus,
-QAbstractSpinBox:focus {
-    border-color: {{ primary|color }};
-}
-QAbstractSpinBox::up-button,
-QAbstractSpinBox::down-button {
-    subcontrol-position: center right;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QAbstractSpinBox::up-button:hover:on,
-QAbstractSpinBox::down-button:hover:on {
-    background: {{ inputButton.hoverBackground|color }};
-}
-QAbstractSpinBox::up-button {
-    bottom: 5px;
-    right: 4px;
-}
-QAbstractSpinBox::up-arrow:on {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;arrow_drop_up&quot;) }};
-}
-QAbstractSpinBox::up-arrow:disabled,
-QAbstractSpinBox::up-arrow:off {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;arrow_drop_up&quot;) }};
-}
-QAbstractSpinBox::down-button {
-    top: 5px;
-    right: 4px;
-}
-QAbstractSpinBox::down-arrow:on {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;arrow_drop_up&quot;, rotate=180) }};
-}
-QAbstractSpinBox::down-arrow:disabled,
-QAbstractSpinBox::down-arrow:off {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;arrow_drop_up&quot;, rotate=180) }};
-}
-
-/* QDateTimeEdit ----------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QDateTimeEdit::drop-down {
-    padding-right: 4px;
-    width: 16px;
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;calendar_today&quot;) }};
-}
-QDateTimeEdit::drop-down:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;calendar_today&quot;) }};
-}
-QDateTimeEdit::down-arrow[calendarPopup=true] {
-    image: none;
-}
-
-/* QFileDialog QFontDialog ------------------------------------------------
-
---------------------------------------------------------------------------- */
-QFileDialog QFrame {
-    border: none;
-}
-
-QFontDialog QListView {
-    min-height: 60px;
-}
-
-/* Check ------------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QComboBox::indicator,
-QMenu::indicator {
-    width: 18px;
-    height: 18px;
-}
-QMenu::indicator {
-    background: {{ popupItem.checkbox.background|color }};
-    margin-left: 3px;
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QComboBox::indicator:checked,
-QMenu::indicator:checked {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;check&quot;) }};
-}
-
-/* Check indicator --------------------------------------------------------
-
-document: https://doc.qt.io/qt-5/stylesheet-reference.html#list-of-sub-controls
-
---------------------------------------------------------------------------- */
-QCheckBox,
-QRadioButton {
-    spacing: 8px;
-}
-QGroupBox::title,
-QAbstractItemView::item {
-    spacing: 6px;
-}
-QCheckBox::indicator,
-QGroupBox::indicator,
-QAbstractItemView::indicator,
-QRadioButton::indicator {
-    height: 18px;
-    width: 18px;
-}
-QCheckBox::indicator,
-QGroupBox::indicator,
-QAbstractItemView::indicator {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;check_box_outline_blank&quot;) }};
-}
-QCheckBox::indicator:unchecked:disabled,
-QGroupBox::indicator:unchecked:disabled,
-QAbstractItemView::indicator:unchecked:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;check_box_outline_blank&quot;) }};
-}
-QCheckBox::indicator:checked,
-QGroupBox::indicator:checked,
-QAbstractItemView::indicator:checked {
-    image: {{ primary|color|url(id=&quot;check_box&quot;) }};
-}
-QCheckBox::indicator:checked:disabled,
-QGroupBox::indicator:checked:disabled,
-QAbstractItemView::indicator:checked:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;check_box&quot;) }};
-}
-QCheckBox::indicator:indeterminate,
-QAbstractItemView::indicator:indeterminate {
-    image: {{ primary|color|url(id=&quot;indeterminate_check_box&quot;) }};
-}
-QCheckBox::indicator:indeterminate:disabled,
-QAbstractItemView::indicator:indeterminate:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;indeterminate_check_box&quot;) }};
-}
-
-QRadioButton::indicator:unchecked {
-    image: {{ foreground|color(state=&quot;icon&quot;)|url(id=&quot;radio_button_unchecked&quot;) }};
-}
-QRadioButton::indicator:unchecked:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;radio_button_unchecked&quot;) }};
-}
-QRadioButton::indicator:checked {
-    image: {{ primary|color|url(id=&quot;radio_button_checked&quot;) }};
-}
-QRadioButton::indicator:checked:disabled {
-    image: {{ foreground|color(state=&quot;disabled&quot;)|url(id=&quot;radio_button_checked&quot;) }};
-}
-
-/* PyQtGraph
-=========================================================================== */
-
-/* PlotWidget -------------------------------------------------------------
-
---------------------------------------------------------------------------- */
-PlotWidget {
-    /* Fix cut labels in plots
-    https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/134 */
-    padding: 0;
-}
-
-/* ParameterTree ----------------------------------------------------------
-
---------------------------------------------------------------------------- */
-
-ParameterTree &gt; .QWidget &gt; .QWidget &gt; .QWidget &gt; QComboBox{
-    min-height: 1.2em;
-}
-ParameterTree::item,
-ParameterTree &gt; .QWidget {
-    background: {{ background|color(state=&quot;list&quot;) }};
-}
-
 </string>
   </property>
   <property name="tabShape">
@@ -1406,7 +180,7 @@ ParameterTree &gt; .QWidget {
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,15">
+      <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0,15,0">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -1432,13 +206,13 @@ ParameterTree &gt; .QWidget {
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>60</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>50</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -1452,6 +226,84 @@ ParameterTree &gt; .QWidget {
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="toggle_radioButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Sync</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <property name="autoRepeat">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="left_side_bar_bottom">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1467,32 +319,6 @@ ParameterTree &gt; .QWidget {
           <property name="spacing">
            <number>0</number>
           </property>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="toggle_button">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="res.qrc">
-              <normaloff>:/icons/icons/export.png</normaloff>:/icons/icons/export.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -1511,6 +337,7 @@ ParameterTree &gt; .QWidget {
           <font>
            <family>Ubuntu</family>
            <pointsize>20</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
            <kerning>true</kerning>
@@ -1542,6 +369,48 @@ ParameterTree &gt; .QWidget {
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="light_dark_mode_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>34</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgba(255,255,255,0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/icons/icons/sun.png</normaloff>:/icons/icons/sun.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -1557,6 +426,12 @@ ParameterTree &gt; .QWidget {
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="maximumSize">
          <size>
@@ -1584,7 +459,7 @@ ParameterTree &gt; .QWidget {
           <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>20</number>
+          <number>10</number>
          </property>
          <property name="topMargin">
           <number>0</number>
@@ -1596,7 +471,7 @@ ParameterTree &gt; .QWidget {
           <number>0</number>
          </property>
          <item>
-          <widget class="QFrame" name="left_side_bar_top">
+          <widget class="QFrame" name="group_buttons3">
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -1619,8 +494,8 @@ ParameterTree &gt; .QWidget {
             <property name="spacing">
              <number>0</number>
             </property>
-            <item row="4" column="0">
-             <widget class="QPushButton" name="zoomPOutushButton_3">
+            <item row="3" column="0">
+             <widget class="QPushButton" name="zoom_out_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -1646,8 +521,8 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="zoomInPushButton_3">
+            <item row="2" column="0">
+             <widget class="QPushButton" name="zoom_in_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -1673,8 +548,35 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="stopPushButton_3">
+            <item row="4" column="0">
+             <widget class="QPushButton" name="rewind_btn3">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+background-color: rgba(255,255,255,0);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons/icons/rewind.png</normaloff>:/icons/icons/rewind.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="stop_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -1700,8 +602,8 @@ background-color: rgba(255,255,255,0);</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="playPausePushButton_3">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="play_pause_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -1731,123 +633,6 @@ background-color: rgba(255,255,255,0);
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="rewindPushButton_3">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">
-background-color: rgba(255,255,255,0);</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/rewind.png</normaloff>:/icons/icons/rewind.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>30</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="left_side_bar_bottom">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">border: 0px</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>10</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="light_dark_mode_btn">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>34</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgba(255,255,255,0);
-border: 0px;</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/sun.png</normaloff>:/icons/icons/sun.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>30</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
@@ -1857,7 +642,7 @@ border: 0px;</string>
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">
-         <number>20</number>
+         <number>10</number>
         </property>
         <property name="topMargin">
          <number>20</number>
@@ -1896,17 +681,17 @@ border: 0px;</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QGraphicsView" name="graphicsView_2"/>
+            <widget class="QGraphicsView" name="graphics_view2"/>
            </item>
            <item>
-            <widget class="QScrollBar" name="horizontalScrollBar_2">
+            <widget class="QScrollBar" name="horizontal_scrollBar2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <layout class="QHBoxLayout" name="group_buttons2">
              <property name="leftMargin">
               <number>175</number>
              </property>
@@ -1920,7 +705,7 @@ border: 0px;</string>
               <number>8</number>
              </property>
              <item>
-              <widget class="QPushButton" name="rewindPushButton_2">
+              <widget class="QPushButton" name="rewind_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -1944,7 +729,7 @@ border: 0px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="playPausePushButton_2">
+              <widget class="QPushButton" name="play_pause_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -1967,7 +752,7 @@ border: 0px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="stopPushButton_2">
+              <widget class="QPushButton" name="stop_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -1990,7 +775,7 @@ border: 0px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomInPushButton_2">
+              <widget class="QPushButton" name="zoom_in_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2013,7 +798,7 @@ border: 0px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomPOutushButton_2">
+              <widget class="QPushButton" name="zoom_out_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2065,21 +850,24 @@ border: 0px;</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QGraphicsView" name="graphicsView_1">
+            <widget class="QGraphicsView" name="graphics_view1">
              <property name="styleSheet">
               <string notr="true"/>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QScrollBar" name="horizontalScrollBar_1">
+            <widget class="QScrollBar" name="horizontal_scrollBar1">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <layout class="QHBoxLayout" name="group_buttons1">
              <property name="leftMargin">
               <number>175</number>
              </property>
@@ -2093,7 +881,7 @@ border: 0px;</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="rewindPushButton_1">
+              <widget class="QPushButton" name="rewind_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2119,7 +907,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="playPausePushButton_1">
+              <widget class="QPushButton" name="play_pause_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2142,7 +930,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="stopPushButton_1">
+              <widget class="QPushButton" name="stop_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2165,7 +953,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomInPushButton_1">
+              <widget class="QPushButton" name="zoom_in_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2188,7 +976,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomPOutushButton_1">
+              <widget class="QPushButton" name="zoom_out_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
@@ -2252,7 +1040,7 @@ background-color: rgba(255, 255, 255, 0);
             <number>10</number>
            </property>
            <item>
-            <widget class="QListWidget" name="tableOfSignals_2">
+            <widget class="QListWidget" name="table_of_signals2">
              <property name="dragEnabled">
               <bool>true</bool>
              </property>
@@ -2288,7 +1076,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item>
@@ -2299,7 +1087,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
             </widget>
@@ -2312,6 +1100,7 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2355,6 +1144,7 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2395,7 +1185,7 @@ background-color: rgba(255, 255, 255, 0);
               <number>15</number>
              </property>
              <item>
-              <widget class="QPushButton" name="addPushButton_1">
+              <widget class="QPushButton" name="add_btn2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2416,9 +1206,34 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #176B87;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Add</string>
@@ -2426,7 +1241,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="exportPushButton_1">
+              <widget class="QPushButton" name="export_btn2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2447,9 +1262,34 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #176B87;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Export</string>
@@ -2457,7 +1297,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="clearPushButton_1">
+              <widget class="QPushButton" name="clear_btn2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2478,9 +1318,34 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #176B87;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Clear</string>
@@ -2532,7 +1397,10 @@ background-color: rgba(255, 255, 255, 0);
             <number>10</number>
            </property>
            <item>
-            <widget class="QListWidget" name="tableOfSignals_1">
+            <widget class="QListWidget" name="table_of_signals1">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox:hover, QCheckBox:checked { color: white }</string>
+             </property>
              <property name="dragEnabled">
               <bool>true</bool>
              </property>
@@ -2559,7 +1427,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
               </property>
              </item>
              <item>
@@ -2570,7 +1438,7 @@ background-color: rgba(255, 255, 255, 0);
                <enum>Checked</enum>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsAutoTristate</set>
+               <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
               </property>
              </item>
             </widget>
@@ -2583,8 +1451,12 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Speed</string>
@@ -2601,6 +1473,10 @@ background-color: rgba(255, 255, 255, 0);
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
                 </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">
+</string>
                </property>
                <property name="suffix">
                 <string> millisec</string>
@@ -2626,8 +1502,12 @@ background-color: rgba(255, 255, 255, 0);
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Change Color</string>
@@ -2666,7 +1546,7 @@ background-color: rgba(255, 255, 255, 0);
               <number>15</number>
              </property>
              <item>
-              <widget class="QPushButton" name="addPushButton_2">
+              <widget class="QPushButton" name="add_btn1">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2681,20 +1561,45 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #0d6efd;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Add</string>
                </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="exportPushButton_2">
+              <widget class="QPushButton" name="export_btn1">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2715,9 +1620,34 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #0d6efd;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Export</string>
@@ -2725,7 +1655,7 @@ background-color: rgba(255, 255, 255, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="clearPushButton_2">
+              <widget class="QPushButton" name="clear_btn1">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2740,9 +1670,34 @@ background-color: rgba(255, 255, 255, 0);
                </property>
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	/*border:2px solid #05B8CC;*/
+	background-color: #0d6efd;
+	color:rgb(255, 255, 255);
+	border-radius: 10px;
+	font-weight:bold;
+	font-size:16px;
+	 transition: 500ms;
+}
+
+QPushButton::hover{
+	border: 1px solid #4169E1;
+	background-color: rgba(65, 105, 225,80%)
+}
+QPushButton:pressed {
+	margin:1px 2px;
+	font-size: 15px;
+}
+</string>
                </property>
                <property name="text">
                 <string>Clear</string>
