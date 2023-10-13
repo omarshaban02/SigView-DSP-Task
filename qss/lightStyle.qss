@@ -578,8 +578,8 @@ QScrollBar::handle:horizontal {
 }
 
 QScrollBar::handle:horizontal:hover {
-  background-color: #9FCBFF;
-  border: #9FCBFF;
+  background-color: red;
+  border: red;
   border-radius: 4px;
   min-width: 8px;
 }
@@ -596,7 +596,7 @@ QScrollBar::handle:vertical {
 }
 
 QScrollBar::handle:vertical:hover {
-  background-color: #9FCBFF;
+  background-color: red;
   border: #9FCBFF;
   border-radius: 4px;
   min-height: 8px;
@@ -608,7 +608,7 @@ QScrollBar::handle:vertical:focus {
 
 QScrollBar::add-line:horizontal {
   margin: 0px 0px 0px 0px;
-  border-image: url(":/qss_icons/light/rc/arrow_right_disabled.png");
+  border-image: url("qss_icons/light/rc/arrow_right_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: right;
@@ -616,7 +616,7 @@ QScrollBar::add-line:horizontal {
 }
 
 QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
-  border-image: url(":/qss_icons/light/rc/arrow_right.png");
+  border-image: url("qss_icons/light/rc/arrow_right.png");
   height: 12px;
   width: 12px;
   subcontrol-position: right;
@@ -625,7 +625,7 @@ QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
 
 QScrollBar::add-line:vertical {
   margin: 3px 0px 3px 0px;
-  border-image: url(":/qss_icons/light/rc/arrow_down_disabled.png");
+  border-image: url("qss_icons/light/rc/arrow_down_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: bottom;
@@ -633,7 +633,7 @@ QScrollBar::add-line:vertical {
 }
 
 QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
-  border-image: url(":/qss_icons/light/rc/arrow_down.png");
+  border-image: url("qss_icons/light/rc/arrow_down.png");
   height: 12px;
   width: 12px;
   subcontrol-position: bottom;
@@ -642,7 +642,7 @@ QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
 
 QScrollBar::sub-line:horizontal {
   margin: 0px 3px 0px 3px;
-  border-image: url(":/qss_icons/light/rc/arrow_left_disabled.png");
+  border-image: url("qss_icons/light/rc/arrow_left_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: left;
@@ -650,7 +650,7 @@ QScrollBar::sub-line:horizontal {
 }
 
 QScrollBar::sub-line:horizontal:hover, QScrollBar::sub-line:horizontal:on {
-  border-image: url(":/qss_icons/light/rc/arrow_left.png");
+  border-image: url("qss_icons/light/rc/arrow_left.png");
   height: 12px;
   width: 12px;
   subcontrol-position: left;
@@ -659,7 +659,7 @@ QScrollBar::sub-line:horizontal:hover, QScrollBar::sub-line:horizontal:on {
 
 QScrollBar::sub-line:vertical {
   margin: 3px 0px 3px 0px;
-  border-image: url(":/qss_icons/light/rc/arrow_up_disabled.png");
+  border-image: url("qss_icons/light/rc/arrow_up_disabled.png");
   height: 12px;
   width: 12px;
   subcontrol-position: top;
@@ -667,7 +667,7 @@ QScrollBar::sub-line:vertical {
 }
 
 QScrollBar::sub-line:vertical:hover, QScrollBar::sub-line:vertical:on {
-  border-image: url(":/qss_icons/light/rc/arrow_up.png");
+  border-image: url("qss_icons/light/rc/arrow_up.png");
   height: 12px;
   width: 12px;
   subcontrol-position: top;
