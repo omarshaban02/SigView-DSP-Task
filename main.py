@@ -67,6 +67,10 @@ class MainApp(QMainWindow, ui):
 
         self.sv = SignalViewerLogic(self.plot_widget1)
         self.sv2 = SignalViewerLogic(self.plot_widget2)
+        # self.horizontal_scrollBar1.setMinimum(0)
+        # self.horizontal_scrollBar1.setMaximum(150)
+        # self.sv.xScrollBar = self.horizontal_scrollBar1
+        # self.sv2.xScrollBar = self.horizontal_scrollBar2
 
         self.light_dark_mode_btn.clicked.connect(self.toggle_dark_light_mode)
 
@@ -156,11 +160,11 @@ class MainApp(QMainWindow, ui):
 
         if self._light_mode:
             self.setStyleSheet(Path('qss/darkStyle.qss').read_text())
-            self.light_dark_mode_btn.setIcon(QIcon('icons/night-mode (1).png'))
+            self.light_dark_mode_btn.setIcon(QIcon('icons/moon.svg'))
             self._light_mode = False
         else:
             self.setStyleSheet(Path('qss/lightStyle.qss').read_text())
-            self.light_dark_mode_btn.setIcon(QIcon('icons/sun.png'))
+            self.light_dark_mode_btn.setIcon(QIcon('icons/brightness.svg'))
             self._light_mode = True
 
     def slider(self):
@@ -168,9 +172,9 @@ class MainApp(QMainWindow, ui):
         self.sv2.pause()
         if self.toggle_radioButton.isChecked():
             #for change icons
-            self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
+            self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
             self._play_pause_state1 = False
-            self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
+            self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
             self._play_pause_state2 = False
 
             # for slide slider and disable the other buttons
@@ -180,12 +184,14 @@ class MainApp(QMainWindow, ui):
             self.stop_btn1.setEnabled(False)
             self.reset_view_btn1.setEnabled(False)
             self.hide_btn1.setEnabled(False)
-
+            self.move_up_btn.setEnabled(False)
+            
             self.play_pause_btn2.setEnabled(False)
             self.replay_btn2.setEnabled(False)
             self.stop_btn2.setEnabled(False)
             self.reset_view_btn2.setEnabled(False)
             self.hide_btn2.setEnabled(False)
+            self.move_down_btn.setEnabled(False)
         else:
             self._play_pause_state1 = True
             self._play_pause_state2 = True
@@ -196,12 +202,14 @@ class MainApp(QMainWindow, ui):
             self.stop_btn1.setEnabled(True)
             self.reset_view_btn1.setEnabled(True)
             self.hide_btn1.setEnabled(True)
+            self.move_up_btn.setEnabled(True)
 
             self.play_pause_btn2.setEnabled(True)
             self.replay_btn2.setEnabled(True)
             self.stop_btn2.setEnabled(True)
             self.reset_view_btn2.setEnabled(True)
             self.hide_btn2.setEnabled(True)
+            self.move_down_btn.setEnabled(True)
 
         self.animation = QPropertyAnimation(self.left_side_bar, b"minimumWidth")
         self.animation.setDuration(40)
@@ -213,11 +221,11 @@ class MainApp(QMainWindow, ui):
     def toggle_play_pause_icon1(self):
         if self._play_pause_state1:
             self.sv.play()
-            self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+            self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
             self._play_pause_state1 = False
         else:
             self.sv.pause()
-            self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
+            self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
             self._play_pause_state1 = True
 
     def link_horizontal_scrollBar_with_Graph1(self, value):
@@ -249,23 +257,23 @@ class MainApp(QMainWindow, ui):
     def toggle_play_pause_icon2(self):
         if self._play_pause_state2:
             self.sv2.play()
-            self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+            self.play_pause_btn2.setIcon(QIcon('icons/pause.svg'))
             self._play_pause_state2 = False
         else:
             self.sv2.pause()
-            self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
+            self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
             self._play_pause_state2 = True
 
     def toggle_play_pause_icon3(self):
         if self._play_pause_state3:
             self.sv.play()
             self.sv2.play()
-            self.play_pause_btn3.setIcon(QIcon('icons/pause.png'))
+            self.play_pause_btn3.setIcon(QIcon('icons/pause.svg'))
             self._play_pause_state3 = False
         else:
             self.sv.pause()
             self.sv2.pause()
-            self.play_pause_btn3.setIcon(QIcon('icons/play-button.png'))
+            self.play_pause_btn3.setIcon(QIcon('icons/play.svg'))
             self._play_pause_state3 = True
 
 
@@ -326,7 +334,7 @@ class MainApp(QMainWindow, ui):
     #         self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
     #
     #     self._play_pause_state1 = False
-    #     self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+    #     self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
 
     def add_signal_to_graph1(self):
         checked_signals = self.list_signals_to_plot1()
@@ -334,7 +342,7 @@ class MainApp(QMainWindow, ui):
             if self.sv.signals[i] not in self.sv.plotted_signals:
                 self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state1 = False
-        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+        self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
 
     def add_signal_to_graph2(self):
         checked_signals = self.list_signals_to_plot2()
@@ -342,17 +350,17 @@ class MainApp(QMainWindow, ui):
             if self.sv2.signals[i] not in self.sv2.plotted_signals:
                 self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state2 = False
-        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+        self.play_pause_btn2.setIcon(QIcon('icons/pause.svg'))
 
     def replay_active_signal1(self):
         self.sv.replay()
-        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+        self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
         self._play_pause_state1 = False
         self.sv.home_view()
 
     def replay_active_signal2(self):
         self.sv2.replay()
-        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+        self.play_pause_btn2.setIcon(QIcon('icons/pause.svg'))
         self._play_pause_state2 = False
         self.sv2.home_view()
 
@@ -361,19 +369,19 @@ class MainApp(QMainWindow, ui):
         self.sv.home_view()
         self.sv2.replay()
         self.sv2.home_view()
-        self.play_pause_btn3.setIcon(QIcon('icons/pause.png'))
+        self.play_pause_btn3.setIcon(QIcon('icons/pause.svg'))
         self._play_pause_state3 = False
 
 
     def stop_active_signal1(self):
         self.sv.replay()
-        self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
+        self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
         self._play_pause_state1 = True
         self.sv.pause()
         self.sv.home_view()
     def stop_active_signal2(self):
         self.sv2.replay()
-        self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
+        self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
         self._play_pause_state2 = True
         self.sv2.pause()
         self.sv2.home_view()
@@ -394,12 +402,12 @@ class MainApp(QMainWindow, ui):
 
     def remove_active_signal1(self):
         self.sv.remove()
-        self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
+        self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
         self._play_pause_state1 = True
 
     def remove_active_signal2(self):
         self.sv2.remove()
-        self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
+        self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
         self._play_pause_state2 = True
 
     def remove_active_synchronous_signals(self):
