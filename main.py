@@ -33,8 +33,12 @@ class MainApp(QMainWindow, ui):
     _play_pause_state1 = True
     _play_pause_state2 = True
     _play_pause_state3 = True
-    _previous_scrollBar_value1 = 0
-    _previous_scrollBar_value2 = 0
+    _signal1_is_hide = False
+    _signal2_is_hide = False
+    _previous_horizontal_scrollBar_value1 = 0
+    _previous_vertical_scrollBar_value1 = 0
+    _previous_horizontal_scrollBar_value2 = 0
+    _previous_vertical_scrollBar_value2 = 0
 
     def delete_item(self, item, list_widget):
         row = list_widget.row(item)
@@ -87,7 +91,9 @@ class MainApp(QMainWindow, ui):
 
         #connect the scrollBar with QGraph
         self.horizontal_scrollBar1.valueChanged.connect(self.link_horizontal_scrollBar_with_Graph1)
+        self.vertical_scrollBar1.valueChanged.connect(self.link_vertical_scrollBar_with_Graph1)
         self.horizontal_scrollBar2.valueChanged.connect(self.link_horizontal_scrollBar_with_Graph2)
+        self.vertical_scrollBar2.valueChanged.connect(self.link_vertical_scrollBar_with_Graph2)
 
         # 1st graphics_view buttons
         self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
@@ -157,13 +163,16 @@ class MainApp(QMainWindow, ui):
             context_menu.exec_(list_widget.mapToGlobal(pos))
 
     def toggle_dark_light_mode(self):
-
         if self._light_mode:
             self.setStyleSheet(Path('qss/darkStyle.qss').read_text())
+            self.sv.background_color = (25, 35, 45)
+            self.sv2.background_color = (25, 35, 45)
             self.light_dark_mode_btn.setIcon(QIcon('icons/moon.svg'))
             self._light_mode = False
         else:
             self.setStyleSheet(Path('qss/lightStyle.qss').read_text())
+            self.sv.background_color = (255, 255, 255)
+            self.sv2.background_color = (255, 255, 255)
             self.light_dark_mode_btn.setIcon(QIcon('icons/brightness.svg'))
             self._light_mode = True
 
@@ -232,8 +241,8 @@ class MainApp(QMainWindow, ui):
         if value == 0:
             self.sv.home_view()
         else:
-            delta = value - self._previous_scrollBar_value1
-            self._previous_scrollBar_value1 = value  # Update the previous value
+            delta = value - self._previous_horizontal_scrollBar_value1
+            self._previous_horizontal_scrollBar_value1 = value  # Update the previous value
             if delta > 0:
                 # Scroll to the right
                 self.sv.horizontal_shift(1)
@@ -241,18 +250,44 @@ class MainApp(QMainWindow, ui):
                 # Scroll to the left
                 self.sv.horizontal_shift(-1)
 
+    def link_vertical_scrollBar_with_Graph1(self, value):
+        if value == 0:
+            self.sv.home_view()
+        else:
+            delta = value - self._previous_vertical_scrollBar_value1
+            self._previous_vertical_scrollBar_value1 = value  # Update the previous value
+            if delta > 0:
+                # Scroll to the right
+                self.sv.vertical_shift(1)
+            elif delta < 0:
+                # Scroll to the left
+                self.sv.vertical_shift(-1)
+
     def link_horizontal_scrollBar_with_Graph2(self, value):
         if value == 0:
             self.sv2.home_view()
         else:
-            delta = value - self._previous_scrollBar_value2
-            self._previous_scrollBar_value2 = value  # Update the previous value
+            delta = value - self._previous_horizontal_scrollBar_value2
+            self._previous_horizontal_scrollBar_value2 = value  # Update the previous value
             if delta > 0:
                 # Scroll to the right
                 self.sv2.horizontal_shift(1)
             elif delta < 0:
                 # Scroll to the left
                 self.sv2.horizontal_shift(-1)
+
+    def link_vertical_scrollBar_with_Graph2(self, value):
+        if value == 0:
+            self.sv2.home_view()
+        else:
+            delta = value - self._previous_vertical_scrollBar_value2
+            self._previous_vertical_scrollBar_value2 = value  # Update the previous value
+            if delta > 0:
+                # Scroll to the right
+                self.sv2.vertical_shift(1)
+            elif delta < 0:
+                # Scroll to the left
+                self.sv2.vertical_shift(-1)
 
     def toggle_play_pause_icon2(self):
         if self._play_pause_state2:
@@ -302,51 +337,51 @@ class MainApp(QMainWindow, ui):
 
 
     # def list_signals_to_plot1(self):
-    #     checked_signals = []
+    #     checked_signals_indices = []
     #     for i in range(self.list_widget1.count()):
     #         item = self.list_widget1.item(i)
     #         if item.checkState() == Qt.Checked:
-    #             checked_signals.append(self.sv.signals[self.list_widget1.row(item)])
-    #     return checked_signals
+    #             checked_signals_indices.append(self.sv.signals[self.list_widget1.row(item)])
+    #     return checked_signals_indices
 
     def list_signals_to_plot1(self):
-        checked_signals = []
+        checked_signals_indices = []
         for i in range(self.list_widget1.count()):
             item = self.list_widget1.item(i)
             if item.checkState() == Qt.Checked:
-                checked_signals.append(self.list_widget1.row(item))
-        return checked_signals
+                checked_signals_indices.append(self.list_widget1.row(item))
+        return checked_signals_indices
     def list_signals_to_plot2(self):
-        checked_signals = []
+        checked_signals_indices = []
         for i in range(self.list_widget2.count()):
             item = self.list_widget2.item(i)
             if item.checkState() == Qt.Checked:
-                checked_signals.append(self.list_widget2.row(item))
-        return checked_signals
+                checked_signals_indices.append(self.list_widget2.row(item))
+        return checked_signals_indices
 
     # def add_signal_to_graph1(self):
-    #     checked_signals = self.list_signals_to_plot1()
-    #     for signal in checked_signals:
+    #     checked_signals_indices = self.list_signals_to_plot1()
+    #     for signal in checked_signals_indices:
     #         if signal in self.sv.plotted_signals:
-    #             checked_signals.remove(signal)
+    #             checked_signals_indices.remove(signal)
     #
-    #     for signal in checked_signals:
+    #     for signal in checked_signals_indices:
     #         self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
     #
     #     self._play_pause_state1 = False
     #     self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
 
     def add_signal_to_graph1(self):
-        checked_signals = self.list_signals_to_plot1()
-        for i in checked_signals:
+        checked_signals_indices = self.list_signals_to_plot1()
+        for i in checked_signals_indices:
             if self.sv.signals[i] not in self.sv.plotted_signals:
                 self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state1 = False
         self.play_pause_btn1.setIcon(QIcon('icons/pause.svg'))
 
     def add_signal_to_graph2(self):
-        checked_signals = self.list_signals_to_plot2()
-        for i in checked_signals:
+        checked_signals_indices = self.list_signals_to_plot2()
+        for i in checked_signals_indices:
             if self.sv2.signals[i] not in self.sv2.plotted_signals:
                 self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state2 = False
@@ -401,12 +436,24 @@ class MainApp(QMainWindow, ui):
         self.reset_view2()
 
     def remove_active_signal1(self):
-        self.sv.remove()
-        self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
-        self._play_pause_state1 = True
+        if self._signal1_is_hide:
+            self.add_signal_to_graph1()
+            self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
+            self._play_pause_state1 = True
+            self.hide_btn1.setIcon(QIcon('icons/eye.svg'))
+            self._signal1_is_hide = False
+        else:
+            self.sv.remove()
+            self.sv.pause()
+            self.hide_btn1.setIcon(QIcon('icons/eye-crossed.svg'))
+            self._signal1_is_hide = True
+            self.play_pause_btn1.setIcon(QIcon('icons/play.svg'))
+            self._play_pause_state1 = True
+
 
     def remove_active_signal2(self):
         self.sv2.remove()
+        self.sv2.pause()
         self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
         self._play_pause_state2 = True
 
@@ -441,7 +488,7 @@ class MainApp(QMainWindow, ui):
 
 def main():
     app = QApplication(sys.argv)
-    # app.setStyleSheet(Path('qss/lightStyle.qss').read_text())
+    app.setStyleSheet(Path('qss/lightStyle.qss').read_text())
     window = MainApp()
     window.show()
     app.exec_()

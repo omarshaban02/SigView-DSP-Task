@@ -62,9 +62,9 @@ QCheckBox::indicator {
 QScrollBar:horizontal {
   height: 16px;
   margin: 2px 16px 2px 16px;
-  border: 1px solid rgba(23, 107, 135,30%);
+  border: 1px solid white;
   border-radius: 4px;
-  background-color: #FAFAFA;
+  background-color: rgb(25, 35, 45);
 }
 
 QScrollBar::handle:horizontal {
@@ -85,10 +85,10 @@ QScrollBar::handle:horizontal:focus {
   border: 1px solid red;
 }
 QScrollBar:vertical {
-  background-color: #FAFAFA;
+  background-color: rgb(25, 35, 45);
   width: 16px;
   margin: 16px 2px 16px 2px;
-  border: 1px solid #C9CDD0;
+  border: 1px solid white;
   border-radius: 4px;
 }
 
@@ -215,4 +215,5 @@ QPushButton:pressed {
 	margin:1px 2px;
 	font-size: 15px;
 }
+/*----------------------------------------------------------------------------------------*/
 

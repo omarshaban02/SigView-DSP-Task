@@ -241,6 +241,8 @@ QPushButton:pressed {
 	margin:1px 2px;
 	font-size: 15px;
 }
+/*-------------------------------------------------------------------------------*/
+
 
 </string>
   </property>
@@ -376,6 +378,9 @@ QPushButton:pressed {
               <width>20</width>
               <height>20</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Shift+S</string>
             </property>
             <property name="checked">
              <bool>false</bool>
@@ -724,9 +729,18 @@ border:none;</string>
               <number>7</number>
              </property>
              <item>
-              <widget class="QScrollBar" name="verticalScrollBar">
+              <widget class="QScrollBar" name="vertical_scrollBar1">
+               <property name="cursor">
+                <cursorShape>SizeVerCursor</cursorShape>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -741,8 +755,14 @@ border:none;</string>
            </item>
            <item>
             <widget class="QScrollBar" name="horizontal_scrollBar1">
+             <property name="cursor">
+              <cursorShape>SizeHorCursor</cursorShape>
+             </property>
              <property name="styleSheet">
               <string notr="true"/>
+             </property>
+             <property name="maximum">
+              <number>200</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -785,6 +805,9 @@ border:none;</string>
                  <height>25</height>
                 </size>
                </property>
+               <property name="shortcut">
+                <string>Ctrl+R</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -810,6 +833,9 @@ color: #0d6efd</string>
                  <height>22</height>
                 </size>
                </property>
+               <property name="shortcut">
+                <string>Ctrl+P</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -833,6 +859,9 @@ border:none;</string>
                  <width>25</width>
                  <height>25</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+S</string>
                </property>
               </widget>
              </item>
@@ -874,13 +903,16 @@ border:none;</string>
                </property>
                <property name="icon">
                 <iconset resource="res.qrc">
-                 <normaloff>:/icons/icons/eye-crossed.svg</normaloff>:/icons/icons/eye-crossed.svg</iconset>
+                 <normaloff>:/icons/icons/eye.svg</normaloff>:/icons/icons/eye.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
                  <width>25</width>
                  <height>25</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+H</string>
                </property>
               </widget>
              </item>
@@ -905,6 +937,9 @@ border:none;</string>
                  <width>25</width>
                  <height>25</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+Down</string>
                </property>
               </widget>
              </item>
@@ -1194,28 +1229,13 @@ padding:4px;</string>
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #0d6efd;
-	background-color: rgba(65, 105, 225,80%);
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Plot</string>
+               </property>
+               <property name="shortcut">
+                <string>Shift+P</string>
                </property>
                <property name="flat">
                 <bool>false</bool>
@@ -1254,28 +1274,13 @@ QPushButton:pressed {
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #4169E1;
-	background-color: rgba(65, 105, 225,80%)
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Export as PDF</string>
+               </property>
+               <property name="shortcut">
+                <string>Shift+E</string>
                </property>
               </widget>
              </item>
@@ -1305,28 +1310,13 @@ QPushButton:pressed {
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #0d6efd;
-	background-color: rgba(13, 110, 253,80%)
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Open</string>
+               </property>
+               <property name="shortcut">
+                <string>Shift+O</string>
                </property>
               </widget>
              </item>
@@ -1350,9 +1340,21 @@ QPushButton:pressed {
               <number>7</number>
              </property>
              <item>
-              <widget class="QScrollBar" name="verticalScrollBar_2">
+              <widget class="QScrollBar" name="vertical_scrollBar2">
+               <property name="cursor">
+                <cursorShape>SizeVerCursor</cursorShape>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>true</bool>
+               </property>
+               <property name="invertedControls">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -1367,6 +1369,12 @@ QPushButton:pressed {
            </item>
            <item>
             <widget class="QScrollBar" name="horizontal_scrollBar2">
+             <property name="cursor">
+              <cursorShape>SizeHorCursor</cursorShape>
+             </property>
+             <property name="maximum">
+              <number>200</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -1527,6 +1535,9 @@ border:none;</string>
                  <width>25</width>
                  <height>25</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+Up</string>
                </property>
               </widget>
              </item>
@@ -1799,25 +1810,7 @@ padding:4px;</string>
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #4169E1;
-	background-color: rgba(65, 105, 225,80%)
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Plot</string>
@@ -1856,25 +1849,7 @@ QPushButton:pressed {
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #4169E1;
-	background-color: rgba(65, 105, 225,80%)
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Export as PDF</string>
@@ -1913,25 +1888,7 @@ QPushButton:pressed {
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{
-	/*border:2px solid #05B8CC;*/
-	background-color: #0d6efd;
-	color:rgb(255, 255, 255);
-	border-radius: 10px;
-	font-weight:bold;
-	font-size:16px;
-	 transition: 500ms;
-}
-
-QPushButton::hover{
-	border: 1px solid #0d6efd;
-	background-color: rgba(65, 105, 225,80%)
-}
-QPushButton:pressed {
-	margin:1px 2px;
-	font-size: 15px;
-}
-</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Open</string>
