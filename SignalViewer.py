@@ -3,15 +3,17 @@ PATH = 'signals/mitbih_train.csv'
 
 
 from re import T
+from turtle import color
 from PyQt5.QtCore import QTimer
 import pandas as pd
 import pyqtgraph as pg
 import random
 import pyqtgraph.exporters
+import copy
 
 
 
-
+PATH = 'signals/mitbih_train.csv'
 
 class Signal(object):
     def __init__(self, data:list =[], title:str= '', color:tuple = (0,0,0)) -> None:
@@ -123,7 +125,7 @@ class SignalViewerLogic(object):
         self.display_grid =True
         self.display_axis = True
         self._apply_limits = False
-        self._background_color = (255,255,255)
+        self._background_color = (0,0,0)
         self.background_color = self._background_color
         
     def ignore_focus(self,e):
@@ -315,6 +317,7 @@ class SignalViewerLogic(object):
            else:
                 if signal.title not in self.view.allChildItems():
                     self.view.addItem(signal.title)
+                
 
     def signal_onclick(self,e):
         signal = None
@@ -352,16 +355,17 @@ class SignalViewerLogic(object):
     # clear the screen
     def clear(self):
         self.plotted_signals = []
-    
+
+    # this method assume that the loaded signals are the same and the list has the same address in the memory
     def moveTo(self, other):
-        other_signals = self.active_signals.copy()
-        print(self.active_signals,other_signals)
-        other.signals += other_signals
-        other.plotted_signals += other_signals
-        self.remove()
-        for signal in other_signals:
-            other.view.addItem(signal.plot_data_item)
-        # related to view limits if it is enabled
-        #  update them so that the limits are applicable on the new signal
-        if other.apply_limits == True:
-            other.apply_limits ==True
+ 
+        for signal in self.active_signals:
+            if signal not in other.plotted_signals:
+                self.view.removeItem(signal.plot_data_item)
+                other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)
+                
+            if signal.plot_data_item not in other.view.allChildItems():
+                other.view.addItem(signal.plot_data_item)
+    
+    def connectTo(self, other):
+        other.signals = self.signals

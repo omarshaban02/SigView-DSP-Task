@@ -19,6 +19,7 @@ import urllib.request
 
 import os
 from os import path
+import random
 
 ui, _ = loadUiType('main.ui')
 
@@ -62,7 +63,6 @@ class MainApp(QMainWindow, ui):
 
         self.sv = SignalViewerLogic(self.plot_widget1)
         self.sv2 = SignalViewerLogic(self.plot_widget2)
-        self.sv.load_dataset(PATH, 1)
 
         self.light_dark_mode_btn.clicked.connect(self.toggle_dark_light_mode)
 
@@ -102,9 +102,7 @@ class MainApp(QMainWindow, ui):
             context_menu = QMenu()
             delete_action = QAction("Delete", self)
             delete_action.triggered.connect(lambda: self.deleteItem(item, list_widget))
-
             context_menu.addAction(delete_action)
-
             context_menu.exec_(list_widget.mapToGlobal(pos))
 
     def toggle_dark_light_mode(self):
@@ -190,71 +188,39 @@ class MainApp(QMainWindow, ui):
         checked_items_indices = self.list_signals_to_plot1()
         for i in checked_items_indices:
             if self.sv.signals[i] not in self.sv.plotted_signals:
-                self.sv.add_signal(i, self.sv.signals[i].title)
-                self.sv.plotted_signals.append(self.sv.signals[i])
+                self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state1 = False
         self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
 
     def add_signal_to_graph2(self):
         checked_items_indices = self.list_signals_to_plot2()
         for i in checked_items_indices:
-            if self.sv2.signals[i] not in self.sv2.plotted_signals:
-                self.sv2.add_signal(i, self.sv2.signals[i].title)
-                self.sv2.plotted_signals.append(self.sv2.signals[i])
+            if self.sv2.signals[i] not in self.sv.plotted_signals:
+                self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
         self._play_pause_state2 = False
         self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
 
     def openCSV1(self, plot_widget):
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
+        self.sv.load_dataset(file_name, 3)
 
-        self.sv.load_dataset(file_name, 5)
-
-        if file_name:
-            # Process the selected CSV file
-            self.processCSV1(file_name)
+        for i in range(len(self.sv.signals)):
+            list_item = QListWidgetItem(f"{i} - Signal B")
+            list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+            list_item.setCheckState(Qt.Checked)
+            self.list_widget1.addItem(list_item)
 
     def openCSV2(self, plot_widget):
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
+        self.sv2.load_dataset(file_name, 3)
 
-        self.sv2.load_dataset(file_name, 5)
-
-        if file_name:
-            # Process the selected CSV file
-            self.processCSV2(file_name)
-
-    def processCSV1(self, file_name):
-        # Here, you can implement your logic to process the CSV file
-        # For example, you can read the file and display its contents
-        with open(file_name, 'r') as file:
-            # data = file.read()
-            df = pd.read_csv(file_name).head(5)
-            data_list = df.values.tolist()
-            for i, row in enumerate(data_list):
-                sig = Signal(row, f"{i} - Signal A")
-                self.sv.signals.append(sig)
-                list_item = QListWidgetItem(f"{i} - Signal A")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled |
-                                   Qt.ItemIsUserCheckable)
-                list_item.setCheckState(Qt.Checked)
-                self.list_widget1.addItem(list_item)
-
-    def processCSV2(self, file_name):
-        # Here, you can implement your logic to process the CSV file
-        # For example, you can read the file and display its contents
-        with open(file_name, 'r') as file:
-            # data = file.read()
-            df = pd.read_csv(file_name).head(5)
-            data_list = df.values.tolist()
-            for i, row in enumerate(data_list):
-                sig = Signal(row, f"{i} - Signal B")
-                self.sv2.signals.append(sig)
-                list_item = QListWidgetItem(f"{i} - Signal B")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled |
-                                   Qt.ItemIsUserCheckable)
-                list_item.setCheckState(Qt.Checked)
-                self.list_widget2.addItem(list_item)
+        for i in range(len(self.sv2.signals)):
+            list_item = QListWidgetItem(f"{i} - Signal B")
+            list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+            list_item.setCheckState(Qt.Checked)
+            self.list_widget2.addItem(list_item)
 
 
     def list_signals_to_plot1(self):
