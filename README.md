@@ -1,8 +1,8 @@
-#Multi-Port, Multi-Channel Signal Viewer
+<h1>Multi-Port, Multi-Channel Signal Viewer</h1>
 Introduction
 Monitoring vital signals is crucial in any ICU room. This project aims to develop a desktop application using Python and Qt that provides a multi-port, multi-channel signal viewer for medical signals such as ECG, EMG, EEG, etc.
 
-##Features
+<h2>Features</h2>
 The user can browse their PC to open any signal file. Each signal type should have examples of both normal and abnormal signals.
 The application contains two main identical graphs. Each graph can display different signals, and the user can control each graph independently or link them together.
 When a signal file is opened, it is displayed in cine mode, simulating a running signal over time.
