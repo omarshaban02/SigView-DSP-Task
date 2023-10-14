@@ -11,7 +11,6 @@ import random
 import pyqtgraph.exporters
 import copy
 
-
 class Signal(object):
     def __init__(self, data:list =[], title:str= '', color:tuple = (0,0,0)) -> None:
         self.completed = False
@@ -124,13 +123,31 @@ class SignalViewerLogic(object):
         self._apply_limits = False
         self._background_color = (255,255,255)
         self.background_color = self._background_color
-        
+        self._display_axis_labels = True
+        self.display_axis_labels = True
+        self.xScrollBar = None
+        self.yScrollBar = None
+
     def ignore_focus(self,e):
         if e.double() ==True:
             for signal in self.plotted_signals:
                 signal.is_active = False
                 pen = pg.mkPen(signal.color, width=1)
                 signal.plot_data_item.setPen(pen)
+    @property
+    def display_axis_labels(self):
+        return self._display_axis_labels
+    
+    @display_axis_labels.setter
+    def display_axis_labels(self,value):
+        self._display_axis_labels = value
+        if self._display_axis_labels:
+            self.view.setLabel('bottom', text='Frequency (Hz)')
+            self.view.setLabel('left', text='Amplitude (mV)')
+        else:
+            self.view.setLabel('bottom', text=None)
+            self.view.setLabel('left', text=None)
+
     @property
     def background_color(self):
         return self._background_color
@@ -257,15 +274,22 @@ class SignalViewerLogic(object):
     # the default direction is along positive y-axis as step is positive integer
     def vertical_shift(self,step: int)->None:
         self.yRange = [self.yRange[0]+step,self.yRange[1]+step]
+        if self.yScrollBar is not None:
+            self.yScrollBar.setValue(self.yScrollBar.value()+step)
     # the default direction is along positive x-axis as step is positive integer
     def horizontal_shift(self,step: int)-> None:
         self.xRange = [self.xRange[0]+step,self.xRange[1]+step]
-        
+        if self.xScrollBar is not None:
+            self.xScrollBar.setValue(self.xScrollBar.value()+step)
 
     # go to the home view
-    def home_view(self)-> None:
+    def home_view(self, scrollBar1 =None, scrollBar2 = None)-> None:
         self.xRange = [0, self.view_width]
         self.yRange = [0, self.view_height]
+        if self.xScrollBar is not None:
+            self.xScrollBar.setValue(0)
+        if self.yScrollBar is not None:
+            self.yScrollBar.setValue(0)
 
     # apply the action on the active signals
     def play(self):
@@ -298,7 +322,9 @@ class SignalViewerLogic(object):
             exporter.export(f'{name}.png')
         else:
             exporter.export(f'{name}.{format}')
-
+            
+    def exportPDF(self,name):
+        pass
     # apply the action on the active signals
     # draw active signals
     # this method is called by the rate specified above, default is 20 times per second
@@ -350,6 +376,8 @@ class SignalViewerLogic(object):
     def remove(self):
         for signal in self.active_signals:
             self.view.removeItem(signal.plot_data_item)
+            if signal.title in self.view.allchildItems():
+                self.view.removeItem(signal.title)
             self.plotted_signals.remove(signal)
     # clear the screen
     def clear(self):
@@ -363,3 +391,5 @@ class SignalViewerLogic(object):
             self.view.removeItem(signal.title)
             if signal not in other.plotted_signals:
                 other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)
+
+ 
