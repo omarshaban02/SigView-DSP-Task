@@ -12,9 +12,6 @@ import pyqtgraph.exporters
 import copy
 
 
-
-PATH = 'signals/mitbih_train.csv'
-
 class Signal(object):
     def __init__(self, data:list =[], title:str= '', color:tuple = (0,0,0)) -> None:
         self.completed = False
@@ -125,7 +122,7 @@ class SignalViewerLogic(object):
         self.display_grid =True
         self.display_axis = True
         self._apply_limits = False
-        self._background_color = (0,0,0)
+        self._background_color = (255,255,255)
         self.background_color = self._background_color
         
     def ignore_focus(self,e):
@@ -312,6 +309,7 @@ class SignalViewerLogic(object):
                     self.horizontal_shift(1)
                 signal.advance()
                 signal.plot()
+                
                 if signal.title in self.view.allChildItems():
                     self.view.removeItem(signal.title)
            else:
@@ -325,10 +323,10 @@ class SignalViewerLogic(object):
             if id(e) == id(s.plot_data_item):
                 signal = s
                 break    
-        
-        signal.is_active = True
-        pen = pg.mkPen(signal.color, width=3)
-        e.setPen(pen)
+        if signal is not None:
+            signal.is_active = True
+            pen = pg.mkPen(signal.color, width=3)
+            e.setPen(pen)
 
     # add signal to the plotted signal and active signals and start drawing it
     def add_signal(self, index: int, name: str, color = (255,255,255)):
@@ -338,7 +336,8 @@ class SignalViewerLogic(object):
         signal.on_click_event_handler = lambda e: self.signal_onclick(e)
         self.set_signal_title(signal,name)
         self.plotted_signals.append(signal)
-       
+        pen = pg.mkPen(signal.color, width=3)
+        signal.plot_data_item.setPen(pen)
         self.view.addItem(signal.plot_data_item)
         # related to view limits if it is enabled
         #  update them so that the limits are applicable on the new signal
@@ -355,17 +354,12 @@ class SignalViewerLogic(object):
     # clear the screen
     def clear(self):
         self.plotted_signals = []
-
-    # this method assume that the loaded signals are the same and the list has the same address in the memory
-    def moveTo(self, other):
- 
-        for signal in self.active_signals:
-            if signal not in other.plotted_signals:
-                self.view.removeItem(signal.plot_data_item)
-                other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)
-                
-            if signal.plot_data_item not in other.view.allChildItems():
-                other.view.addItem(signal.plot_data_item)
     
-    def connectTo(self, other):
-        other.signals = self.signals
+    def moveTo(self, other):
+        for signal in self.active_signals:
+            signal_index = self.signals.index(signal)
+            other.signals.insert(signal_index,self.signals.pop(signal_index))
+            self.plotted_signals.pop(self.plotted_signals.index(signal))
+            self.view.removeItem(signal.title)
+            if signal not in other.plotted_signals:
+                other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)

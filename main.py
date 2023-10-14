@@ -79,19 +79,23 @@ class MainApp(QMainWindow, ui):
         self.toggle_radioButton.clicked.connect(self.slider)
 
         # 1st graphics_view
-        # self.sv.load_dataset(PATH, 1)
+        self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
         self.plot_btn1.clicked.connect(self.add_signal_to_graph1)
+        self.replay_btn1.clicked.connect(self.replay_signal1)
+        self.stop_btn1.clicked.connect(self.stop_signal1)
 
         # 2nd graphics_view
-        # self.sv2.load_dataset(PATH, 1)
+        self.open_btn2.clicked.connect(lambda list_widget: self.openCSV2(self.list_widget2))
         self.plot_btn2.clicked.connect(self.add_signal_to_graph2)
+        self.replay_btn2.clicked.connect(self.replay_signal2)
+        self.stop_btn2.clicked.connect(self.stop_signal2)
+
 
         self.play_pause_btn1.clicked.connect(self.toggle_play_pause_icon1)
         self.play_pause_btn2.clicked.connect(self.toggle_play_pause_icon2)
         self.play_pause_btn3.clicked.connect(self.toggle_play_pause_icon3)
 
-        self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
-        self.open_btn2.clicked.connect(lambda list_widget: self.openCSV2(self.list_widget2))
+
 
 
 
@@ -184,21 +188,7 @@ class MainApp(QMainWindow, ui):
             self.play_pause_btn3.setIcon(QIcon('icons/play-button.png'))
             self._play_pause_state3 = True
 
-    def add_signal_to_graph1(self):
-        checked_items_indices = self.list_signals_to_plot1()
-        for i in checked_items_indices:
-            if self.sv.signals[i] not in self.sv.plotted_signals:
-                self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
-        self._play_pause_state1 = False
-        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
 
-    def add_signal_to_graph2(self):
-        checked_items_indices = self.list_signals_to_plot2()
-        for i in checked_items_indices:
-            if self.sv2.signals[i] not in self.sv.plotted_signals:
-                self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
-        self._play_pause_state2 = False
-        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
 
     def openCSV1(self, plot_widget):
         options = QFileDialog.Options()
@@ -239,6 +229,44 @@ class MainApp(QMainWindow, ui):
                 checked_items_indices.append(self.list_widget2.row(item))
         return checked_items_indices
 
+    def add_signal_to_graph1(self):
+        checked_items_indices = self.list_signals_to_plot1()
+        for i in checked_items_indices:
+            if self.sv.signals[i] not in self.sv.plotted_signals:
+                self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
+        self._play_pause_state1 = False
+        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+
+    def add_signal_to_graph2(self):
+        checked_items_indices = self.list_signals_to_plot2()
+        for i in checked_items_indices:
+            if self.sv2.signals[i] not in self.sv.plotted_signals:
+                self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
+        self._play_pause_state2 = False
+        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+    def replay_signal1(self):
+        self.sv.replay()
+        self.play_pause_btn1.setIcon(QIcon('icons/pause.png'))
+        self._play_pause_state1 = False
+        self.sv.home_view()
+    def replay_signal2(self):
+        self.sv2.replay()
+        self.play_pause_btn2.setIcon(QIcon('icons/pause.png'))
+        self._play_pause_state2 = False
+        self.sv2.home_view()
+
+    def stop_signal1(self):
+        self.sv.replay()
+        self.play_pause_btn1.setIcon(QIcon('icons/play-button.png'))
+        self._play_pause_state1 = True
+        self.sv.pause()
+        self.sv.home_view()
+    def stop_signal2(self):
+        self.sv2.replay()
+        self.play_pause_btn2.setIcon(QIcon('icons/play-button.png'))
+        self._play_pause_state2 = True
+        self.sv2.pause()
+        self.sv2.home_view()
     def clear_graph(self, graph):
         pass
 
