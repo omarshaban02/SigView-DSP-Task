@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1045</width>
-    <height>724</height>
+    <width>1438</width>
+    <height>838</height>
    </rect>
   </property>
   <property name="font">
@@ -515,7 +515,7 @@ border:none;</string>
         </property>
         <property name="sizeIncrement">
          <size>
-          <width>0</width>
+          <width>1</width>
           <height>0</height>
          </size>
         </property>
@@ -568,8 +568,8 @@ border:none;</string>
             <property name="spacing">
              <number>0</number>
             </property>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="stop_btn3">
+            <item row="1" column="0">
+             <widget class="QPushButton" name="play_pause_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -582,13 +582,16 @@ border:none;</string>
               </property>
               <property name="icon">
                <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/stop-button.png</normaloff>:/icons/icons/stop-button.png</iconset>
+                <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
                 <width>30</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -622,8 +625,8 @@ border:none;</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="play_pause_btn3">
+            <item row="3" column="0">
+             <widget class="QPushButton" name="stop_btn3">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -636,16 +639,13 @@ border:none;</string>
               </property>
               <property name="icon">
                <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                <normaloff>:/icons/icons/stop-button.png</normaloff>:/icons/icons/stop-button.png</iconset>
               </property>
               <property name="iconSize">
                <size>
                 <width>30</width>
                 <height>30</height>
                </size>
-              </property>
-              <property name="checkable">
-               <bool>false</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -666,7 +666,7 @@ border:none;</string>
               </property>
               <property name="icon">
                <iconset resource="res.qrc">
-                <normaloff>:/icons/icons/eye-crossed.svg</normaloff>:/icons/icons/eye-crossed.svg</iconset>
+                <normaloff>:/icons/icons/eye.svg</normaloff>:/icons/icons/eye.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -703,6 +703,78 @@ border:none;</string>
               </property>
               <property name="flat">
                <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QPushButton" name="zoom_in_btn3">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons/icons/zoom-in (1).png</normaloff>:/icons/icons/zoom-in (1).png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QPushButton" name="zoom_out_btn3">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons/icons/magnifying-glass.png</normaloff>:/icons/icons/magnifying-glass.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QPushButton" name="clear_btn3">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons/icons/trash.svg</normaloff>:/icons/icons/trash.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -940,6 +1012,78 @@ border:none;</string>
                </property>
                <property name="shortcut">
                 <string>Ctrl+Down</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="zoom_in_btn1">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/zoom-in (1).png</normaloff>:/icons/icons/zoom-in (1).png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="zoom_out_btn1">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/magnifying-glass.png</normaloff>:/icons/icons/magnifying-glass.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="clear_btn1">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/trash.svg</normaloff>:/icons/icons/trash.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1504,7 +1648,7 @@ border:none;</string>
                </property>
                <property name="icon">
                 <iconset resource="res.qrc">
-                 <normaloff>:/icons/icons/eye-crossed.svg</normaloff>:/icons/icons/eye-crossed.svg</iconset>
+                 <normaloff>:/icons/icons/eye.svg</normaloff>:/icons/icons/eye.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -1538,6 +1682,78 @@ border:none;</string>
                </property>
                <property name="shortcut">
                 <string>Ctrl+Up</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="zoom_in_btn2">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/zoom-in (1).png</normaloff>:/icons/icons/zoom-in (1).png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="zoom_out_btn2">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/magnifying-glass.png</normaloff>:/icons/icons/magnifying-glass.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="clear_btn2">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/trash.svg</normaloff>:/icons/icons/trash.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
                </property>
               </widget>
              </item>

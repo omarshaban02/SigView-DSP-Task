@@ -1,6 +1,7 @@
 
 PATH = 'signals/mitbih_train.csv'
 
+# pip install aspose-pdf
 
 from re import T
 from turtle import color
@@ -10,6 +11,7 @@ import pyqtgraph as pg
 import random
 import pyqtgraph.exporters
 import copy
+import aspose.pdf as ap
 
 
 class Signal(object):
@@ -81,6 +83,7 @@ class Signal(object):
                 self.completed = True
                 self.stop_drawing = True
                 self.is_active = False
+                self.color = self.color
 
     def pause(self)-> None:
         self.stop_drawing = True
@@ -124,13 +127,31 @@ class SignalViewerLogic(object):
         self._apply_limits = False
         self._background_color = (255,255,255)
         self.background_color = self._background_color
-        
+        self._display_axis_labels = True
+        self.display_axis_labels = True
+        self.xScrollBar = None
+        self.yScrollBar = None
+
     def ignore_focus(self,e):
         if e.double() ==True:
             for signal in self.plotted_signals:
                 signal.is_active = False
                 pen = pg.mkPen(signal.color, width=1)
                 signal.plot_data_item.setPen(pen)
+    @property
+    def display_axis_labels(self):
+        return self._display_axis_labels
+    
+    @display_axis_labels.setter
+    def display_axis_labels(self,value):
+        self._display_axis_labels = value
+        if self._display_axis_labels:
+            self.view.setLabel('bottom', text='Frequency (Hz)')
+            self.view.setLabel('left', text='Amplitude (mV)')
+        else:
+            self.view.setLabel('bottom', text=None)
+            self.view.setLabel('left', text=None)
+
     @property
     def background_color(self):
         return self._background_color
@@ -257,15 +278,22 @@ class SignalViewerLogic(object):
     # the default direction is along positive y-axis as step is positive integer
     def vertical_shift(self,step: int)->None:
         self.yRange = [self.yRange[0]+step,self.yRange[1]+step]
+        if self.yScrollBar is not None:
+            self.yScrollBar.setValue(self.yScrollBar.value()+step)
     # the default direction is along positive x-axis as step is positive integer
     def horizontal_shift(self,step: int)-> None:
         self.xRange = [self.xRange[0]+step,self.xRange[1]+step]
-        
+        if self.xScrollBar is not None:
+            self.xScrollBar.setValue(self.xScrollBar.value()+step)
 
     # go to the home view
-    def home_view(self)-> None:
+    def home_view(self, scrollBar1 =None, scrollBar2 = None)-> None:
         self.xRange = [0, self.view_width]
         self.yRange = [0, self.view_height]
+        if self.xScrollBar is not None:
+            self.xScrollBar.setValue(0)
+        if self.yScrollBar is not None:
+            self.yScrollBar.setValue(0)
 
     # apply the action on the active signals
     def play(self):
@@ -298,6 +326,16 @@ class SignalViewerLogic(object):
             exporter.export(f'{name}.png')
         else:
             exporter.export(f'{name}.{format}')
+            
+    def exportPDF(self,name):
+        # create document
+        document = ap.Document()
+        # Insert a empty page in a PDF
+        page = document.pages.add()
+        self.exportImage(name)#20, 730, 120, 830
+        page.add_image(f"{name}.png", ap.Rectangle(20, 730, 550, 333,True))
+        document.save(f'{name}.pdf')
+
 
     # apply the action on the active signals
     # draw active signals
@@ -350,16 +388,27 @@ class SignalViewerLogic(object):
     def remove(self):
         for signal in self.active_signals:
             self.view.removeItem(signal.plot_data_item)
+            if signal.title in self.view.allchildItems():
+                self.view.removeItem(signal.title)
             self.plotted_signals.remove(signal)
     # clear the screen
     def clear(self):
+        self.signals = []
         self.plotted_signals = []
-    
+        self.view.clear()
+
+    def hide_signal(self):
+        for signal in self.active_signals:
+            self.view.removeItem(signal.plot_data_item)
+    def show_hidden_signal(self):
+        for signal in self.active_signals:
+            self.view.addItem(signal.plot_data_item)
     def moveTo(self, other):
         for signal in self.active_signals:
             signal_index = self.signals.index(signal)
             other.signals.insert(signal_index,self.signals.pop(signal_index))
             self.plotted_signals.pop(self.plotted_signals.index(signal))
             self.view.removeItem(signal.title)
+            self.view.removeItem(signal.plot_data_item)
             if signal not in other.plotted_signals:
                 other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)
