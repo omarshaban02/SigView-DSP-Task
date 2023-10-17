@@ -23,10 +23,12 @@ import random
 
 ui, _ = loadUiType('main.ui')
 
+
 class ShowHideCheckBoxes(QCheckBox):
     def __int__(self, parent):
         super().__init__(parent)
         QCheckBox.__init__(self)
+
 
 class MainApp(QMainWindow, ui):
     _light_mode = True
@@ -39,8 +41,8 @@ class MainApp(QMainWindow, ui):
     _previous_vertical_scrollBar_value1 = 0
     _previous_horizontal_scrollBar_value2 = 0
     _previous_vertical_scrollBar_value2 = 0
-    _counter_graph1 = 0
-    _counter_graph2 = 0
+    _counter_graph1 = 1
+    _counter_graph2 = 1
     _pdf_files_counter = 1
 
     def delete_item(self, item, list_widget):
@@ -57,8 +59,6 @@ class MainApp(QMainWindow, ui):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.resize(1200, 900)
-
-
 
         self.plot_widget1 = pg.PlotWidget(self.graphics_view1)
         self.graphics_view_layout1 = QHBoxLayout(self.graphics_view1)
@@ -87,20 +87,23 @@ class MainApp(QMainWindow, ui):
         self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
 
-        self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.listWidget1))
-        self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.listWidget2))
+        self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
+        self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
 
         self.toggle_radioButton.clicked.connect(self.activate_slider)
 
-        self.list_widget1.doubleClicked.connect(self.change_signal_name)
+        self.list_widget1.itemChanged.connect(lambda: self.change_signal_name(self.list_widget1))
         self.export_btn1.clicked.connect(self.export_graph1_as_pdf)
         self.export_btn2.clicked.connect(self.export_graph2_as_pdf)
 
-        #connect the scrollBar with QGraph
-        self.horizontal_scrollBar1.valueChanged.connect(self.link_horizontal_scrollBar_with_Graph1)
-        self.vertical_scrollBar1.valueChanged.connect(self.link_vertical_scrollBar_with_Graph1)
-        self.horizontal_scrollBar2.valueChanged.connect(self.link_horizontal_scrollBar_with_Graph2)
-        self.vertical_scrollBar2.valueChanged.connect(self.link_vertical_scrollBar_with_Graph2)
+        self.color_btn1.clicked.connect(lambda: self.change_signal_color(self.list_widget1))
+        self.color_btn2.clicked.connect(lambda: self.change_signal_color(self.list_widget2))
+
+        # connect the scrollBar with QGraph
+        self.sv.xScrollBar = self.horizontal_scrollBar1
+        self.sv.yScrollBar = self.vertical_scrollBar1
+        self.sv2.xScrollBar = self.horizontal_scrollBar2
+        self.sv2.yScrollBar = self.vertical_scrollBar2
 
         # 1st graphics_view buttons
         self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
@@ -108,7 +111,7 @@ class MainApp(QMainWindow, ui):
         self.replay_btn1.clicked.connect(self.replay_active_signal1)
         self.stop_btn1.clicked.connect(self.stop_active_signal1)
         self.reset_view_btn1.clicked.connect(self.reset_view1)
-        self.hide_btn1.clicked.connect(self.hide_show_active_signal1)# head not clear or remove
+        self.hide_btn1.clicked.connect(self.hide_show_active_signal1)  # head not clear or remove
         self.move_down_btn.clicked.connect(self.move_active_signal1_to_graph2)
         self.zoom_in_btn1.clicked.connect(self.zoom_in_graph1)
         self.zoom_out_btn1.clicked.connect(self.zoom_out_graph1)
@@ -135,52 +138,46 @@ class MainApp(QMainWindow, ui):
         self.zoom_out_btn3.clicked.connect(self.zoom_out_synchronous)
         self.clear_btn3.clicked.connect(self.clear_synchronous)
 
+        # for all play, pause buttons
+        self.play_pause_btn1.clicked.connect(self.toggle_play_pause_btn1)
+        self.play_pause_btn2.clicked.connect(self.toggle_play_pause_btn2)
+        self.play_pause_btn3.clicked.connect(self.toggle_play_pause_btn3)
 
-        #for all play, pause buttons
-        self.play_pause_btn1.clicked.connect(self.toggle_play_pause_icon1)
-        self.play_pause_btn2.clicked.connect(self.toggle_play_pause_icon2)
-        self.play_pause_btn3.clicked.connect(self.toggle_play_pause_icon3)
+        self.speedSpinBox_1.valueChanged.connect(
+            lambda graph: self.change_speed(self.sv, self.speedSpinBox_1.value()))
+        self.speedSpinBox_2.valueChanged.connect(
+            lambda graph: self.change_speed(self.sv2, self.speedSpinBox_2.value()))
 
-        self.color_comboBox1.currentTextChanged.connect(lambda signals_list: self.change_color(self.sv.active_signals, self.color_comboBox1.currentText().lower()))
-        self.color_comboBox2.currentTextChanged.connect(lambda signals_list:self.change_color(self.sv2.active_signals, self.color_comboBox2.currentText().lower()))
+        self.sv.set_title("Graph Viewer 1")
+        self.sv2.set_title("Graph Viewer 2")
 
-        self.speedDoubleSpinBox_1.valueChanged.connect(lambda graph: self.change_speed(self.sv,self.speedDoubleSpinBox_1.value()))
-        self.speedDoubleSpinBox_2.valueChanged.connect(lambda graph: self.change_speed(self.sv2, self.speedDoubleSpinBox_2.value()))
-
-        self.color_dict = {
-            'red': (255, 0, 0),
-            'green': (0, 255, 0),
-            'blue': (0, 0, 255),
-            'orange': (255, 165, 0),
-            'purple': (128, 0, 128),
-            'pink': (255, 192, 203),
-            'yellow': (255, 255, 0),
-            'brown': (139, 69, 19),
-            'black': (0, 0, 0),
-            'white': (255, 255, 255),
-            'navy': (0, 0, 128),
-            'magenta': (255, 0, 255),
-            'violet': (238, 130, 238),
-            'indigo': (75, 0, 130),
-            'lime': (0, 255, 0),
-            'cyan': (0, 255, 255),
-            'gold': (255, 215, 0),
-            'maroon': (128, 0, 0),
-            'gray': (128, 128, 128),
-            'silver': (192, 192,192)
-        }
+    def change_signal_color(self, list_widget):
+        dialog = QColorDialog()
+        dialog.setOption(QColorDialog.ShowAlphaChannel, on=True)
+        new_color = dialog.getColor()
+        if new_color.isValid():
+            if list_widget == self.list_widget1:
+                for sig in self.sv.active_signals:
+                    sig.color = new_color
+                    pen = pg.mkPen(sig.color, width=3)
+                    sig.plot_data_item.setPen(pen)
+            elif list_widget == self.list_widget2:
+                for sig in self.sv2.active_signals:
+                    sig.color = new_color
+                    pen = pg.mkPen(sig.color, width=3)
+                    sig.plot_data_item.setPen(pen)
 
     def show_context_menu(self, pos, list_widget):
         item = list_widget.itemAt(pos)
         if item:
             context_menu = QMenu()
-            delete_action = QAction("Delete", self)
-            delete_action.triggered.connect(lambda: self.deleteItem(item, list_widget))
-            context_menu.addAction(delete_action)
+            title_action = QAction("Change title", self)
+            title_action.triggered.connect(lambda: self.change_signal_name(list_widget))
+            context_menu.addAction(title_action)
             context_menu.exec_(list_widget.mapToGlobal(pos))
 
-    def toggle_play_pause_icon1(self):
-        if len(self.sv.plotted_signals) != 0:
+    def toggle_play_pause_btn1(self):
+        if len(self.sv.active_signals) != 0:
             if self._play_pause_state1:
                 self.sv.play()
                 self._play_pause_state1 = False
@@ -190,10 +187,10 @@ class MainApp(QMainWindow, ui):
                 self._play_pause_state1 = True
                 self.toggle_icon_with_mode(self.play_pause_btn1, "play")
         else:
-            QMessageBox.critical(None, "Error", "There are no signals", QMessageBox.Ok)
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
-    def toggle_play_pause_icon2(self):
-        if len(self.sv2.plotted_signals) != 0:
+    def toggle_play_pause_btn2(self):
+        if len(self.sv2.active_signals) != 0:
             if self._play_pause_state2:
                 self.sv2.play()
                 self._play_pause_state2 = False
@@ -203,9 +200,10 @@ class MainApp(QMainWindow, ui):
                 self._play_pause_state2 = True
                 self.toggle_icon_with_mode(self.play_pause_btn2, "play")
         else:
-            QMessageBox.critical(None, "Error", "There are no signals", QMessageBox.Ok)
-    def toggle_play_pause_icon3(self):
-        if (len(self.sv.plotted_signals) != 0) or (len(self.sv2.plotted_signals) != 0):
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
+
+    def toggle_play_pause_btn3(self):
+        if (len(self.sv.active_signals) != 0) or (len(self.sv2.active_signals) != 0):
             if self._play_pause_state3:
                 self.sv.play()
                 self.sv2.play()
@@ -217,73 +215,73 @@ class MainApp(QMainWindow, ui):
                 self._play_pause_state3 = True
                 self.toggle_icon_with_mode(self.play_pause_btn3, "play")
         else:
-            QMessageBox.critical(None, "Error", "There are no signals", QMessageBox.Ok)
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
-    def link_horizontal_scrollBar_with_Graph1(self, value):
-        if value == 0:
-            self.sv.home_view()
-        else:
-            delta = value - self._previous_horizontal_scrollBar_value1
-            self._previous_horizontal_scrollBar_value1 = value  # Update the previous value
-            if delta > 0:
-                # Scroll to the right
-                self.sv.horizontal_shift(1)
-            elif delta < 0:
-                # Scroll to the left
-                self.sv.horizontal_shift(-1)
-
-    def link_vertical_scrollBar_with_Graph1(self, value):
-        if value == 0:
-            self.sv.home_view()
-        else:
-            delta = value - self._previous_vertical_scrollBar_value1
-            self._previous_vertical_scrollBar_value1 = value  # Update the previous value
-            if delta > 0:
-                # Scroll to the right
-                self.sv.vertical_shift(1)
-            elif delta < 0:
-                # Scroll to the left
-                self.sv.vertical_shift(-1)
-
-    def link_horizontal_scrollBar_with_Graph2(self, value):
-        if value == 0:
-            self.sv2.home_view()
-        else:
-            delta = value - self._previous_horizontal_scrollBar_value2
-            self._previous_horizontal_scrollBar_value2 = value  # Update the previous value
-            if delta > 0:
-                # Scroll to the right
-                self.sv2.horizontal_shift(1)
-            elif delta < 0:
-                # Scroll to the left
-                self.sv2.horizontal_shift(-1)
-
-    def link_vertical_scrollBar_with_Graph2(self, value):
-        if value == 0:
-            self.sv2.home_view()
-        else:
-            delta = value - self._previous_vertical_scrollBar_value2
-            self._previous_vertical_scrollBar_value2 = value  # Update the previous value
-            if delta > 0:
-                # Scroll to the right
-                self.sv2.vertical_shift(1)
-            elif delta < 0:
-                # Scroll to the left
-                self.sv2.vertical_shift(-1)
-
-    def link_synchronous_scrollBar(self, value):
-        pass
+    # def link_horizontal_scrollBar_with_Graph1(self, value):
+    #     if value == 0:
+    #         self.sv.home_view()
+    #     else:
+    #         delta = value - self._previous_horizontal_scrollBar_value1
+    #         self._previous_horizontal_scrollBar_value1 = value  # Update the previous value
+    #         if delta > 0:
+    #             # Scroll to the right
+    #             self.sv.horizontal_shift(1)
+    #         elif delta < 0:
+    #             # Scroll to the left
+    #             self.sv.horizontal_shift(-1)
+    #
+    # def link_vertical_scrollBar_with_Graph1(self, value):
+    #     if value == 0:
+    #         self.sv.home_view()
+    #     else:
+    #         delta = value - self._previous_vertical_scrollBar_value1
+    #         self._previous_vertical_scrollBar_value1 = value  # Update the previous value
+    #         if delta > 0:
+    #             # Scroll to the right
+    #             self.sv.vertical_shift(1)
+    #         elif delta < 0:
+    #             # Scroll to the left
+    #             self.sv.vertical_shift(-1)
+    #
+    # def link_horizontal_scrollBar_with_Graph2(self, value):
+    #     if value == 0:
+    #         self.sv2.home_view()
+    #     else:
+    #         delta = value - self._previous_horizontal_scrollBar_value2
+    #         self._previous_horizontal_scrollBar_value2 = value  # Update the previous value
+    #         if delta > 0:
+    #             # Scroll to the right
+    #             self.sv2.horizontal_shift(1)
+    #         elif delta < 0:
+    #             # Scroll to the left
+    #             self.sv2.horizontal_shift(-1)
+    #
+    # def link_vertical_scrollBar_with_Graph2(self, value):
+    #     if value == 0:
+    #         self.sv2.home_view()
+    #     else:
+    #         delta = value - self._previous_vertical_scrollBar_value2
+    #         self._previous_vertical_scrollBar_value2 = value  # Update the previous value
+    #         if delta > 0:
+    #             # Scroll to the right
+    #             self.sv2.vertical_shift(1)
+    #         elif delta < 0:
+    #             # Scroll to the left
+    #             self.sv2.vertical_shift(-1)
+    #
+    # def link_synchronous_scrollBar(self, value):
+    #     pass
 
     def openCSV1(self, plot_widget):
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
-        self.list_widget1.clear() # every time he press open we clear list and rebuild it
-        self._counter_graph1 = 0
+        self.list_widget1.clear()  # every time he press open we clear list and rebuild it
+        self._counter_graph1 = 1
         self.sv.load_dataset(file_name, 3)
 
         for i in range(len(self.sv.signals)):
             list_item = QListWidgetItem(f"{self._counter_graph1} - Signal A")
-            list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+            list_item.setFlags(Qt.ItemIsSelectable  | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
             list_item.setCheckState(Qt.Checked)
             self.list_widget1.addItem(list_item)
             self._counter_graph1 += 1
@@ -300,7 +298,8 @@ class MainApp(QMainWindow, ui):
         checked_signals_indices = self.list_signals_to_plot1()
         for i in checked_signals_indices:
             if self.sv.signals[i] not in self.sv.plotted_signals:
-                self.sv.add_signal(i, f"Signal A {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
+                self.sv.add_signal(i, f"{i+1} - Signal A ",
+                                   (int(random.random() * 255), int(random.random() * 255), int(random.random() * 255)))
         if len(self.sv.plotted_signals) != 0:
             self._play_pause_state1 = False
             self.toggle_icon_with_mode(self.play_pause_btn1, "pause")
@@ -310,13 +309,13 @@ class MainApp(QMainWindow, ui):
     def openCSV2(self, plot_widget):
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, 'Open CSV', '', 'CSV Files (*.csv)', options=options)
-        self.list_widget2.clear() # every time he press open we clear list and rebuild it
-        self._counter_graph2 = 0
+        self.list_widget2.clear()  # every time he press open we clear list and rebuild it
+        self._counter_graph2 = 1
         self.sv2.load_dataset(file_name, 3)
 
         for i in range(len(self.sv2.signals)):
             list_item = QListWidgetItem(f"{self._counter_graph2} - Signal B")
-            list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+            list_item.setFlags(Qt.ItemIsSelectable  | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
             list_item.setCheckState(Qt.Checked)
             self.list_widget2.addItem(list_item)
             self._counter_graph2 += 1
@@ -333,7 +332,8 @@ class MainApp(QMainWindow, ui):
         checked_signals_indices = self.list_signals_to_plot2()
         for i in checked_signals_indices:
             if self.sv2.signals[i] not in self.sv2.plotted_signals:
-                self.sv2.add_signal(i, f"Signal B {i}", (int(random.random()*255), int(random.random()*255), int(random.random()*255)))
+                self.sv2.add_signal(i, f"{i+1} - Signal B ", (
+                int(random.random() * 255), int(random.random() * 255), int(random.random() * 255)))
         if len(self.sv2.plotted_signals) != 0:
             self._play_pause_state2 = False
             self.toggle_icon_with_mode(self.play_pause_btn2, "pause")
@@ -360,13 +360,13 @@ class MainApp(QMainWindow, ui):
         self.toggle_icon_with_mode(self.play_pause_btn3, "pause")
         self._play_pause_state3 = False
 
-
     def stop_active_signal1(self):
         self.sv.replay()
         self.toggle_icon_with_mode(self.play_pause_btn1, "play")
         self._play_pause_state1 = True
         self.sv.pause()
         self.sv.home_view()
+
     def stop_active_signal2(self):
         self.sv2.replay()
         self.toggle_icon_with_mode(self.play_pause_btn2, "play")
@@ -389,64 +389,71 @@ class MainApp(QMainWindow, ui):
         self.reset_view2()
 
     def hide_show_active_signal1(self):
-        if self._signal1_is_hide:
-            self.sv.show_hidden_signal()
-            self.toggle_icon_with_mode(self.play_pause_btn1, "play")
-            self._play_pause_state1 = True
-            self.toggle_icon_with_mode(self.hide_btn1, "eye")
-            self._signal1_is_hide = False
+        if len(self.sv.active_signals) != 0:
+            if self._signal1_is_hide:
+                self.sv.show_hidden_signal()
+                self.toggle_icon_with_mode(self.play_pause_btn1, "play")
+                self._play_pause_state1 = True
+                self.toggle_icon_with_mode(self.hide_btn1, "eye")
+                self._signal1_is_hide = False
+            else:
+                self.sv.hide_signal()
+                self.sv.pause()
+                self.toggle_icon_with_mode(self.hide_btn1, "eye-crossed")
+                self._signal1_is_hide = True
+                self.toggle_icon_with_mode(self.play_pause_btn1, "play")
+                self._play_pause_state1 = True
         else:
-            self.sv.hide_signal()
-            self.sv.pause()
-            self.toggle_icon_with_mode(self.hide_btn1, "eye-crossed")
-            self._signal1_is_hide = True
-            self.toggle_icon_with_mode(self.play_pause_btn1, "play")
-            self._play_pause_state1 = True
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
-
-    def hide_show_active_signal2(self): #I add button 3 because when function sync run it call this function
-        if self._signal2_is_hide:
-            self.sv2.show_hidden_signal()
-            self.toggle_icon_with_mode(self.play_pause_btn2, "play")
-            self.toggle_icon_with_mode(self.play_pause_btn3, "play")
-            self._play_pause_state2 = True
-            self.toggle_icon_with_mode(self.hide_btn2, "eye")
-            self.toggle_icon_with_mode(self.hide_btn3, "eye")
-            self._signal2_is_hide = False
+    def hide_show_active_signal2(self):  # I add button 3 because when function sync run it call this function
+        if len(self.sv2.active_signals) != 0:
+            if self._signal2_is_hide:
+                self.sv2.show_hidden_signal()
+                self.toggle_icon_with_mode(self.play_pause_btn2, "play")
+                self.toggle_icon_with_mode(self.play_pause_btn3, "play")
+                self._play_pause_state2 = True
+                self.toggle_icon_with_mode(self.hide_btn2, "eye")
+                self.toggle_icon_with_mode(self.hide_btn3, "eye")
+                self._signal2_is_hide = False
+            else:
+                self.sv2.hide_signal()
+                self.sv2.pause()
+                self.toggle_icon_with_mode(self.hide_btn2, "eye-crossed")
+                self.toggle_icon_with_mode(self.hide_btn3, "eye-crossed")
+                self._signal2_is_hide = True
+                self.toggle_icon_with_mode(self.play_pause_btn2, "play")
+                self.toggle_icon_with_mode(self.play_pause_btn3, "play")
+                self._play_pause_state2 = True
         else:
-            self.sv2.hide_signal()
-            self.sv2.pause()
-            self.toggle_icon_with_mode(self.hide_btn2, "eye-crossed")
-            self.toggle_icon_with_mode(self.hide_btn3, "eye-crossed")
-            self._signal2_is_hide = True
-            self.toggle_icon_with_mode(self.play_pause_btn2, "play")
-            self.toggle_icon_with_mode(self.play_pause_btn3, "play")
-            self._play_pause_state2 = True
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
     def hide_show_active_synchronous_signals(self):
         self.hide_show_active_signal1()
         self.hide_show_active_signal2()
-
 
     def move_active_signal1_to_graph2(self):
         if len(self.sv.active_signals) != 0:
             self.sv.moveTo(self.sv2)
             self.sv.pause()
             self.toggle_icon_with_mode(self.play_pause_btn1, "play")
+            self._play_pause_state1 = True
             self.sv2.pause()
             self.toggle_icon_with_mode(self.play_pause_btn2, "play")
-            self._play_pause_state1 = True
+            self._play_pause_state2 = True
+            self.toggle_icon_with_mode(self.hide_btn1, "eye")
+            self._signal1_is_hide = False
 
             self.list_widget1.clear()
             self.list_widget2.clear()
             for i in range(len(self.sv2.signals)):
-                list_item = QListWidgetItem(f"{i} - Signal B")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                list_item = QListWidgetItem(f"{self.sv2.signals[i].title.toPlainText()}")
+                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
                 list_item.setCheckState(Qt.Checked)
                 self.list_widget2.addItem(list_item)
             for i in range(len(self.sv.signals)):
-                list_item = QListWidgetItem(f"{i} - Signal A")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                list_item = QListWidgetItem(f"{self.sv.signals[i].title.toPlainText()}")
+                list_item.setFlags(Qt.ItemIsSelectable  | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
                 list_item.setCheckState(Qt.Checked)
                 self.list_widget1.addItem(list_item)
         else:
@@ -457,20 +464,23 @@ class MainApp(QMainWindow, ui):
             self.sv2.moveTo(self.sv)
             self.sv2.pause()
             self.toggle_icon_with_mode(self.play_pause_btn2, "play")
+            self._play_pause_state2 = True
             self.sv.pause()
             self.toggle_icon_with_mode(self.play_pause_btn1, "play")
-            self._play_pause_state2 = True
-            
+            self._play_pause_state1 = True
+            self.toggle_icon_with_mode(self.hide_btn2, "eye")
+            self._signal2_is_hide = False
+
             self.list_widget1.clear()
             self.list_widget2.clear()
             for i in range(len(self.sv.signals)):
-                list_item = QListWidgetItem(f"{i} - Signal B")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                list_item = QListWidgetItem(f"{self.sv.signals[i].title.toPlainText()}")
+                list_item.setFlags(Qt.ItemIsSelectable  | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
                 list_item.setCheckState(Qt.Checked)
                 self.list_widget1.addItem(list_item)
             for i in range(len(self.sv2.signals)):
-                list_item = QListWidgetItem(f"{i} - Signal A")
-                list_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                list_item = QListWidgetItem(f"{self.sv2.signals[i].title.toPlainText()}")
+                list_item.setFlags(Qt.ItemIsSelectable  | Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsUserCheckable)
                 list_item.setCheckState(Qt.Checked)
                 self.list_widget2.addItem(list_item)
         else:
@@ -478,7 +488,7 @@ class MainApp(QMainWindow, ui):
 
     def change_speed(self, graph, new_speed):
         if new_speed:
-            graph.rate = 1000 / new_speed
+            graph.rate = new_speed
 
     def change_color(self, signals_list, new_color):
         for signal in signals_list:
@@ -486,10 +496,9 @@ class MainApp(QMainWindow, ui):
             pen = pg.mkPen(signal.color, width=3)
             signal.plot_data_item.setPen(pen)
 
-
     def zoom_in_graph1(self):
         view_box1 = self.plot_widget1.getViewBox()
-        view_box1.scaleBy(s= (0.9, 0.9))
+        view_box1.scaleBy(s=(0.9, 0.9))
         print(dir(view_box1))
 
     def zoom_out_graph1(self):
@@ -520,6 +529,7 @@ class MainApp(QMainWindow, ui):
             self.toggle_icon_with_mode(self.play_pause_btn1, "play")
         else:
             QMessageBox.critical(None, "Error", "There are no signals plotted", QMessageBox.Ok)
+
     def clear_graph2(self):
         if len(self.sv2.plotted_signals) != 0:
             self.list_widget2.clear()
@@ -530,7 +540,7 @@ class MainApp(QMainWindow, ui):
         else:
             QMessageBox.critical(None, "Error", "There are no signals plotted", QMessageBox.Ok)
 
-    def clear_synchronous(self): # I donot call the 2 above function because the message box will call twice
+    def clear_synchronous(self):  # I donot call the 2 above function because the message box will call twice
         if len(self.sv.plotted_signals) != 0 or len(self.sv2.plotted_signals) != 0:
             self.list_widget1.clear()
             self.sv.clear()
@@ -560,9 +570,14 @@ class MainApp(QMainWindow, ui):
         else:
             QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
 
-    def change_signal_name(self):
-        print(self.list_widget1.currentTextChanged)
-
+    def change_signal_name(self, list_widget):
+        item = list_widget.currentItem()
+        if list_widget == self.list_widget1:
+            self.sv.signals[list_widget.row(item) - 1].title = item.text()
+            self.sv.set_signal_title(self.sv.signals[list_widget.row(item) - 1], item.text())
+        elif list_widget == self.list_widget2:
+            self.sv2.signals[list_widget.row(item) - 1].title = item.text()
+            self.sv2.set_signal_title(self.sv2.signals[list_widget.row(item) - 1], item.text())
 
     def toggle_icon_with_mode(self, button, icon_name=""):
         if self._light_mode:
@@ -570,75 +585,88 @@ class MainApp(QMainWindow, ui):
         else:
             button.setIcon(QIcon(f'icons/{icon_name} copy.svg'))
 
+    def toggle_eye_icon_with_mode(self, button, signal_is_hide):
+        if signal_is_hide:
+            self.toggle_icon_with_mode(button, "eye-crossed")
+            signal_is_hide = False
+        else:
+            self.toggle_icon_with_mode(button, "eye")
+
     def activate_slider(self):
-            self.sv.pause()
-            self.sv2.pause()
-            self.sv.home_view()
-            self.sv2.home_view()
-            if self.toggle_radioButton.isChecked():
-                #for change icons
-                self._play_pause_state1 = False
-                self._play_pause_state2 = False
-                self.toggle_icon_with_mode(self.play_pause_btn1, "play")
-                self.toggle_icon_with_mode(self.play_pause_btn2, "play")
+        self.sv.pause()
+        self.sv2.pause()
+        self.sv.home_view()
+        self.sv2.home_view()
+        if self.toggle_radioButton.isChecked():
+            # link to scrollBar
+            self.sv.linkTo(self.sv2)
 
-                # for slide activate_slider and disable the other buttons
-                new_width = 60
-                self.play_pause_btn1.setEnabled(False)
-                self.replay_btn1.setEnabled(False)
-                self.stop_btn1.setEnabled(False)
-                self.reset_view_btn1.setEnabled(False)
-                self.hide_btn1.setEnabled(False)
-                self.move_up_btn.setEnabled(False)
-                self.zoom_in_btn1.setEnabled(False)
-                self.zoom_out_btn1.setEnabled(False)
-                self.clear_btn1.setEnabled(False)
+            # for change icons
+            self._play_pause_state1 = False
+            self._play_pause_state2 = False
+            self.toggle_icon_with_mode(self.play_pause_btn1, "play")
+            self.toggle_icon_with_mode(self.play_pause_btn2, "play")
 
-                self.play_pause_btn2.setEnabled(False)
-                self.replay_btn2.setEnabled(False)
-                self.stop_btn2.setEnabled(False)
-                self.reset_view_btn2.setEnabled(False)
-                self.hide_btn2.setEnabled(False)
-                self.move_down_btn.setEnabled(False)
-                self.zoom_in_btn2.setEnabled(False)
-                self.zoom_out_btn2.setEnabled(False)
-                self.clear_btn2.setEnabled(False)
+            # for slide activate_slider and disable the other buttons
+            new_width = 60
+            self.play_pause_btn1.setEnabled(False)
+            self.replay_btn1.setEnabled(False)
+            self.stop_btn1.setEnabled(False)
+            self.reset_view_btn1.setEnabled(False)
+            self.hide_btn1.setEnabled(False)
+            self.move_up_btn.setEnabled(False)
+            self.zoom_in_btn1.setEnabled(False)
+            self.zoom_out_btn1.setEnabled(False)
+            self.clear_btn1.setEnabled(False)
 
-            else:
-                self._play_pause_state1 = True
-                self._play_pause_state2 = True
+            self.play_pause_btn2.setEnabled(False)
+            self.replay_btn2.setEnabled(False)
+            self.stop_btn2.setEnabled(False)
+            self.reset_view_btn2.setEnabled(False)
+            self.hide_btn2.setEnabled(False)
+            self.move_down_btn.setEnabled(False)
+            self.zoom_in_btn2.setEnabled(False)
+            self.zoom_out_btn2.setEnabled(False)
+            self.clear_btn2.setEnabled(False)
 
-                new_width = 0
+        else:
 
-                self.play_pause_btn1.setEnabled(True)
-                self.replay_btn1.setEnabled(True)
-                self.stop_btn1.setEnabled(True)
-                self.reset_view_btn1.setEnabled(True)
-                self.hide_btn1.setEnabled(True)
-                self.move_up_btn.setEnabled(True)
-                self.zoom_in_btn1.setEnabled(True)
-                self.zoom_out_btn1.setEnabled(True)
-                self.clear_btn1.setEnabled(True)
+            self.sv.linkTo(None)
 
-                self.play_pause_btn2.setEnabled(True)
-                self.replay_btn2.setEnabled(True)
-                self.stop_btn2.setEnabled(True)
-                self.reset_view_btn2.setEnabled(True)
-                self.hide_btn2.setEnabled(True)
-                self.move_down_btn.setEnabled(True)
-                self.zoom_in_btn2.setEnabled(True)
-                self.zoom_out_btn2.setEnabled(True)
-                self.clear_btn2.setEnabled(True)
+            self._play_pause_state1 = True
+            self._play_pause_state2 = True
 
-                self._play_pause_state3 = True
-                self.toggle_icon_with_mode(self.play_pause_btn3, "play")
+            new_width = 0
 
-            self.animation = QPropertyAnimation(self.left_side_bar, b"minimumWidth")
-            self.animation.setDuration(40)
-            self.animation.setEndValue(new_width)
-            self.animation.setEasingCurve(QEasingCurve.InOutQuart)
-            self.animation.start()
-            self.left_side_bar.update()
+            self.play_pause_btn1.setEnabled(True)
+            self.replay_btn1.setEnabled(True)
+            self.stop_btn1.setEnabled(True)
+            self.reset_view_btn1.setEnabled(True)
+            self.hide_btn1.setEnabled(True)
+            self.move_up_btn.setEnabled(True)
+            self.zoom_in_btn1.setEnabled(True)
+            self.zoom_out_btn1.setEnabled(True)
+            self.clear_btn1.setEnabled(True)
+
+            self.play_pause_btn2.setEnabled(True)
+            self.replay_btn2.setEnabled(True)
+            self.stop_btn2.setEnabled(True)
+            self.reset_view_btn2.setEnabled(True)
+            self.hide_btn2.setEnabled(True)
+            self.move_down_btn.setEnabled(True)
+            self.zoom_in_btn2.setEnabled(True)
+            self.zoom_out_btn2.setEnabled(True)
+            self.clear_btn2.setEnabled(True)
+
+            self._play_pause_state3 = True
+            self.toggle_icon_with_mode(self.play_pause_btn3, "play")
+
+        self.animation = QPropertyAnimation(self.left_side_bar, b"minimumWidth")
+        self.animation.setDuration(40)
+        self.animation.setEndValue(new_width)
+        self.animation.setEasingCurve(QEasingCurve.InOutQuart)
+        self.animation.start()
+        self.left_side_bar.update()
 
     def toggle_dark_light_mode(self):
         if self._light_mode:
@@ -653,7 +681,10 @@ class MainApp(QMainWindow, ui):
             self.replay_btn1.setIcon(QIcon('icons/rewind copy.svg'))
             self.stop_btn1.setIcon(QIcon('icons/stop-button copy.svg'))
             self.reset_view_btn1.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center copy.svg'))
-            self.hide_btn1.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            if self._signal1_is_hide:
+                self.hide_btn1.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            else:
+                self.hide_btn1.setIcon(QIcon('icons/eye copy.svg'))
             self.move_up_btn.setIcon(QIcon('icons/up copy.svg'))
             self.zoom_in_btn1.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn1.setIcon(QIcon('icons/zoom_out.svg'))
@@ -663,7 +694,10 @@ class MainApp(QMainWindow, ui):
             self.replay_btn2.setIcon(QIcon('icons/rewind copy.svg'))
             self.stop_btn2.setIcon(QIcon('icons/stop-button copy.svg'))
             self.reset_view_btn2.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center copy.svg'))
-            self.hide_btn2.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            if self._signal2_is_hide:
+                self.hide_btn2.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            else:
+                self.hide_btn2.setIcon(QIcon('icons/eye copy.svg'))
             self.move_down_btn.setIcon(QIcon('icons/down copy.svg'))
             self.zoom_in_btn2.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn2.setIcon(QIcon('icons/zoom_out.svg'))
@@ -673,7 +707,10 @@ class MainApp(QMainWindow, ui):
             self.replay_btn3.setIcon(QIcon('icons/rewind copy.svg'))
             self.stop_btn3.setIcon(QIcon('icons/stop-button copy.svg'))
             self.reset_view_btn3.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center copy.svg'))
-            self.hide_btn3.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            if self._signal1_is_hide or self._signal2_is_hide:
+                self.hide_btn3.setIcon(QIcon('icons/eye-crossed copy.svg'))
+            else:
+                self.hide_btn3.setIcon(QIcon('icons/eye copy.svg'))
             self.zoom_in_btn3.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn3.setIcon(QIcon('icons/zoom_out.svg'))
             self.clear_btn3.setIcon(QIcon('icons/trash copy.svg'))
@@ -691,7 +728,10 @@ class MainApp(QMainWindow, ui):
             self.replay_btn1.setIcon(QIcon('icons/rewind.svg'))
             self.stop_btn1.setIcon(QIcon('icons/stop-button.png'))
             self.reset_view_btn1.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center.svg'))
-            self.hide_btn1.setIcon(QIcon('icons/eye-crossed.svg'))
+            if self._signal1_is_hide:
+                self.hide_btn1.setIcon(QIcon("icons/eye-crossed.svg"))
+            else:
+                self.hide_btn1.setIcon(QIcon("icons/eye.svg"))
             self.move_up_btn.setIcon(QIcon('icons/up.svg'))
             self.zoom_in_btn1.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn1.setIcon(QIcon('icons/magnifying-glass.png'))
@@ -701,7 +741,10 @@ class MainApp(QMainWindow, ui):
             self.replay_btn2.setIcon(QIcon('icons/rewind.svg'))
             self.stop_btn2.setIcon(QIcon('icons/stop-button.png'))
             self.reset_view_btn2.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center.svg'))
-            self.hide_btn2.setIcon(QIcon('icons/eye-crossed.svg'))
+            if self._signal2_is_hide:
+                self.hide_btn2.setIcon(QIcon('icons/eye-crossed.svg'))
+            else:
+                self.hide_btn2.setIcon(QIcon('icons/eye.svg'))
             self.move_down_btn.setIcon(QIcon('icons/down.svg'))
             self.zoom_in_btn2.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn2.setIcon(QIcon('icons/magnifying-glass.png'))
@@ -711,11 +754,15 @@ class MainApp(QMainWindow, ui):
             self.replay_btn3.setIcon(QIcon('icons/rewind.svg'))
             self.stop_btn3.setIcon(QIcon('icons/stop-button.png'))
             self.reset_view_btn3.setIcon(QIcon('icons/arrow-up-right-and-arrow-down-left-from-center.svg'))
-            self.hide_btn3.setIcon(QIcon('icons/eye-crossed.svg'))
+            if self._signal2_is_hide or self._signal1_is_hide:
+                self.hide_btn3.setIcon(QIcon('icons/eye-crossed.svg'))
+            else:
+                self.hide_btn3.setIcon(QIcon('icons/eye.svg'))
             self.zoom_in_btn3.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn3.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn3.setIcon(QIcon('icons/trash.svg'))
             self._light_mode = True
+
 
 def main():
     app = QApplication(sys.argv)

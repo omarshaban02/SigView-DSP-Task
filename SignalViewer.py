@@ -12,7 +12,10 @@ import random
 import pyqtgraph.exporters
 import copy
 import aspose.pdf as ap
+import numpy as np
 
+
+PATH = 'signals/mitbih_train.csv'
 
 class Signal(object):
     def __init__(self, data:list =[], title:str= '', color:tuple = (0,0,0)) -> None:
@@ -30,6 +33,10 @@ class Signal(object):
         self.plot_data_item.setCurveClickable(state=True , width = 6)
         self.bounds_paddings = [0.5, 10, 0.5, 5] # top, right, bottom, left
         self._bounds = [] # top, right, bottom, left
+        self.mean = np.mean(self.data).round(9)
+        self.variance = np.var(self.data).round(9)
+        self.std = np.std(self.data).round(9)
+        self.samples_number =len(self.data)
 
     @property
     def bounds(self):
@@ -129,8 +136,22 @@ class SignalViewerLogic(object):
         self.background_color = self._background_color
         self._display_axis_labels = True
         self.display_axis_labels = True
-        self.xScrollBar = None
-        self.yScrollBar = None
+        self._xScrollBar = None
+        self._yScrollBar = None
+        self.view_limits = []
+        self.apply_limits = False
+        self.xScrollBar_event = lambda : self.view.setXRange(self.xScrollBar.value(),self.xScrollBar.value()+self.xRange[1]-self.xRange[0],padding=0)
+        self.yScrollBar_event = lambda : self.view.setYRange(self.yScrollBar.value(),self.yScrollBar.value()+self.yRange[1]-self.yRange[0],padding=0)
+        self.view.sigRangeChanged.connect(self._update_scrollBar)
+        self._xScrollBar_active = False
+        self._yScrollBar_active = False
+        
+
+    def set_xScrollBar_active(self,value):
+        self._xScrollBar_active = value
+
+    def set_yScrollBar_active(self,value):
+        self._yScrollBar_active = value
 
     def ignore_focus(self,e):
         if e.double() ==True:
@@ -138,6 +159,62 @@ class SignalViewerLogic(object):
                 signal.is_active = False
                 pen = pg.mkPen(signal.color, width=1)
                 signal.plot_data_item.setPen(pen)
+    def _update_scrollBar(self):
+        if not(self.xScrollBar is  None or self._xScrollBar_active):
+
+            if self.apply_limits:
+                self.xScrollBar.setMaximum(int(self.view_limits[1]))
+                self.xScrollBar.setMinimum(int(self.view_limits[3]))
+             # update the extreme values of the scrollbar 
+            xMin = int(self.xRange[0])
+            xMax = int(self.xRange[1])
+            if self.xScrollBar.maximum() < xMax:
+                self.xScrollBar.setMaximum(xMax)
+            if self.xScrollBar.minimum() > xMin:
+                self.xScrollBar.setMinimum(xMin)
+            self.xScrollBar.setValue(xMin)
+           
+        if not(self.yScrollBar is  None or self._yScrollBar_active):  
+            if self.apply_limits:
+                self.yScrollBar.setMaximum(int(self.view_limits[0]))
+                self.yScrollBar.setMinimum(int(self.view_limits[2]))
+            # update the extreme values of the scrollbar 
+            yMin = int(self.yRange[0])
+            yMax = int(self.yRange[1])
+            if self.yScrollBar.maximum() < yMax:
+                self.yScrollBar.setMaximum(yMax)
+            if self.yScrollBar.minimum() > yMin:
+                self.yScrollBar.setMinimum(yMin)
+            self.yScrollBar.setValue(yMin)
+
+    @property
+    def xScrollBar(self):
+        return self._xScrollBar
+    
+    @xScrollBar.setter
+    def xScrollBar(self,value):
+        self._xScrollBar = value
+        self.xScrollBar.setValue(0)
+        self.xScrollBar.setMinimum(0)
+        self.xScrollBar.setMaximum(180)
+        self.xScrollBar.sliderReleased.connect(lambda: self.set_xScrollBar_active(False))
+        self.xScrollBar.sliderPressed.connect(lambda: self.set_xScrollBar_active(True))
+        self.xScrollBar.valueChanged.connect(self.xScrollBar_event)
+
+    @property
+    def yScrollBar(self):
+        return self._yScrollBar
+    
+    @yScrollBar.setter
+    def yScrollBar(self,value):
+        self._yScrollBar = value
+        self.yScrollBar.setValue(0)
+        self.yScrollBar.setMinimum(0)
+        self.yScrollBar.setMaximum(1)
+        self.yScrollBar.sliderReleased.connect(lambda: self.set_yScrollBar_active(False))
+        self.yScrollBar.sliderPressed.connect(lambda: self.set_yScrollBar_active(True))
+        self.yScrollBar.valueChanged.connect(self.yScrollBar_event)
+
     @property
     def display_axis_labels(self):
         return self._display_axis_labels
@@ -169,20 +246,27 @@ class SignalViewerLogic(object):
     def apply_limits(self,value):
         self._apply_limits = value
         if self._apply_limits == True:
-            yMax, xMax, yMin, xMin = 0, 0, 0, 0
+            yMax = yMin = xMax=xMin = 0
             for signal in self.plotted_signals:
                 bounds = signal.bounds
-                if yMax > bounds[0]:
+                if yMax < bounds[0]:
                     yMax = bounds[0]
-                if xMax > bounds[1]:
+                if xMax < bounds[1]:
                     xMax = bounds[1]
-                if yMin < bounds[2]:
+                if yMin > bounds[2]:
                     yMin = bounds[2]
-                if xMin < bounds[3]:
+                if xMin > bounds[3]:
                     xMin = bounds[3]
-            self.view.setLimits(yMax = yMax, xMax = xMax, yMin = yMin, xMin = xMin)
+            if yMax !=0 and yMin !=0 and xMax!=0 and xMin != 0:
+                self.view.setLimits(yMax = yMax, xMax = xMax, yMin = yMin, xMin = xMin)
+            self.view_limits= []
+            self.view_limits.append(yMax)
+            self.view_limits.append(xMax)
+            self.view_limits.append(yMin)
+            self.view_limits.append(xMin)
         else:
             self.view.setLimits(xMin=None,xMax=None,yMin=None,yMax=None)
+            self.view_limits = []
 
     @property
     def display_axis(self):
@@ -236,7 +320,6 @@ class SignalViewerLogic(object):
     
     @xRange.setter
     def xRange(self, value: list):
-        
         self.view.setXRange(value[0], value[1],padding=0)
         self._xRange = self.view.viewRange()[0]
     
@@ -278,22 +361,16 @@ class SignalViewerLogic(object):
     # the default direction is along positive y-axis as step is positive integer
     def vertical_shift(self,step: int)->None:
         self.yRange = [self.yRange[0]+step,self.yRange[1]+step]
-        if self.yScrollBar is not None:
-            self.yScrollBar.setValue(self.yScrollBar.value()+step)
+       
     # the default direction is along positive x-axis as step is positive integer
     def horizontal_shift(self,step: int)-> None:
         self.xRange = [self.xRange[0]+step,self.xRange[1]+step]
-        if self.xScrollBar is not None:
-            self.xScrollBar.setValue(self.xScrollBar.value()+step)
-
+        
     # go to the home view
     def home_view(self, scrollBar1 =None, scrollBar2 = None)-> None:
         self.xRange = [0, self.view_width]
         self.yRange = [0, self.view_height]
-        if self.xScrollBar is not None:
-            self.xScrollBar.setValue(0)
-        if self.yScrollBar is not None:
-            self.yScrollBar.setValue(0)
+        
 
     # apply the action on the active signals
     def play(self):
@@ -313,11 +390,13 @@ class SignalViewerLogic(object):
             signal.restart()
     # apply the action on the active signals
     def set_signal_title(self,signal: Signal, text: str):
-            pos_x = int(random.random()*100)
-            pos_y = signal.data[pos_x]
-            title = pg.TextItem(text=text,color = signal.color)
-            title.setPos(pos_x,pos_y)
-            signal.title = title
+        pos_x = int(random.random()*100)
+        pos_y = signal.data[pos_x]
+        title = pg.TextItem(text=text,color = signal.color)
+        title.setPos(pos_x,pos_y)
+        signal.title = title
+
+
 
     # apply the action on the active signals
     def exportImage(self,name,format=None):
@@ -328,12 +407,69 @@ class SignalViewerLogic(object):
             exporter.export(f'{name}.{format}')
             
     def exportPDF(self,name):
+
         # create document
         document = ap.Document()
+
         # Insert a empty page in a PDF
         page = document.pages.add()
+
+        # Add Image
         self.exportImage(name)#20, 730, 120, 830
-        page.add_image(f"{name}.png", ap.Rectangle(20, 730, 550, 333,True))
+        page.add_image(f"{name}.png", ap.Rectangle(20, 870, 550, 570,True))
+
+         # Add Header
+        header = ap.text.TextFragment("Details about the Signals")
+        header.text_state.font = ap.text.FontRepository.find_font("Arial")
+        header.text_state.font_size = 24
+        header.horizontal_alignment = ap.HorizontalAlignment.CENTER
+        #header.position = ap.text.Position(130, 720)
+        header.position = ap.text.Position(120, 550)
+        page.paragraphs.add(header)
+
+        # Add table
+        table = ap.Table()
+        table.column_widths = "80"
+        table.border = ap.BorderInfo(ap.BorderSide.BOX, 1.0, ap.Color.dark_slate_gray)
+        table.default_cell_border = ap.BorderInfo(ap.BorderSide.BOX, 0.5, ap.Color.black)
+        table.default_cell_padding = ap.MarginInfo(2,2,2,2)
+        table.margin.bottom = 10
+        table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
+        headerRow = table.rows.add()
+        headerRow.cells.add("Signal Name")
+        headerRow.cells.add("Number of Samples")
+        headerRow.cells.add("Mean")
+        headerRow.cells.add("Variance")
+        headerRow.cells.add("Standard Deviation")
+        
+        for i in range(headerRow.cells.count):
+            headerRow.cells[i].background_color = ap.Color.gray
+            headerRow.cells[i].default_cell_text_state.foreground_color = ap.Color.white_smoke
+
+        for sig in self.plotted_signals:
+            dataRow = table.rows.add()
+            dataRow.cells.add(str(sig.title.toPlainText()))
+            dataRow.cells.add(str(sig.samples_number))
+            dataRow.cells.add(str(sig.mean))
+            dataRow.cells.add(str(sig.variance))
+            dataRow.cells.add(str(sig.std))
+        page.paragraphs.add(table)
+
+        # Add watermark
+        artifact = ap.WatermarkArtifact()
+        ts = ap.text.TextState()
+        ts.font_size = 75
+        ts.foreground_color = ap.Color.blue
+        ts.font = ap.text.FontRepository.find_font("Courier")
+        artifact.set_text_and_state("      ABDULLAH OMRAN", ts)
+        artifact.artifact_horizontal_alignment = ap.HorizontalAlignment.CENTER
+       # artifact.artifact_vertical_alignment = ap.VerticalAlignment.CENTER
+        
+        artifact.rotation = 45
+        artifact.opacity = 0.2
+        artifact.is_background = True
+        document.pages[1].artifacts.append(artifact)
+        # Save document
         document.save(f'{name}.pdf')
 
 
@@ -362,9 +498,14 @@ class SignalViewerLogic(object):
                 signal = s
                 break    
         if signal is not None:
-            signal.is_active = True
-            pen = pg.mkPen(signal.color, width=3)
-            e.setPen(pen)
+            if signal.is_active:
+                signal.is_active = False
+                pen = pg.mkPen(signal.color, width=1)
+                e.setPen(pen)
+            else:
+                signal.is_active = True
+                pen = pg.mkPen(signal.color, width=3)
+                e.setPen(pen)
 
     # add signal to the plotted signal and active signals and start drawing it
     def add_signal(self, index: int, name: str, color = (255,255,255)):
@@ -380,7 +521,7 @@ class SignalViewerLogic(object):
         # related to view limits if it is enabled
         #  update them so that the limits are applicable on the new signal
         if self.apply_limits == True:
-            self.apply_limits ==True
+            self.apply_limits = True
     
         
     # apply the action on the active signals
@@ -393,16 +534,8 @@ class SignalViewerLogic(object):
             self.plotted_signals.remove(signal)
     # clear the screen
     def clear(self):
-        self.signals = []
         self.plotted_signals = []
-        self.view.clear()
-
-    def hide_signal(self):
-        for signal in self.active_signals:
-            self.view.removeItem(signal.plot_data_item)
-    def show_hidden_signal(self):
-        for signal in self.active_signals:
-            self.view.addItem(signal.plot_data_item)
+    
     def moveTo(self, other):
         for signal in self.active_signals:
             signal_index = self.signals.index(signal)
@@ -412,3 +545,23 @@ class SignalViewerLogic(object):
             self.view.removeItem(signal.plot_data_item)
             if signal not in other.plotted_signals:
                 other.add_signal(other.signals.index(signal),str(signal.title.toPlainText()),signal.color)
+
+    def hide_signal(self):
+        for signal in self.active_signals:
+            self.view.removeItem(signal.plot_data_item)
+
+    def show_hidden_signal(self):
+        for signal in self.active_signals:
+            self.view.addItem(signal.plot_data_item)
+
+    def clear(self):
+        self.signals = []
+        self.plotted_signals = []
+        self.view.clear()
+    def linkTo(self, other: pg.PlotWidget):
+        if other is not None:
+            self.view.setXLink(other.view)
+            self.view.setYLink(other.view)
+        else:
+            self.view.setXLink(None)
+            self.view.setYLink(None)

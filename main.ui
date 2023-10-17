@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1438</width>
+    <width>1599</width>
     <height>838</height>
    </rect>
   </property>
@@ -371,7 +371,7 @@ QPushButton:pressed {
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="text">
-             <string>Sync</string>
+             <string>Link</string>
             </property>
             <property name="iconSize">
              <size>
@@ -433,7 +433,7 @@ QPushButton:pressed {
           <enum>QFrame::Plain</enum>
          </property>
          <property name="text">
-          <string>Project 1</string>
+          <string>Signal Viewer</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -465,6 +465,9 @@ QPushButton:pressed {
            <width>34</width>
            <height>34</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Toggle Light &amp;amp; Night mode&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -818,6 +821,9 @@ border:none;</string>
              </item>
              <item>
               <widget class="QGraphicsView" name="graphics_view1">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click on a signal to activat&lt;/p&gt;&lt;p&gt;douple click for deactivate all signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -859,6 +865,9 @@ border:none;</string>
               <widget class="QPushButton" name="replay_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Replay activate siganls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -915,6 +924,9 @@ color: #0d6efd</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stop activate signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
 border:none;</string>
@@ -942,6 +954,9 @@ border:none;</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Back to orignial view&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
 border:none;</string>
@@ -965,6 +980,9 @@ border:none;</string>
               <widget class="QPushButton" name="hide_btn1">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;hide &amp;amp; show activate signal&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -992,6 +1010,9 @@ border:none;</string>
               <widget class="QPushButton" name="move_down_btn">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Move down activate signals &lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -1068,6 +1089,9 @@ border:none;</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear all siganls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
 border:none;</string>
@@ -1115,7 +1139,7 @@ border:none;</string>
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="6,1,1,1">
            <property name="spacing">
             <number>6</number>
            </property>
@@ -1187,6 +1211,9 @@ QCheckBox::checked {
              <property name="layoutMode">
               <enum>QListView::SinglePass</enum>
              </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -1205,15 +1232,15 @@ QCheckBox::checked {
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Frequency</string>
+                <string>Speed</string>
                </property>
                <property name="buddy">
-                <cstring>speedDoubleSpinBox_1</cstring>
+                <cstring>speedSpinBox_1</cstring>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="speedDoubleSpinBox_1">
+              <widget class="QSpinBox" name="speedSpinBox_1">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
@@ -1227,17 +1254,17 @@ QCheckBox::checked {
 border-radius: 4px;
 padding:4px;</string>
                </property>
-               <property name="suffix">
-                <string>Hz</string>
-               </property>
-               <property name="decimals">
+               <property name="minimum">
                 <number>1</number>
                </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
                <property name="singleStep">
-                <double>10.000000000000000</double>
+                <number>1</number>
                </property>
                <property name="value">
-                <double>20.000000000000000</double>
+                <number>50</number>
                </property>
               </widget>
              </item>
@@ -1246,98 +1273,53 @@ padding:4px;</string>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="QLabel" name="label">
-               <property name="font">
-                <font>
-                 <family>Ubuntu</family>
-                 <pointsize>12</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
+              <widget class="QPushButton" name="color_btn1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>132</width>
+                 <height>30</height>
+                </size>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Color</string>
+                <string>Change Color</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="color_comboBox1">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
-                 <pointsize>11</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
                 </font>
                </property>
-               <property name="styleSheet">
-                <string notr="true">border:1px solid  rgba(65, 105, 225,30%);
-border-radius: 4px;
-padding:4px;</string>
+               <property name="text">
+                <string>CheckBox</string>
                </property>
-               <item>
-                <property name="text">
-                 <string>Red</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Violet</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gray</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Yellow</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Black</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Cyan</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Purple</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Brown</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Blue</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Green</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Orange</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gold</string>
-                </property>
-               </item>
               </widget>
              </item>
             </layout>
@@ -1346,6 +1328,12 @@ padding:4px;</string>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <property name="spacing">
               <number>15</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
              </property>
              <item>
               <widget class="QPushButton" name="plot_btn1">
@@ -1361,6 +1349,12 @@ padding:4px;</string>
                  <height>25</height>
                 </size>
                </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
@@ -1371,6 +1365,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click to plot checked signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -1389,7 +1386,7 @@ padding:4px;</string>
              <item>
               <widget class="QPushButton" name="export_btn1">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -1397,13 +1394,13 @@ padding:4px;</string>
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>20</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>125</width>
-                 <height>16777215</height>
+                 <width>132</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="font">
@@ -1442,6 +1439,12 @@ padding:4px;</string>
                  <height>25</height>
                 </size>
                </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
@@ -1452,6 +1455,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click to open file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -1504,6 +1510,9 @@ padding:4px;</string>
              </item>
              <item>
               <widget class="QGraphicsView" name="graphics_view2">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click on a signal to activat&lt;/p&gt;&lt;p&gt;douple click for deactivate all signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -1542,6 +1551,9 @@ padding:4px;</string>
               <widget class="QPushButton" name="replay_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Replay activate siganls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -1591,6 +1603,9 @@ border:none;</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop activate signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
 border:none;</string>
@@ -1614,6 +1629,9 @@ border:none;</string>
               <widget class="QPushButton" name="reset_view_btn2">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Back to orignial view&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -1662,6 +1680,9 @@ border:none;</string>
               <widget class="QPushButton" name="move_up_btn">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Move up activate signals &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
@@ -1738,6 +1759,9 @@ border:none;</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear all siganls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgba(255, 255, 255, 0);
 border:none;</string>
@@ -1776,13 +1800,16 @@ border:none;</string>
             <height>16777215</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Press to plot checked signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_3" stretch="6,1,1,1">
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1855,15 +1882,15 @@ padding:4px;</string>
                 </font>
                </property>
                <property name="text">
-                <string>Frequency</string>
+                <string>Speed</string>
                </property>
                <property name="buddy">
-                <cstring>speedDoubleSpinBox_2</cstring>
+                <cstring>speedSpinBox_2</cstring>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="speedDoubleSpinBox_2">
+              <widget class="QSpinBox" name="speedSpinBox_2">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
@@ -1877,17 +1904,17 @@ padding:4px;</string>
 border-radius: 4px;
 padding:4px;</string>
                </property>
-               <property name="suffix">
-                <string> Hz</string>
-               </property>
-               <property name="decimals">
+               <property name="minimum">
                 <number>1</number>
                </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
                <property name="singleStep">
-                <double>10.000000000000000</double>
+                <number>1</number>
                </property>
                <property name="value">
-                <double>20.000000000000000</double>
+                <number>50</number>
                </property>
               </widget>
              </item>
@@ -1896,95 +1923,50 @@ padding:4px;</string>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <widget class="QLabel" name="label_2">
-               <property name="font">
-                <font>
-                 <family>Ubuntu</family>
-                 <pointsize>12</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
+              <widget class="QPushButton" name="color_btn2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>132</width>
+                 <height>30</height>
+                </size>
                </property>
                <property name="text">
-                <string>Color</string>
+                <string>Change Color</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="color_comboBox2">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_2">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
-                 <pointsize>11</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
                 </font>
                </property>
-               <property name="styleSheet">
-                <string notr="true">border:1px solid  rgba(65, 105, 225,30%);
-border-radius: 4px;
-padding:4px;</string>
+               <property name="text">
+                <string>CheckBox</string>
                </property>
-               <item>
-                <property name="text">
-                 <string>Red</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Violet</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gray</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Yellow</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Black</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Cyan</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Purple</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Brown</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Blue</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Green</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Orange</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gold</string>
-                </property>
-               </item>
               </widget>
              </item>
             </layout>
@@ -2011,7 +1993,7 @@ padding:4px;</string>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>16777215</height>
+                 <height>30</height>
                 </size>
                </property>
                <property name="font">
@@ -2024,6 +2006,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click to plot checked signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -2049,8 +2034,8 @@ padding:4px;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>125</width>
-                 <height>16777215</height>
+                 <width>132</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="font">
@@ -2089,7 +2074,7 @@ padding:4px;</string>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>16777215</height>
+                 <height>30</height>
                 </size>
                </property>
                <property name="font">
@@ -2102,6 +2087,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click to open file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
