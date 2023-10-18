@@ -380,7 +380,7 @@ QPushButton:pressed {
              </size>
             </property>
             <property name="shortcut">
-             <string>Shift+S</string>
+             <string>Ctrl+L</string>
             </property>
             <property name="checked">
              <bool>false</bool>
