@@ -151,6 +151,9 @@ class MainApp(QMainWindow, ui):
         self.sv.set_title("Graph Viewer 1")
         self.sv2.set_title("Graph Viewer 2")
 
+        self.apply_limits_checkBox_1.stateChanged.connect(lambda: self.apply_limits(self.sv))
+        self.apply_limits_checkBox_2.stateChanged.connect(lambda: self.apply_limits(self.sv2))
+
     def change_signal_color(self, list_widget):
         dialog = QColorDialog()
         dialog.setOption(QColorDialog.ShowAlphaChannel, on=True)
@@ -557,7 +560,7 @@ class MainApp(QMainWindow, ui):
 
     def export_graph1_as_pdf(self):
         if len(self.sv.plotted_signals) != 0:
-            self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
+            # self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
             self._pdf_files_counter += 1
         else:
             QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
@@ -762,6 +765,10 @@ class MainApp(QMainWindow, ui):
             self.zoom_out_btn3.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn3.setIcon(QIcon('icons/trash.svg'))
             self._light_mode = True
+
+    def apply_limits(self, signal_view):
+        signal_view.apply_limits = not signal_view.apply_limits
+
 
 
 def main():

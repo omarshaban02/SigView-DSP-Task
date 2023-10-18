@@ -11,7 +11,7 @@ import pyqtgraph as pg
 import random
 import pyqtgraph.exporters
 import copy
-import aspose.pdf as ap
+# import aspose.pdf as ap
 import numpy as np
 
 
@@ -406,71 +406,71 @@ class SignalViewerLogic(object):
         else:
             exporter.export(f'{name}.{format}')
             
-    def exportPDF(self,name):
-
-        # create document
-        document = ap.Document()
-
-        # Insert a empty page in a PDF
-        page = document.pages.add()
-
-        # Add Image
-        self.exportImage(name)#20, 730, 120, 830
-        page.add_image(f"{name}.png", ap.Rectangle(20, 870, 550, 570,True))
-
-         # Add Header
-        header = ap.text.TextFragment("Details about the Signals")
-        header.text_state.font = ap.text.FontRepository.find_font("Arial")
-        header.text_state.font_size = 24
-        header.horizontal_alignment = ap.HorizontalAlignment.CENTER
-        #header.position = ap.text.Position(130, 720)
-        header.position = ap.text.Position(120, 550)
-        page.paragraphs.add(header)
-
-        # Add table
-        table = ap.Table()
-        table.column_widths = "80"
-        table.border = ap.BorderInfo(ap.BorderSide.BOX, 1.0, ap.Color.dark_slate_gray)
-        table.default_cell_border = ap.BorderInfo(ap.BorderSide.BOX, 0.5, ap.Color.black)
-        table.default_cell_padding = ap.MarginInfo(2,2,2,2)
-        table.margin.bottom = 10
-        table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
-        headerRow = table.rows.add()
-        headerRow.cells.add("Signal Name")
-        headerRow.cells.add("Number of Samples")
-        headerRow.cells.add("Mean")
-        headerRow.cells.add("Variance")
-        headerRow.cells.add("Standard Deviation")
-        
-        for i in range(headerRow.cells.count):
-            headerRow.cells[i].background_color = ap.Color.gray
-            headerRow.cells[i].default_cell_text_state.foreground_color = ap.Color.white_smoke
-
-        for sig in self.plotted_signals:
-            dataRow = table.rows.add()
-            dataRow.cells.add(str(sig.title.toPlainText()))
-            dataRow.cells.add(str(sig.samples_number))
-            dataRow.cells.add(str(sig.mean))
-            dataRow.cells.add(str(sig.variance))
-            dataRow.cells.add(str(sig.std))
-        page.paragraphs.add(table)
-
-        # Add watermark
-        artifact = ap.WatermarkArtifact()
-        ts = ap.text.TextState()
-        ts.font_size = 75
-        ts.foreground_color = ap.Color.blue
-        ts.font = ap.text.FontRepository.find_font("Courier")
-        artifact.set_text_and_state("      ABDULLAH OMRAN", ts)
-        artifact.artifact_horizontal_alignment = ap.HorizontalAlignment.CENTER
-       # artifact.artifact_vertical_alignment = ap.VerticalAlignment.CENTER
-        
-        artifact.rotation = 45
-        artifact.opacity = 0.2
-        artifact.is_background = True
-        document.pages[1].artifacts.append(artifact)
-        # Save document
-        document.save(f'{name}.pdf')
+    # def exportPDF(self,name):
+    #
+    #     # create document
+    #     document = ap.Document()
+    #
+    #     # Insert a empty page in a PDF
+    #     page = document.pages.add()
+    #
+    #     # Add Image
+    #     self.exportImage(name)#20, 730, 120, 830
+    #     page.add_image(f"{name}.png", ap.Rectangle(20, 870, 550, 570,True))
+    #
+    #      # Add Header
+    #     header = ap.text.TextFragment("Details about the Signals")
+    #     header.text_state.font = ap.text.FontRepository.find_font("Arial")
+    #     header.text_state.font_size = 24
+    #     header.horizontal_alignment = ap.HorizontalAlignment.CENTER
+    #     #header.position = ap.text.Position(130, 720)
+    #     header.position = ap.text.Position(120, 550)
+    #     page.paragraphs.add(header)
+    #
+    #     # Add table
+    #     table = ap.Table()
+    #     table.column_widths = "80"
+    #     table.border = ap.BorderInfo(ap.BorderSide.BOX, 1.0, ap.Color.dark_slate_gray)
+    #     table.default_cell_border = ap.BorderInfo(ap.BorderSide.BOX, 0.5, ap.Color.black)
+    #     table.default_cell_padding = ap.MarginInfo(2,2,2,2)
+    #     table.margin.bottom = 10
+    #     table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
+    #     headerRow = table.rows.add()
+    #     headerRow.cells.add("Signal Name")
+    #     headerRow.cells.add("Number of Samples")
+    #     headerRow.cells.add("Mean")
+    #     headerRow.cells.add("Variance")
+    #     headerRow.cells.add("Standard Deviation")
+    #
+    #     for i in range(headerRow.cells.count):
+    #         headerRow.cells[i].background_color = ap.Color.gray
+    #         headerRow.cells[i].default_cell_text_state.foreground_color = ap.Color.white_smoke
+    #
+    #     for sig in self.plotted_signals:
+    #         dataRow = table.rows.add()
+    #         dataRow.cells.add(str(sig.title.toPlainText()))
+    #         dataRow.cells.add(str(sig.samples_number))
+    #         dataRow.cells.add(str(sig.mean))
+    #         dataRow.cells.add(str(sig.variance))
+    #         dataRow.cells.add(str(sig.std))
+    #     page.paragraphs.add(table)
+    #
+    #     # Add watermark
+    #     artifact = ap.WatermarkArtifact()
+    #     ts = ap.text.TextState()
+    #     ts.font_size = 75
+    #     ts.foreground_color = ap.Color.blue
+    #     ts.font = ap.text.FontRepository.find_font("Courier")
+    #     artifact.set_text_and_state("      ABDULLAH OMRAN", ts)
+    #     artifact.artifact_horizontal_alignment = ap.HorizontalAlignment.CENTER
+    #    # artifact.artifact_vertical_alignment = ap.VerticalAlignment.CENTER
+    #
+    #     artifact.rotation = 45
+    #     artifact.opacity = 0.2
+    #     artifact.is_background = True
+    #     document.pages[1].artifacts.append(artifact)
+    #     # Save document
+    #     document.save(f'{name}.pdf')
 
 
     # apply the action on the active signals

@@ -414,7 +414,6 @@ QPushButton:pressed {
           <font>
            <family>Ubuntu</family>
            <pointsize>20</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
            <kerning>true</kerning>
@@ -1161,7 +1160,6 @@ border:none;</string>
               <font>
                <family>Ubuntu</family>
                <pointsize>10</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -1224,7 +1222,6 @@ QCheckBox::checked {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>12</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1245,7 +1242,6 @@ QCheckBox::checked {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1311,14 +1307,14 @@ padding:4px;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="apply_limits_checkBox_1">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
                 </font>
                </property>
                <property name="text">
-                <string>CheckBox</string>
+                <string>Apply Limits</string>
                </property>
               </widget>
              </item>
@@ -1359,7 +1355,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1407,7 +1402,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1449,7 +1443,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1825,7 +1818,6 @@ border:none;</string>
               <font>
                <family>Ubuntu</family>
                <pointsize>10</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -1877,7 +1869,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>12</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1895,7 +1886,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1958,14 +1948,14 @@ padding:4px;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_2">
+              <widget class="QCheckBox" name="apply_limits_checkBox_2">
                <property name="font">
                 <font>
                  <family>Ubuntu</family>
                 </font>
                </property>
                <property name="text">
-                <string>CheckBox</string>
+                <string>Apply Limits</string>
                </property>
               </widget>
              </item>
@@ -2000,7 +1990,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -2042,7 +2031,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -2081,7 +2069,6 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
