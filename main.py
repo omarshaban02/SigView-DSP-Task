@@ -87,8 +87,8 @@ class MainApp(QMainWindow, ui):
         self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
 
-        self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
-        self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
+        # self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
+        # self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
 
         self.toggle_radioButton.clicked.connect(self.activate_slider)
 

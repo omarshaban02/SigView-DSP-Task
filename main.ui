@@ -1282,6 +1282,9 @@ padding:4px;</string>
                  <height>30</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>click to change the color of the active signals</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -1312,6 +1315,9 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>click to apply limits to the graph in x and y axes</string>
                </property>
                <property name="text">
                 <string>Apply Limits</string>
@@ -1407,6 +1413,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>click to export the graph content and stats as PDF file</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -1926,6 +1935,9 @@ padding:4px;</string>
                  <height>30</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>click to change the color of the active signals</string>
+               </property>
                <property name="text">
                 <string>Change Color</string>
                </property>
@@ -1953,6 +1965,9 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>click to apply limits to the graph in x and y axes</string>
                </property>
                <property name="text">
                 <string>Apply Limits</string>
@@ -2036,6 +2051,9 @@ padding:4px;</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>click to export the graph content and stats as PDF file</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
