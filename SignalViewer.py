@@ -11,7 +11,7 @@ import pyqtgraph as pg
 import random
 import pyqtgraph.exporters
 import copy
-# import aspose.pdf as ap
+import aspose.pdf as ap
 import numpy as np
 
 
@@ -30,7 +30,7 @@ class Signal(object):
         self._color = color
         self._title = None
         self._on_click_event_handler = lambda e: None
-        self.plot_data_item.setCurveClickable(state=True , width = 6)
+        self.plot_data_item.setCurveClickable(state=True , width = 6) # Width is Tolerance
         self.bounds_paddings = [0.5, 10, 0.5, 5] # top, right, bottom, left
         self._bounds = [] # top, right, bottom, left
         self.mean = np.mean(self.data).round(9)
@@ -70,7 +70,7 @@ class Signal(object):
     @color.setter
     def color(self, value):
         self._color = value
-        pen = pg.mkPen(self.color, width=1)
+        pen = pg.mkPen(self.color, width=2)
         self.plot_data_item.setPen(pen)
 
     @title.setter
@@ -90,7 +90,7 @@ class Signal(object):
                 self.completed = True
                 self.stop_drawing = True
                 self.is_active = False
-                self.color = self.color
+                self.color = self.color # when signal is completed, I make it unactivated So, I update the pen (color, width)
 
     def pause(self)-> None:
         self.stop_drawing = True
@@ -98,7 +98,7 @@ class Signal(object):
     def resume(self)-> None:
         self.stop_drawing = False
 
-    def plot(self)-> None:
+    def plot(self)-> None: #update the signal graph
         self.plot_data_item.clear()
         self.plot_data_item.setData(self.plotted_data)
 
@@ -119,9 +119,9 @@ class SignalViewerLogic(object):
         self.plotted_signals: list(Signal) = [] # storing all signals in the view
         self._active_signals: list(Signal) = [] # storing the active signals e.g. clicked signals
         self._rate = 20 # samples per second
-        self.timer.start(int(1000/self._rate))
-        self.view_width = 50
-        self.view_height = 1
+        self.timer.start(int(1000/self._rate)) # The delay that the draw method takes for each call
+        self.view_width = 50 #initial width
+        self.view_height = 1 #initial height
         self._xRange = [0, self.view_width]
         self._yRange = [0, self.view_height]
         self._display_axis = True
@@ -129,10 +129,10 @@ class SignalViewerLogic(object):
         self.view.setXRange(self._xRange[0],self._xRange[1],padding=0)
         self.view.setYRange(self._yRange[0],self._yRange[1],padding=0)
         self.view.scene().sigMouseClicked.connect(self.ignore_focus)
-        self.display_grid =True
+        self.display_grid = True
         self.display_axis = True
         self._apply_limits = False
-        self._background_color = (255,255,255)
+        self._background_color = (255, 255, 255)
         self.background_color = self._background_color
         self._display_axis_labels = True
         self.display_axis_labels = True
@@ -140,8 +140,8 @@ class SignalViewerLogic(object):
         self._yScrollBar = None
         self.view_limits = []
         self.apply_limits = False
-        self.xScrollBar_event = lambda : self.view.setXRange(self.xScrollBar.value(),self.xScrollBar.value()+self.xRange[1]-self.xRange[0],padding=0)
-        self.yScrollBar_event = lambda : self.view.setYRange(self.yScrollBar.value(),self.yScrollBar.value()+self.yRange[1]-self.yRange[0],padding=0)
+        self.xScrollBar_event = lambda: self.view.setXRange(self.xScrollBar.value(), self.xScrollBar.value()+self.xRange[1]-self.xRange[0], padding=0)
+        self.yScrollBar_event = lambda: self.view.setYRange(self.yScrollBar.value(), self.yScrollBar.value()+self.yRange[1]-self.yRange[0], padding=0)
         self.view.sigRangeChanged.connect(self._update_scrollBar)
         self._xScrollBar_active = False
         self._yScrollBar_active = False
@@ -153,15 +153,14 @@ class SignalViewerLogic(object):
     def set_yScrollBar_active(self,value):
         self._yScrollBar_active = value
 
-    def ignore_focus(self,e):
-        if e.double() ==True:
+    def ignore_focus(self, e):
+        if e.double() == True:
             for signal in self.plotted_signals:
                 signal.is_active = False
-                pen = pg.mkPen(signal.color, width=1)
+                pen = pg.mkPen(signal.color, width=2)
                 signal.plot_data_item.setPen(pen)
     def _update_scrollBar(self):
-        if not(self.xScrollBar is  None or self._xScrollBar_active):
-
+        if not(self.xScrollBar is None or self._xScrollBar_active):
             if self.apply_limits:
                 self.xScrollBar.setMaximum(int(self.view_limits[1]))
                 self.xScrollBar.setMinimum(int(self.view_limits[3]))
@@ -174,7 +173,7 @@ class SignalViewerLogic(object):
                 self.xScrollBar.setMinimum(xMin)
             self.xScrollBar.setValue(xMin)
            
-        if not(self.yScrollBar is  None or self._yScrollBar_active):  
+        if not(self.yScrollBar is None or self._yScrollBar_active):
             if self.apply_limits:
                 self.yScrollBar.setMaximum(int(self.view_limits[0]))
                 self.yScrollBar.setMinimum(int(self.view_limits[2]))
@@ -192,7 +191,7 @@ class SignalViewerLogic(object):
         return self._xScrollBar
     
     @xScrollBar.setter
-    def xScrollBar(self,value):
+    def xScrollBar(self, value):
         self._xScrollBar = value
         self.xScrollBar.setValue(0)
         self.xScrollBar.setMinimum(0)
@@ -273,17 +272,17 @@ class SignalViewerLogic(object):
         return self._display_axis
     
     @display_axis.setter
-    def display_axis(self,value):
+    def display_axis(self, value):
         self._display_axis = value
-        self.view.showAxes((self.display_axis,False,False,self.display_axis))
+        self.view.showAxes((self.display_axis, False, False, self.display_axis))
     @property
     def display_grid(self):
         return self._display_grid
     
     @display_grid.setter
-    def display_grid(self,value):
+    def display_grid(self, value):
         self._display_grid = value
-        self.view.showGrid(x=self.display_grid,y= self.display_grid)
+        self.view.showGrid(x=self.display_grid, y=self.display_grid)
 
     @property
     def rate(self):
@@ -406,71 +405,71 @@ class SignalViewerLogic(object):
         else:
             exporter.export(f'{name}.{format}')
             
-    # def exportPDF(self,name):
-    #
-    #     # create document
-    #     document = ap.Document()
-    #
-    #     # Insert a empty page in a PDF
-    #     page = document.pages.add()
-    #
-    #     # Add Image
-    #     self.exportImage(name)#20, 730, 120, 830
-    #     page.add_image(f"{name}.png", ap.Rectangle(20, 870, 550, 570,True))
-    #
-    #      # Add Header
-    #     header = ap.text.TextFragment("Details about the Signals")
-    #     header.text_state.font = ap.text.FontRepository.find_font("Arial")
-    #     header.text_state.font_size = 24
-    #     header.horizontal_alignment = ap.HorizontalAlignment.CENTER
-    #     #header.position = ap.text.Position(130, 720)
-    #     header.position = ap.text.Position(120, 550)
-    #     page.paragraphs.add(header)
-    #
-    #     # Add table
-    #     table = ap.Table()
-    #     table.column_widths = "80"
-    #     table.border = ap.BorderInfo(ap.BorderSide.BOX, 1.0, ap.Color.dark_slate_gray)
-    #     table.default_cell_border = ap.BorderInfo(ap.BorderSide.BOX, 0.5, ap.Color.black)
-    #     table.default_cell_padding = ap.MarginInfo(2,2,2,2)
-    #     table.margin.bottom = 10
-    #     table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
-    #     headerRow = table.rows.add()
-    #     headerRow.cells.add("Signal Name")
-    #     headerRow.cells.add("Number of Samples")
-    #     headerRow.cells.add("Mean")
-    #     headerRow.cells.add("Variance")
-    #     headerRow.cells.add("Standard Deviation")
-    #
-    #     for i in range(headerRow.cells.count):
-    #         headerRow.cells[i].background_color = ap.Color.gray
-    #         headerRow.cells[i].default_cell_text_state.foreground_color = ap.Color.white_smoke
-    #
-    #     for sig in self.plotted_signals:
-    #         dataRow = table.rows.add()
-    #         dataRow.cells.add(str(sig.title.toPlainText()))
-    #         dataRow.cells.add(str(sig.samples_number))
-    #         dataRow.cells.add(str(sig.mean))
-    #         dataRow.cells.add(str(sig.variance))
-    #         dataRow.cells.add(str(sig.std))
-    #     page.paragraphs.add(table)
-    #
-    #     # Add watermark
-    #     artifact = ap.WatermarkArtifact()
-    #     ts = ap.text.TextState()
-    #     ts.font_size = 75
-    #     ts.foreground_color = ap.Color.blue
-    #     ts.font = ap.text.FontRepository.find_font("Courier")
-    #     artifact.set_text_and_state("      ABDULLAH OMRAN", ts)
-    #     artifact.artifact_horizontal_alignment = ap.HorizontalAlignment.CENTER
-    #    # artifact.artifact_vertical_alignment = ap.VerticalAlignment.CENTER
-    #
-    #     artifact.rotation = 45
-    #     artifact.opacity = 0.2
-    #     artifact.is_background = True
-    #     document.pages[1].artifacts.append(artifact)
-    #     # Save document
-    #     document.save(f'{name}.pdf')
+    def exportPDF(self,name):
+
+        # create document
+        document = ap.Document()
+
+        # Insert a empty page in a PDF
+        page = document.pages.add()
+
+        # Add Image
+        self.exportImage(name)#20, 730, 120, 830
+        page.add_image(f"{name}.png", ap.Rectangle(20, 870, 550, 570,True))
+
+         # Add Header
+        header = ap.text.TextFragment("Details about the Signals")
+        header.text_state.font = ap.text.FontRepository.find_font("Arial")
+        header.text_state.font_size = 24
+        header.horizontal_alignment = ap.HorizontalAlignment.CENTER
+        #header.position = ap.text.Position(130, 720)
+        header.position = ap.text.Position(120, 550)
+        page.paragraphs.add(header)
+
+        # Add table
+        table = ap.Table()
+        table.column_widths = "80"
+        table.border = ap.BorderInfo(ap.BorderSide.BOX, 1.0, ap.Color.dark_slate_gray)
+        table.default_cell_border = ap.BorderInfo(ap.BorderSide.BOX, 0.5, ap.Color.black)
+        table.default_cell_padding = ap.MarginInfo(2,2,2,2)
+        table.margin.bottom = 10
+        table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
+        headerRow = table.rows.add()
+        headerRow.cells.add("Signal Name")
+        headerRow.cells.add("Number of Samples")
+        headerRow.cells.add("Mean")
+        headerRow.cells.add("Variance")
+        headerRow.cells.add("Standard Deviation")
+
+        for i in range(headerRow.cells.count):
+            headerRow.cells[i].background_color = ap.Color.gray
+            headerRow.cells[i].default_cell_text_state.foreground_color = ap.Color.white_smoke
+
+        for sig in self.plotted_signals:
+            dataRow = table.rows.add()
+            dataRow.cells.add(str(sig.title.toPlainText()))
+            dataRow.cells.add(str(sig.samples_number))
+            dataRow.cells.add(str(sig.mean))
+            dataRow.cells.add(str(sig.variance))
+            dataRow.cells.add(str(sig.std))
+        page.paragraphs.add(table)
+
+        # Add watermark
+        artifact = ap.WatermarkArtifact()
+        ts = ap.text.TextState()
+        ts.font_size = 75
+        ts.foreground_color = ap.Color.blue
+        ts.font = ap.text.FontRepository.find_font("Courier")
+        artifact.set_text_and_state("      ABDULLAH OMRAN", ts)
+        artifact.artifact_horizontal_alignment = ap.HorizontalAlignment.CENTER
+       # artifact.artifact_vertical_alignment = ap.VerticalAlignment.CENTER
+
+        artifact.rotation = 45
+        artifact.opacity = 0.2
+        artifact.is_background = True
+        document.pages[1].artifacts.append(artifact)
+        # Save document
+        document.save(f'{name}.pdf')
 
 
     # apply the action on the active signals
@@ -500,7 +499,7 @@ class SignalViewerLogic(object):
         if signal is not None:
             if signal.is_active:
                 signal.is_active = False
-                pen = pg.mkPen(signal.color, width=1)
+                pen = pg.mkPen(signal.color, width=2)
                 e.setPen(pen)
             else:
                 signal.is_active = True

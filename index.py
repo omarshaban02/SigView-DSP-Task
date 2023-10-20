@@ -87,8 +87,8 @@ class MainApp(QMainWindow, ui):
         self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
 
-        # self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
-        # self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
+        self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
+        self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
 
         self.toggle_radioButton.clicked.connect(self.activate_slider)
 
@@ -383,9 +383,11 @@ class MainApp(QMainWindow, ui):
 
     def reset_view1(self):
         self.sv.home_view()
+        self.horizontal_scrollBar1.setMinimum(0)
 
     def reset_view2(self):
         self.sv2.home_view()
+        self.horizontal_scrollBar2.setMinimum(0)
 
     def reset_synchronous_views(self):
         self.reset_view1()
@@ -560,7 +562,7 @@ class MainApp(QMainWindow, ui):
 
     def export_graph1_as_pdf(self):
         if len(self.sv.plotted_signals) != 0:
-            # self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
+            self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
             self._pdf_files_counter += 1
         else:
             QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
