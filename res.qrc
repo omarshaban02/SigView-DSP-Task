@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/camera-viewfinder copy.svg</file>
+    <file>icons/camera-viewfinder.svg</file>
     <file>icons/eye copy.svg</file>
     <file>icons/pause copy.svg</file>
     <file>icons/add.svg</file>

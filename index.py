@@ -24,10 +24,10 @@ import random
 ui, _ = loadUiType('main.ui')
 
 
-class ShowHideCheckBoxes(QCheckBox):
-    def __int__(self, parent):
-        super().__init__(parent)
-        QCheckBox.__init__(self)
+# class ShowHideCheckBoxes(QCheckBox):
+#     def __int__(self, parent):
+#         super().__init__(parent)
+#         QCheckBox.__init__(self)
 
 
 class MainApp(QMainWindow, ui):
@@ -45,20 +45,20 @@ class MainApp(QMainWindow, ui):
     _counter_graph2 = 1
     _pdf_files_counter = 1
 
-    def delete_item(self, item, list_widget):
-        row = list_widget.row(item)
-        list_widget.takeItem(row)
-
-        # showHideCheckBox = showHideCheckBoxes(tableOfSignals1)
-        # tableOfSignals1.setCellWidget(0, 1, showHideCheckBox)
-        # for row_num in range(tableOfSignals_1.rowCount()):
-        #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
+    # def delete_item(self, item, list_widget):
+    #     row = list_widget.row(item)
+    #     list_widget.takeItem(row)
+    #
+    #     # showHideCheckBox = showHideCheckBoxes(tableOfSignals1)
+    #     # tableOfSignals1.setCellWidget(0, 1, showHideCheckBox)
+    #     # for row_num in range(tableOfSignals_1.rowCount()):
+    #     #     tableOfSignals_1.setCellWidget(0, row_num, showHideCheckBox)
 
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
-        self.resize(1200, 900)
+        self.resize(1500, 900)
 
         self.plot_widget1 = pg.PlotWidget(self.graphics_view1)
         self.graphics_view_layout1 = QHBoxLayout(self.graphics_view1)
@@ -74,6 +74,10 @@ class MainApp(QMainWindow, ui):
 
         self.sv = SignalViewerLogic(self.plot_widget1)
         self.sv2 = SignalViewerLogic(self.plot_widget2)
+
+        self.snapshots_list = []
+
+
         # self.horizontal_scrollBar1.setMinimum(0)
         # self.horizontal_scrollBar1.setMaximum(150)
         # self.sv.xScrollBar = self.horizontal_scrollBar1
@@ -84,17 +88,22 @@ class MainApp(QMainWindow, ui):
         self.list_widget1 = self.signals_list1
         self.list_widget2 = self.signals_list2
 
-        self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
-
-        self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
-        self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
+        # self.list_widget1.setContextMenuPolicy(Qt.CustomContextMenu)
+        # self.list_widget2.setContextMenuPolicy(Qt.CustomContextMenu)
+        #
+        # self.list_widget1.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget1))
+        # self.list_widget2.customContextMenuRequested.connect(lambda pos: self.show_context_menu(pos, self.list_widget2))
 
         self.toggle_radioButton.clicked.connect(self.activate_slider)
 
         self.list_widget1.itemChanged.connect(lambda: self.change_signal_name(self.list_widget1))
-        self.export_btn1.clicked.connect(self.export_graph1_as_pdf)
-        self.export_btn2.clicked.connect(self.export_graph2_as_pdf)
+
+        self.export_btn1.clicked.connect(lambda: self.choose_graph_to_export(self.plot_widget1))
+        self.export_btn2.clicked.connect(lambda: self.choose_graph_to_export(self.plot_widget2))
+
+        self.export_all_btn.clicked.connect(lambda: self.export_all_snapshots)
+
+        # self.export_btn2.clicked.connect(self.export_graph2_as_pdf)
 
         self.color_btn1.clicked.connect(lambda: self.change_signal_color(self.list_widget1))
         self.color_btn2.clicked.connect(lambda: self.change_signal_color(self.list_widget2))
@@ -153,6 +162,10 @@ class MainApp(QMainWindow, ui):
 
         self.apply_limits_checkBox_1.stateChanged.connect(lambda: self.apply_limits(self.sv))
         self.apply_limits_checkBox_2.stateChanged.connect(lambda: self.apply_limits(self.sv2))
+
+
+        # self.snapshot_btn1.clicked.connect()
+        # self.snapshot_btn2.clicked.connect()
 
     def change_signal_color(self, list_widget):
         dialog = QColorDialog()
@@ -623,6 +636,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn1.setEnabled(False)
             self.zoom_out_btn1.setEnabled(False)
             self.clear_btn1.setEnabled(False)
+            self.snapshot_btn1.setEnabled(False)
+
 
             self.play_pause_btn2.setEnabled(False)
             self.replay_btn2.setEnabled(False)
@@ -633,6 +648,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn2.setEnabled(False)
             self.zoom_out_btn2.setEnabled(False)
             self.clear_btn2.setEnabled(False)
+            self.snapshot_btn2.setEnabled(False)
+
 
         else:
 
@@ -652,6 +669,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn1.setEnabled(True)
             self.zoom_out_btn1.setEnabled(True)
             self.clear_btn1.setEnabled(True)
+            self.snapshot_btn1.setEnabled(True)
+
 
             self.play_pause_btn2.setEnabled(True)
             self.replay_btn2.setEnabled(True)
@@ -662,6 +681,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn2.setEnabled(True)
             self.zoom_out_btn2.setEnabled(True)
             self.clear_btn2.setEnabled(True)
+            self.snapshot_btn2.setEnabled(True)
+
 
             self._play_pause_state3 = True
             self.toggle_icon_with_mode(self.play_pause_btn3, "play")
@@ -694,6 +715,7 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn1.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn1.setIcon(QIcon('icons/zoom_out.svg'))
             self.clear_btn1.setIcon(QIcon('icons/trash copy.svg'))
+            self.snapshot_btn1.setIcon(QIcon('icons/camera-viewfinder copy.svg'))
 
             self.play_pause_btn2.setIcon(QIcon('icons/play copy.svg'))
             self.replay_btn2.setIcon(QIcon('icons/rewind copy.svg'))
@@ -707,6 +729,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn2.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn2.setIcon(QIcon('icons/zoom_out.svg'))
             self.clear_btn2.setIcon(QIcon('icons/trash copy.svg'))
+            self.snapshot_btn2.setIcon(QIcon('icons/camera-viewfinder copy.svg'))
+
 
             self.play_pause_btn3.setIcon(QIcon('icons/play copy.svg'))
             self.replay_btn3.setIcon(QIcon('icons/rewind copy.svg'))
@@ -719,6 +743,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn3.setIcon(QIcon('icons/zoom_in.svg'))
             self.zoom_out_btn3.setIcon(QIcon('icons/zoom_out.svg'))
             self.clear_btn3.setIcon(QIcon('icons/trash copy.svg'))
+            self.snapshot_btn3.setIcon(QIcon('icons/camera-viewfinder copy.svg'))
+
 
             self._light_mode = False
         else:
@@ -741,6 +767,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn1.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn1.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn1.setIcon(QIcon('icons/trash.svg'))
+            self.snapshot_btn1.setIcon(QIcon('icons/camera-viewfinder.svg'))
+
 
             self.play_pause_btn2.setIcon(QIcon('icons/play.svg'))
             self.replay_btn2.setIcon(QIcon('icons/rewind.svg'))
@@ -754,6 +782,8 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn2.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn2.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn2.setIcon(QIcon('icons/trash.svg'))
+            self.snapshot_btn2.setIcon(QIcon('icons/camera-viewfinder.svg'))
+
 
             self.play_pause_btn3.setIcon(QIcon('icons/play.svg'))
             self.replay_btn3.setIcon(QIcon('icons/rewind.svg'))
@@ -766,10 +796,21 @@ class MainApp(QMainWindow, ui):
             self.zoom_in_btn3.setIcon(QIcon('icons/zoom-in (1).png'))
             self.zoom_out_btn3.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn3.setIcon(QIcon('icons/trash.svg'))
+            self.snapshot_btn3.setIcon(QIcon('icons/camera-viewfinder.svg'))
+
             self._light_mode = True
 
     def apply_limits(self, signal_view):
         signal_view.apply_limits = not signal_view.apply_limits
+
+    def choose_graph_to_export(self, plot_widget):
+        pass
+
+    def take_snapshot(self):
+        pass
+
+    def export_all_snapshots(self):
+        pass
 
 
 
