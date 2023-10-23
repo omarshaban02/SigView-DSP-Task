@@ -3,7 +3,7 @@ PATH = 'signals/mitbih_train.csv'
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from SignalViewer import SignalViewerLogic, Signal
+from SignalViewer import SignalViewerLogic, Signal, Statistics
 from PyQt5.QtCore import QTimer
 
 import pyqtgraph as pg
@@ -44,6 +44,12 @@ class MainApp(QMainWindow, ui):
     _counter_graph1 = 1
     _counter_graph2 = 1
     _pdf_files_counter = 1
+    view1_screenShots_list = []
+    view2_screenShots_list = []
+    both_view_screenShots_list = []
+    _counter1_snapShots = 1
+    _counter2_snapShots = 1
+    _counter3_snapShots = 1
 
     # def delete_item(self, item, list_widget):
     #     row = list_widget.row(item)
@@ -75,7 +81,8 @@ class MainApp(QMainWindow, ui):
         self.sv = SignalViewerLogic(self.plot_widget1)
         self.sv2 = SignalViewerLogic(self.plot_widget2)
 
-        self.snapshots_list = []
+        self.snapshots_list1 = []
+        self.snapshots_list2 = []
 
 
         # self.horizontal_scrollBar1.setMinimum(0)
@@ -98,10 +105,10 @@ class MainApp(QMainWindow, ui):
 
         self.list_widget1.itemChanged.connect(lambda: self.change_signal_name(self.list_widget1))
 
-        self.export_btn1.clicked.connect(lambda: self.choose_graph_to_export(self.plot_widget1))
-        self.export_btn2.clicked.connect(lambda: self.choose_graph_to_export(self.plot_widget2))
+        self.export_btn1.clicked.connect(lambda: self.export_pdf(self.sv, self.view1_screenShots_list))
+        self.export_btn2.clicked.connect(lambda: self.export_pdf(self.sv2, self.view2_screenShots_list))
 
-        self.export_all_btn.clicked.connect(lambda: self.export_all_snapshots)
+        self.export_all_btn.clicked.connect(self.export_all_snapshots)
 
         # self.export_btn2.clicked.connect(self.export_graph2_as_pdf)
 
@@ -137,6 +144,7 @@ class MainApp(QMainWindow, ui):
         self.zoom_in_btn2.clicked.connect(self.zoom_in_graph2)
         self.zoom_out_btn2.clicked.connect(self.zoom_out_graph2)
         self.clear_btn2.clicked.connect(self.clear_graph2)
+        # self.snapshot_btn2.connect(lambda: self.take_snapshot(self.sv2))
 
         # synchronous graphics_view
         self.replay_btn3.clicked.connect(self.replay_active_synchronous_signals)
@@ -164,8 +172,9 @@ class MainApp(QMainWindow, ui):
         self.apply_limits_checkBox_2.stateChanged.connect(lambda: self.apply_limits(self.sv2))
 
 
-        # self.snapshot_btn1.clicked.connect()
-        # self.snapshot_btn2.clicked.connect()
+        self.snapshot_btn1.clicked.connect(self.take_snapshot1)
+        self.snapshot_btn2.clicked.connect(self.take_snapshot2)
+
 
     def change_signal_color(self, list_widget):
         dialog = QColorDialog()
@@ -357,24 +366,35 @@ class MainApp(QMainWindow, ui):
             QMessageBox.critical(None, "Error", "There are no signals checked to plotted", QMessageBox.Ok)
 
     def replay_active_signal1(self):
-        self.sv.replay()
-        self.toggle_icon_with_mode(self.play_pause_btn1, "pause")
-        self._play_pause_state1 = False
-        self.sv.home_view()
+        if len(self.sv.active_signals) != 0:
+            self.sv.replay()
+            self.toggle_icon_with_mode(self.play_pause_btn1, "pause")
+            self._play_pause_state1 = False
+            self.sv.home_view()
+        else:
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
+        
 
     def replay_active_signal2(self):
-        self.sv2.replay()
-        self.toggle_icon_with_mode(self.play_pause_btn2, "pause")
-        self._play_pause_state2 = False
-        self.sv2.home_view()
+        if len(self.sv2.active_signals) != 0:
+            self.sv2.replay()
+            self.toggle_icon_with_mode(self.play_pause_btn2, "pause")
+            self._play_pause_state2 = False
+            self.sv2.home_view()
+        else:
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
+
 
     def replay_active_synchronous_signals(self):
-        self.sv.replay()
-        self.sv2.replay()
-        self.sv.home_view()
-        self.sv2.home_view()
-        self.toggle_icon_with_mode(self.play_pause_btn3, "pause")
-        self._play_pause_state3 = False
+        if (len(self.sv.active_signals) != 0) or (len(self.sv2.active_signals) != 0):
+            self.sv.replay()
+            self.sv2.replay()
+            self.sv.home_view()
+            self.sv2.home_view()
+            self.toggle_icon_with_mode(self.play_pause_btn3, "pause")
+            self._play_pause_state3 = False
+        else:
+            QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
     def stop_active_signal1(self):
         self.sv.replay()
@@ -396,11 +416,9 @@ class MainApp(QMainWindow, ui):
 
     def reset_view1(self):
         self.sv.home_view()
-        self.horizontal_scrollBar1.setMinimum(0)
 
     def reset_view2(self):
         self.sv2.home_view()
-        self.horizontal_scrollBar2.setMinimum(0)
 
     def reset_synchronous_views(self):
         self.reset_view1()
@@ -540,7 +558,7 @@ class MainApp(QMainWindow, ui):
         self.zoom_out_graph2()
 
     def clear_graph1(self):
-        if len(self.sv.plotted_signals) != 0:
+        if len(self.sv.signals) != 0:
             self.list_widget1.clear()
             self.sv.clear()
             self.sv.home_view()
@@ -549,7 +567,7 @@ class MainApp(QMainWindow, ui):
             QMessageBox.critical(None, "Error", "There are no signals plotted", QMessageBox.Ok)
 
     def clear_graph2(self):
-        if len(self.sv2.plotted_signals) != 0:
+        if len(self.sv2.signals) != 0:
             self.list_widget2.clear()
             self.sv2.clear()
             self.sv2.home_view()
@@ -573,24 +591,23 @@ class MainApp(QMainWindow, ui):
         else:
             QMessageBox.critical(None, "Error", "There are no signals plotted at any graph", QMessageBox.Ok)
 
-    def export_graph1_as_pdf(self):
-        if len(self.sv.plotted_signals) != 0:
-            self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
-            self._pdf_files_counter += 1
-        else:
-            QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
+    # def export_graph1_as_pdf(self):
+    #     if len(self.sv.plotted_signals) != 0:
+    #         self.sv.exportPDF(f"Signal Viewer Statistics {self._pdf_files_counter}")
+    #         self._pdf_files_counter += 1
+    #     else:
+    #         QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
+    #
+    # def export_graph2_as_pdf(self):
+    #     if len(self.sv2.plotted_signals) != 0:
 
-    def export_graph2_as_pdf(self):
-        if len(self.sv2.plotted_signals) != 0:
-            self.sv2.exportPDF("Signal Viewer Statistics")
-            self.sv.exportPDF(f"Signal Viewer Statistics {self.df_files_counter}")
-            self._pdf_files_counter += 1
-        else:
-            QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
+    #     else:
+    #         QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
 
     def change_signal_name(self, list_widget):
         item = list_widget.currentItem()
         if list_widget == self.list_widget1:
+            # print(list_widget.currentItemChanged())
             self.sv.signals[list_widget.row(item) - 1].title = item.text()
             self.sv.set_signal_title(self.sv.signals[list_widget.row(item) - 1], item.text())
         elif list_widget == self.list_widget2:
@@ -806,11 +823,45 @@ class MainApp(QMainWindow, ui):
     def choose_graph_to_export(self, plot_widget):
         pass
 
-    def take_snapshot(self):
-        pass
+    def take_snapshot1(self):
+        if len(self.sv.plotted_signals) != 0:
+            screen_object = Statistics(self.sv, self._counter1_snapShots, 1)
+            self.view1_screenShots_list.append(screen_object)
+            self.both_view_screenShots_list.append(screen_object)
+            self._counter3_snapShots += 1
+            self._counter1_snapShots += 1
+            self.sv.pause()
+            self._play_pause_state1 = True
+            self.toggle_icon_with_mode(self.play_pause_btn1, "play")
+        else:
+            QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
+
+    def take_snapshot2(self):
+        if len(self.sv.plotted_signals) != 0:
+            screen_object = Statistics(self.sv2, self._counter2_snapShots, 2)
+            self.view2_screenShots_list.append(screen_object)
+            self.both_view_screenShots_list.append(screen_object)
+            self._counter3_snapShots += 1
+            self._counter2_snapShots += 1
+            self.sv2.pause()
+            self._play_pause_state2 = True
+            self.toggle_icon_with_mode(self.play_pause_btn2, "play")
+        else:
+            QMessageBox.critical(None, "Error", "There are no signals in the graph", QMessageBox.Ok)
 
     def export_all_snapshots(self):
-        pass
+        if self.both_view_screenShots_list != 0:
+            self.sv.exportPDF(f"{self._pdf_files_counter}Signal Statistics", self.both_view_screenShots_list)
+            self._pdf_files_counter += 1
+        else:
+            QMessageBox.critical(None, "Error", "There are no snap Shots taken", QMessageBox.Ok)
+
+    def export_pdf(self, signal_viewer, screenShots_list):
+        if screenShots_list != 0:
+            signal_viewer.exportPDF(f"{self._pdf_files_counter}Signal Statistics", screenShots_list)
+            self._pdf_files_counter += 1
+        else:
+            QMessageBox.critical(None, "Error", "There are no snap Shots taken", QMessageBox.Ok)
 
 
 

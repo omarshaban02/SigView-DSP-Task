@@ -414,6 +414,7 @@ QPushButton:pressed {
           <font>
            <family>Ubuntu</family>
            <pointsize>20</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
            <kerning>true</kerning>
@@ -959,7 +960,7 @@ color: #0d6efd</string>
                 </size>
                </property>
                <property name="shortcut">
-                <string>Ctrl+P</string>
+                <string>Space</string>
                </property>
               </widget>
              </item>
@@ -1233,6 +1234,7 @@ border:none;
               <font>
                <family>Ubuntu</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -1295,6 +1297,7 @@ QCheckBox::checked {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>12</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1315,6 +1318,7 @@ QCheckBox::checked {
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1396,6 +1400,10 @@ padding:4px;</string>
                <property name="toolTip">
                 <string>click to apply limits to the graph in x and y axes</string>
                </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);
+border:none;</string>
+               </property>
                <property name="text">
                 <string>Apply Limits</string>
                </property>
@@ -1438,6 +1446,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1485,6 +1494,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1529,6 +1539,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1931,6 +1942,7 @@ border:none;</string>
               <font>
                <family>Ubuntu</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -1982,6 +1994,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>12</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1999,6 +2012,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2076,7 +2090,8 @@ padding:4px;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">font-family: Ubuntu;
-</string>
+background-color: rgba(255, 255, 255, 0);
+border:none;</string>
                </property>
                <property name="text">
                 <string>Apply Limits</string>
@@ -2114,6 +2129,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -2155,6 +2171,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -2196,6 +2213,7 @@ padding:4px;</string>
                 <font>
                  <family>Ubuntu</family>
                  <pointsize>-1</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>

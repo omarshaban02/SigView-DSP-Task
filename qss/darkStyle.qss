@@ -38,7 +38,7 @@ QMainWindow::separator:hover {
 
 QCheckBox {
   background-color: #FAFAFA;
-  color: #19232D;
+  color: white;
   spacing: 4px;
   outline: none;
   padding-top: 4px;
