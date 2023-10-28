@@ -224,7 +224,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 
 /*----------------------------------------------------------------------------------------*/
 QPushButton{
-	/*border:2px solid #05B8CC;*/
+	border:1px solid #0d6efd;
 	background-color: #0d6efd;
 	color:rgb(255, 255, 255);
 	border-radius: 10px;

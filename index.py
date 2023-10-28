@@ -105,9 +105,6 @@ class MainApp(QMainWindow, ui):
 
         self.list_widget1.itemChanged.connect(lambda: self.change_signal_name(self.list_widget1))
 
-        self.export_btn1.clicked.connect(lambda: self.export_pdf(self.sv, self.view1_screenShots_list))
-        self.export_btn2.clicked.connect(lambda: self.export_pdf(self.sv2, self.view2_screenShots_list))
-
         self.export_all_btn.clicked.connect(self.export_all_snapshots)
 
         # self.export_btn2.clicked.connect(self.export_graph2_as_pdf)
@@ -123,8 +120,10 @@ class MainApp(QMainWindow, ui):
 
         # 1st graphics_view buttons
         self.open_btn1.clicked.connect(lambda list_widget: self.openCSV1(self.list_widget1))
+        self.export_btn1.clicked.connect(lambda: self.export_pdf(self.sv, self.view1_screenShots_list))
         self.plot_btn1.clicked.connect(self.add_signal_to_graph1)
         self.replay_btn1.clicked.connect(self.replay_active_signal1)
+        self.play_pause_btn1.clicked.connect(self.toggle_play_pause_btn1)
         self.stop_btn1.clicked.connect(self.stop_active_signal1)
         self.reset_view_btn1.clicked.connect(self.reset_view1)
         self.hide_btn1.clicked.connect(self.hide_show_active_signal1)  # head not clear or remove
@@ -135,8 +134,10 @@ class MainApp(QMainWindow, ui):
 
         # 2nd graphics_view buttons
         self.open_btn2.clicked.connect(lambda list_widget: self.openCSV2(self.list_widget2))
+        self.export_btn2.clicked.connect(lambda: self.export_pdf(self.sv2, self.view2_screenShots_list))
         self.plot_btn2.clicked.connect(self.add_signal_to_graph2)
         self.replay_btn2.clicked.connect(self.replay_active_signal2)
+        self.play_pause_btn2.clicked.connect(self.toggle_play_pause_btn2)
         self.stop_btn2.clicked.connect(self.stop_active_signal2)
         self.reset_view_btn2.clicked.connect(self.reset_view2)
         self.hide_btn2.clicked.connect(self.hide_show_active_signal2)
@@ -148,6 +149,7 @@ class MainApp(QMainWindow, ui):
 
         # synchronous graphics_view
         self.replay_btn3.clicked.connect(self.replay_active_synchronous_signals)
+        self.play_pause_btn3.clicked.connect(self.toggle_play_pause_btn3)
         self.stop_btn3.clicked.connect(self.stop_active_synchronous_signals)
         self.reset_view_btn3.clicked.connect(self.reset_synchronous_views)
         self.hide_btn3.clicked.connect(self.hide_show_active_synchronous_signals)
@@ -155,10 +157,7 @@ class MainApp(QMainWindow, ui):
         self.zoom_out_btn3.clicked.connect(self.zoom_out_synchronous)
         self.clear_btn3.clicked.connect(self.clear_synchronous)
 
-        # for all play, pause buttons
-        self.play_pause_btn1.clicked.connect(self.toggle_play_pause_btn1)
-        self.play_pause_btn2.clicked.connect(self.toggle_play_pause_btn2)
-        self.play_pause_btn3.clicked.connect(self.toggle_play_pause_btn3)
+
 
         self.speedSpinBox_1.valueChanged.connect(
             lambda graph: self.change_speed(self.sv, self.speedSpinBox_1.value()))
@@ -814,8 +813,10 @@ class MainApp(QMainWindow, ui):
             self.zoom_out_btn3.setIcon(QIcon('icons/magnifying-glass.png'))
             self.clear_btn3.setIcon(QIcon('icons/trash.svg'))
             self.snapshot_btn3.setIcon(QIcon('icons/camera-viewfinder.svg'))
-
             self._light_mode = True
+
+    def actionEvent(self, *args, **kwargs):
+                    super().actionEvent(*args, **kwargs)
 
     def apply_limits(self, signal_view):
         signal_view.apply_limits = not signal_view.apply_limits
