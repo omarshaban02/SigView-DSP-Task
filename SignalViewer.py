@@ -1,21 +1,11 @@
-
-PATH = 'signals/mitbih_train.csv'
-
-# pip install aspose-pdf
-
-from re import T
-from turtle import color
 from PyQt5.QtCore import QTimer
 import pandas as pd
 import pyqtgraph as pg
 import random
 import pyqtgraph.exporters
-import copy
-import aspose.pdf as ap
+# import aspose.pdf as ap
 import numpy as np
 
-
-PATH = 'signals/mitbih_train.csv'
 
 class Signal(object):
     def __init__(self, data:list =[], title:str= '', color:tuple = (0,0,0)) -> None:

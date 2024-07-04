@@ -1,24 +1,11 @@
-PATH = 'signals/mitbih_train.csv'
-
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from SignalViewer import SignalViewerLogic, Signal, Statistics
-from PyQt5.QtCore import QTimer
-
+from SignalViewer import SignalViewerLogic, Statistics
 import pyqtgraph as pg
-
-import pandas as pd
-
 import sys
 from pathlib import Path
-from res_rc import *  # Import the resource module
-
 from PyQt5.uic import loadUiType
-import urllib.request
-
-import os
-from os import path
 import random
 
 ui, _ = loadUiType('main.ui')
@@ -241,60 +228,7 @@ class MainApp(QMainWindow, ui):
         else:
             QMessageBox.critical(None, "Error", "There are no signals activated", QMessageBox.Ok)
 
-    # def link_horizontal_scrollBar_with_Graph1(self, value):
-    #     if value == 0:
-    #         self.sv.home_view()
-    #     else:
-    #         delta = value - self._previous_horizontal_scrollBar_value1
-    #         self._previous_horizontal_scrollBar_value1 = value  # Update the previous value
-    #         if delta > 0:
-    #             # Scroll to the right
-    #             self.sv.horizontal_shift(1)
-    #         elif delta < 0:
-    #             # Scroll to the left
-    #             self.sv.horizontal_shift(-1)
-    #
-    # def link_vertical_scrollBar_with_Graph1(self, value):
-    #     if value == 0:
-    #         self.sv.home_view()
-    #     else:
-    #         delta = value - self._previous_vertical_scrollBar_value1
-    #         self._previous_vertical_scrollBar_value1 = value  # Update the previous value
-    #         if delta > 0:
-    #             # Scroll to the right
-    #             self.sv.vertical_shift(1)
-    #         elif delta < 0:
-    #             # Scroll to the left
-    #             self.sv.vertical_shift(-1)
-    #
-    # def link_horizontal_scrollBar_with_Graph2(self, value):
-    #     if value == 0:
-    #         self.sv2.home_view()
-    #     else:
-    #         delta = value - self._previous_horizontal_scrollBar_value2
-    #         self._previous_horizontal_scrollBar_value2 = value  # Update the previous value
-    #         if delta > 0:
-    #             # Scroll to the right
-    #             self.sv2.horizontal_shift(1)
-    #         elif delta < 0:
-    #             # Scroll to the left
-    #             self.sv2.horizontal_shift(-1)
-    #
-    # def link_vertical_scrollBar_with_Graph2(self, value):
-    #     if value == 0:
-    #         self.sv2.home_view()
-    #     else:
-    #         delta = value - self._previous_vertical_scrollBar_value2
-    #         self._previous_vertical_scrollBar_value2 = value  # Update the previous value
-    #         if delta > 0:
-    #             # Scroll to the right
-    #             self.sv2.vertical_shift(1)
-    #         elif delta < 0:
-    #             # Scroll to the left
-    #             self.sv2.vertical_shift(-1)
-    #
-    # def link_synchronous_scrollBar(self, value):
-    #     pass
+
 
     def openCSV1(self, plot_widget):
         options = QFileDialog.Options()

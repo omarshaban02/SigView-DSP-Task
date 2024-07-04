@@ -866,6 +866,9 @@ border:none;</string>
              </item>
              <item>
               <widget class="QGraphicsView" name="graphics_view1">
+               <property name="cursor" stdset="0">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click on a signal to activat&lt;/p&gt;&lt;p&gt;douple click for deactivate all signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
@@ -1238,6 +1241,9 @@ border:none;
                <bold>false</bold>
               </font>
              </property>
+             <property name="cursor" stdset="0">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="styleSheet">
               <string notr="true">QListWidget{
 border:1px solid  rgba(65, 105, 225,30%);
@@ -1359,6 +1365,9 @@ padding:4px;</string>
                  <height>30</height>
                 </size>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="toolTip">
                 <string>click to change the color of the active signals</string>
                </property>
@@ -1396,6 +1405,9 @@ padding:4px;</string>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="toolTip">
                 <string>click to apply limits to the graph in x and y axes</string>
@@ -1600,6 +1612,9 @@ border:none;</string>
              </item>
              <item>
               <widget class="QGraphicsView" name="graphics_view2">
+               <property name="cursor" stdset="0">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;click on a signal to activat&lt;/p&gt;&lt;p&gt;douple click for deactivate all signals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
@@ -1946,6 +1961,9 @@ border:none;</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="cursor" stdset="0">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="styleSheet">
               <string notr="true">border:1px solid  rgba(65, 105, 225,50%);
 border-radius: 4px;
@@ -2053,6 +2071,9 @@ padding:4px;</string>
                  <height>30</height>
                 </size>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="toolTip">
                 <string>click to change the color of the active signals</string>
                </property>
@@ -2084,6 +2105,9 @@ padding:4px;</string>
                  <family>Ubuntu</family>
                  <pointsize>11</pointsize>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="toolTip">
                 <string>click to apply limits to the graph in x and y axes</string>
