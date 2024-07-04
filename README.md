@@ -13,16 +13,35 @@ Monitoring vital signals is crucial in any ICU room. The Multi-Port, Multi-Signa
 4. [Dependencies](#dependencies)
 5. [Contributors](#contributors)
 
+# Project Name
+
 ## Features
 
-- Browse your desktop to select the signals you want to view.
-- Create a list of selected signals for plotting.
-- Play, pause, stop, replay, zoom in, zoom out, and reset the view for each signal.
-- Toggle the activation of individual signals with a single click.
-- Double-click to toggle the activation status of all signals.
-- Move signals between different port views.
-- Synchronize two ports to view the same signals simultaneously.
-- Apply control actions to the active signals in both ports.
+- **Signal Selection**: Browse your desktop to select signals for viewing.
+- **Plotting**: Create and manage lists of selected signals for plotting.
+- **Playback Control**: Play, pause, stop, replay, zoom in, zoom out, and reset view options for each signal.
+- **Single-Click Activation**: Easily toggle individual signal activation with a single click.
+- **Double-Click Activation**: Double-click to toggle the activation status of all signals.
+- **Port Management**: Move signals between different port views for organization.
+- **Synchronization**: Synchronize two ports to view the same signals simultaneously.
+- **Control Actions**: Apply control actions to active signals across both ports.
+
+## Installation
+
+Provide installation instructions if applicable.
+
+## Usage
+
+Provide usage instructions and examples here.
+
+## Contributing
+
+Specify how others can contribute to your project.
+
+## License
+
+Include information about the project's license.
+
 
 ## Installation
 To install the project, clone the repository and install the requirements:
@@ -72,6 +91,13 @@ python index.py
 ![Screenshot 1](screenshots/screenshot1.png)
 ![Screenshot 2](screenshots/screenshot2.png)
 ![Screenshot 3](screenshots/screenshot3.png)
+
+## Dependencies
+This project requires the following Python packages listed in the `requirements.txt` file:
+- PyQt5
+- opencv
+- numpy
+- pandas
 
 ## Contributors <a name = "contributors"></a>
 <table>
