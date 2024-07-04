@@ -3,19 +3,48 @@
 ## Description
 
 Monitoring vital signals is crucial in any ICU room. The Multi-Port, Multi-Signal Channel Signal Viewer is a desktop application built with PyQt and Qt Designer. It provides a user-friendly interface for browsing and visualizing multiple signals for medical signals such as ECG, EMG, EEG, etc, or nonmedical signals on your desktop. This README file provides an overview of the application's features, usage, and setup.
+<div style="text-align: center;">
+    <img src="assests/review.gif" alt="App review" style=" display: block; margin: 0 auto;">
+</div>
 
-![Application Screenshot](screenshots/app_screenshot.png)
+## Table of Contents
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Dependencies](#dependencies)
+5. [Contributors](#contributors)
+ ## Features
 
-## Features
+- **Signal Selection**: Browse your desktop to select signals for viewing.
+- **Plotting**: Create and manage lists of selected signals for plotting.
+- **Playback Control**: Play, pause, stop, replay, zoom in, zoom out, and reset view options for each signal.
+- **Single-Click Activation**: Easily toggle individual signal activation with a single click.
+- **Double-Click Activation**: Double-click to toggle the activation status of all signals.
+- **Port Management**: Move signals between different port views for organization.
+- **Synchronization**: Synchronize two ports to view the same signals simultaneously.
+- **Control Actions**: Apply control actions to active signals across both ports.
 
-- Browse your desktop to select the signals you want to view.
-- Create a list of selected signals for plotting.
-- Play, pause, stop, replay, zoom in, zoom out, and reset the view for each signal.
-- Toggle the activation of individual signals with a single click.
-- Double-click to toggle the activation status of all signals.
-- Move signals between different port views.
-- Synchronize two ports to view the same signals simultaneously.
-- Apply control actions to the active signals in both ports.
+
+
+## Installation
+To install the project, clone the repository and install the requirements:
+
+```bash
+# Clone the repository
+git clone https://github.com/omarshaban02/Signal-Viewer.git
+```
+```bash
+# Navigate to the project directory
+cd Signal-Viewer
+```
+```bash
+# Install the required packages:
+pip install -r requirements.txt
+```
+```bash
+# Run the application:
+python index.py
+```
 
 ## Usage
 
@@ -39,41 +68,53 @@ Monitoring vital signals is crucial in any ICU room. The Multi-Port, Multi-Signa
 5. **Control Actions:**
    - Use the control buttons (Play, Pause, Stop, Replay, Zoom In, Zoom Out, Reset View) to interact with the selected signals.
    - Control actions can be applied to active signals or all signals, depending on your selection.
-
-## Setup
-
-1. **Prerequisites:**
-   - [List any prerequisites or dependencies here, including the versions of PyQt and Qt Designer you used.]
-
-2. **Installation:**
-   - [Provide installation instructions if applicable, e.g., how to install the application and any additional packages.]
-
-3. **Running the Application:**
-   - [Explain how to start and run the application.]
-
+     
 ## Screenshots
+### Light mode:
+![Screenshot 1](assests/lightmode.png)
+### Dark mode:
+![Screenshot 2](assests/darkmode.png)
+### Synchronized mode:
+![Screenshot 3](assests/linkmode.png)
 
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
-![Screenshot 3](screenshots/screenshot3.png)
 
-## Contributing
+## Dependencies
+This project requires the following Python packages listed in the `requirements.txt` file:
+- PyQt5
+- opencv
+- numpy
+- pandas
 
-- [Explain how others can contribute to your project, including guidelines for pull requests and code contributions.]
+## Contributors <a name = "contributors"></a>
+<table>
+  <tr>
+    <td align="center">
+    <a href="https://github.com/AbdulrahmanGhitani" target="_black">
+    <img src="https://avatars.githubusercontent.com/u/114954706?v=4" width="150px;" alt="Abdulrahman Shawky"/>
+    <br />
+    <sub><b>Abdulrahman Shawky</b></sub></a>
+    </td>
+<td align="center">
+    <a href="https://github.com/omarnasser0" target="_black">
+    <img src="https://avatars.githubusercontent.com/u/100535160?v=4" width="150px;" alt="omarnasser0"/>
+    <br />
+    <sub><b>Omar Abdulnasser</b></sub></a>
+    </td>
+         <td align="center">
+    <a href="https://github.com/AhmedKamalMohammedElSayed" target="_black">
+    <img src="https://avatars.githubusercontent.com/u/96977876?v=4" width="150px;" alt="Ahmed Kamal"/>
+    <br />
+    <sub><b>Ahmed Kamal</b></sub></a>
+    </td>
+         <td align="center">
+    <a href="https://github.com/AbdullahOmran" target="_black">
+    <img src="https://avatars.githubusercontent.com/u/30219936?v=4" width="150px;" alt="Abdullah Omran"/>
+    <br />
+    <sub><b>Abdullah Omran</b></sub></a>
+    </td>
+      </tr>
+ </table>
 
-## License
-
-- [Specify the project's license and any relevant copyright information.]
-
-## Acknowledgments
-
-- [Give credit to any third-party libraries, resources, or inspirations you used.]
-
-## Contact
-
-- [Provide your contact information for questions, feedback, or issues.]
-
----
 
 <!--
  <h2>Features</h2>
