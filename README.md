@@ -4,7 +4,7 @@
 
 Monitoring vital signals is crucial in any ICU room. The Multi-Port, Multi-Signal Channel Signal Viewer is a desktop application built with PyQt and Qt Designer. It provides a user-friendly interface for browsing and visualizing multiple signals for medical signals such as ECG, EMG, EEG, etc, or nonmedical signals on your desktop. This README file provides an overview of the application's features, usage, and setup.
 <div style="text-align: center;">
-    <img src="assests/review.gif" alt="App review" style=" display: block; margin: 0 auto;">
+    <img src="assests/appreview.gif" alt="App review" style=" display: block; margin: 0 auto;">
 </div>
 
 ## Table of Contents
